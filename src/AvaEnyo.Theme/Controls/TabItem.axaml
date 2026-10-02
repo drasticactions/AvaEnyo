@@ -1,0 +1,76 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <TabControl Width="320">
+      <TabItem Header="Mail" />
+      <TabItem Header="Contacts" />
+    </TabControl>
+  </Design.PreviewWith>
+
+  <!--
+    RadioButton.css enyo-tabbutton: a radiobutton.png segment with 18 px text. Selected or pressed is the blue
+    down state with white text. The outer corners of the first and last tabs are rounded.
+  -->
+  <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTabFontSize}" />
+    <Setter Property="Background" Value="{DynamicResource EnyoSegmentBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1,1,0,1" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoTabPadding}" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_LayoutRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            RecognizesAccessKey="True" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected, ^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentOnBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentOnEdgeBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <Style Selector="^:nth-child(1)">
+      <Setter Property="CornerRadius" Value="6,0,0,6" />
+    </Style>
+    <Style Selector="^:nth-last-child(1)">
+      <Setter Property="CornerRadius" Value="0,6,6,0" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="^:nth-child(1):nth-last-child(1)">
+      <Setter Property="CornerRadius" Value="6" />
+    </Style>
+    <!-- A vertical strip stacks the segments: round the top and bottom instead. -->
+    <Style Selector="^[TabStripPlacement=Left], ^[TabStripPlacement=Right]">
+      <Setter Property="BorderThickness" Value="1,1,1,0" />
+      <Style Selector="^:nth-child(1)">
+        <Setter Property="CornerRadius" Value="6,6,0,0" />
+      </Style>
+      <Style Selector="^:nth-last-child(1)">
+        <Setter Property="CornerRadius" Value="0,0,6,6" />
+        <Setter Property="BorderThickness" Value="1" />
+      </Style>
+      <Style Selector="^:nth-child(1):nth-last-child(1)">
+        <Setter Property="CornerRadius" Value="6" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.ExpanderPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Expander (Drawer)">
+      <StackPanel>
+        <Expander Header="Shipping address" IsExpanded="True">
+          <TextBlock Margin="14" Text="1 Infinite Loop, Sunnyvale" />
+        </Expander>
+        <Expander Header="Billing address">
+          <TextBlock Margin="14" Text="Same as shipping" />
+        </Expander>
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="GroupBox">
+      <GroupBox Header="Options">
+        <StackPanel Margin="8">
+          <CheckBox Content="Remember me" IsChecked="True" />
+          <CheckBox Content="Send updates" />
+        </StackPanel>
+      </GroupBox>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

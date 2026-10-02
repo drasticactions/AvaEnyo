@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.ListSelectorsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="List selectors in rows">
+      <enyo:Group>
+        <enyo:Item TapHighlight="False">
+          <DockPanel>
+            <ComboBox DockPanel.Dock="Right" SelectedIndex="0">
+              <ComboBoxItem Content="Google" />
+              <ComboBoxItem Content="Wikipedia" />
+              <ComboBoxItem Content="Bing" />
+            </ComboBox>
+            <TextBlock Text="Search engine" VerticalAlignment="Center" />
+          </DockPanel>
+        </enyo:Item>
+        <enyo:Item TapHighlight="False">
+          <ComboBox enyo:ListSelectorAssist.Label="Sound" SelectedIndex="1">
+            <ComboBoxItem Content="Chime" />
+            <ComboBoxItem Content="Bell" />
+            <ComboBoxItem Content="None" />
+          </ComboBox>
+        </enyo:Item>
+        <enyo:Item TapHighlight="False">
+          <ComboBox enyo:ListSelectorAssist.HideArrow="True" SelectedIndex="0">
+            <ComboBoxItem Content="No arrow" />
+            <ComboBoxItem Content="Still a list" />
+          </ComboBox>
+        </enyo:Item>
+      </enyo:Group>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.PageContainers.CarouselPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Carousel (endless, views made on demand)">
+      <StackPanel Spacing="6">
+        <enyo:Carousel Name="Endless" Height="260" ClipToBounds="True" />
+        <WrapPanel Classes="row">
+          <Button Name="PrevButton" Content="Previous" />
+          <Button Name="NextButton" Content="Next" />
+          <TextBlock Name="EndlessText" Classes="enyo-footnote" VerticalAlignment="Center" />
+        </WrapPanel>
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="VirtualCarousel (bound to 60 photos, ends stop)">
+      <StackPanel Spacing="6">
+        <enyo:VirtualCarousel Name="Virtual" Height="260" ClipToBounds="True" />
+        <TextBlock Name="VirtualText" Classes="enyo-footnote" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="SnapScroller (neighbors peek 40 px)">
+      <enyo:SnapScroller Name="Strip" Height="150" RevealAmount="40" ClipToBounds="True" />
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

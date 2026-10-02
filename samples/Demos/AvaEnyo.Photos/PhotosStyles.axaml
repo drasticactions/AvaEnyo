@@ -1,0 +1,26 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:enyo="https://github.com/avaenyo">
+  <!-- Grid cells: a thumbnail with a small gap, no row edges. -->
+  <Style Selector="enyo|VirtualList.photo-grid enyo|Item">
+    <Setter Property="Padding" Value="3" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+  <!-- The selection check of a grid cell (checkmark.png on a blue disc). -->
+  <Style Selector="Border.check">
+    <Setter Property="Width" Value="28" />
+    <Setter Property="Height" Value="28" />
+    <Setter Property="CornerRadius" Value="14" />
+    <Setter Property="Background" Value="{DynamicResource EnyoButtonBlueBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="White" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="Margin" Value="6" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+  </Style>
+  <Style Selector="Border.check > PathIcon">
+    <Setter Property="Width" Value="14" />
+    <Setter Property="Height" Value="14" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+</Styles>

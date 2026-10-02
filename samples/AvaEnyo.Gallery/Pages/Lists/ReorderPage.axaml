@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Lists.ReorderPage">
+  <DockPanel>
+    <TextBlock DockPanel.Dock="Top" Name="Log" Margin="12,8" Classes="enyo-subtext" Text="Hold a row for 200 ms, then drag it." />
+    <enyo:VirtualList Name="List" CanReorder="True" />
+  </DockPanel>
+</UserControl>

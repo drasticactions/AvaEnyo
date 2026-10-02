@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.ListBoxPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="ListBox">
+      <ListBox Name="Fruits" Height="300" SelectedIndex="2" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Multiple selection">
+      <ListBox Name="Multi" Height="200" SelectionMode="Multiple,Toggle" />
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

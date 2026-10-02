@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:AvaEnyo.Mail.ViewModels"
+             x:Class="AvaEnyo.Mail.Views.PreferencesView"
+             x:DataType="vm:PreferencesViewModel">
+  <DockPanel>
+    <enyo:PageHeader Name="Header" DockPanel.Dock="Top" ShowBackButton="True" Content="Preferences" />
+    <ScrollViewer>
+      <StackPanel MaxWidth="600" Margin="16,8,16,24">
+        <enyo:Group Header="Notifications">
+          <enyo:Item TapHighlight="False">
+            <DockPanel>
+              <ToggleSwitch DockPanel.Dock="Right" IsChecked="{Binding NewMailNotifications}" />
+              <TextBlock Text="New mail alerts" VerticalAlignment="Center" />
+            </DockPanel>
+          </enyo:Item>
+          <enyo:Item TapHighlight="False">
+            <DockPanel>
+              <ComboBox DockPanel.Dock="Right" ItemsSource="{x:Static vm:PreferencesViewModel.SyncChoices}" SelectedIndex="{Binding SyncIndex}" />
+              <TextBlock Text="Get mail" VerticalAlignment="Center" />
+            </DockPanel>
+          </enyo:Item>
+        </enyo:Group>
+
+        <enyo:Group Header="Reading">
+          <enyo:Item TapHighlight="False">
+            <DockPanel>
+              <ToggleSwitch DockPanel.Dock="Right" IsChecked="{Binding ShowPreview}" />
+              <TextBlock Text="Show message preview" VerticalAlignment="Center" />
+            </DockPanel>
+          </enyo:Item>
+          <enyo:Item TapHighlight="False">
+            <DockPanel>
+              <enyo:IntegerPicker DockPanel.Dock="Right" Minimum="1" Maximum="9" Value="{Binding PreviewLines}" />
+              <TextBlock Text="Preview lines" VerticalAlignment="Center" />
+            </DockPanel>
+          </enyo:Item>
+          <enyo:Item TapHighlight="False">
+            <DockPanel>
+              <ToggleSwitch DockPanel.Dock="Right" IsChecked="{Binding ConfirmDelete}" />
+              <TextBlock Text="Confirm before deleting" VerticalAlignment="Center" />
+            </DockPanel>
+          </enyo:Item>
+        </enyo:Group>
+
+        <enyo:Group Header="Account">
+          <enyo:Item TapHighlight="False">
+            <DockPanel>
+              <ComboBox DockPanel.Dock="Right" ItemsSource="{x:Static vm:PreferencesViewModel.SignatureChoices}" SelectedIndex="{Binding SignatureIndex}" />
+              <TextBlock Text="Signature" VerticalAlignment="Center" />
+            </DockPanel>
+          </enyo:Item>
+          <enyo:Item TapHighlight="False">
+            <DockPanel>
+              <ToggleSwitch DockPanel.Dock="Right" IsChecked="{Binding DarkTheme}" />
+              <TextBlock Text="Dark theme" VerticalAlignment="Center" />
+            </DockPanel>
+          </enyo:Item>
+        </enyo:Group>
+
+        <TextBlock Classes="enyo-footnote" TextWrapping="Wrap" Margin="6,8"
+                   Text="Mail is an AvaEnyo demo. Messages come from a mock service bus and nothing is sent." />
+      </StackPanel>
+    </ScrollViewer>
+  </DockPanel>
+</UserControl>

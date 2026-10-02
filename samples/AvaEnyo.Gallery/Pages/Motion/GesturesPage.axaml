@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Motion.GesturesPage">
+  <DockPanel>
+    <Border Name="Target" DockPanel.Dock="Top" Height="200" Margin="16" CornerRadius="10"
+            Background="{DynamicResource EnyoSegmentBrush}" BorderBrush="{DynamicResource EnyoSegmentEdgeBrush}" BorderThickness="1">
+      <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                 Text="Press and hold (200 ms), keep holding (pulses every 100 ms),&#10;drag past 4 px, or flick." />
+    </Border>
+    <DockPanel DockPanel.Dock="Top" Margin="16,0">
+      <Button Name="ClearButton" DockPanel.Dock="Right" Content="Clear" />
+      <enyo:Divider Caption="Events" />
+    </DockPanel>
+    <ScrollViewer>
+      <TextBlock Name="Log" Margin="16,0" Classes="enyo-text-body" />
+    </ScrollViewer>
+  </DockPanel>
+</UserControl>

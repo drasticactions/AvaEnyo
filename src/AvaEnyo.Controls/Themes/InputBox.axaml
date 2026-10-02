@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <enyo:InputBox Width="300" Margin="10" AlwaysLooksFocused="True">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Right" Data="{DynamicResource EnyoGlyphSearch}" Width="18" Height="18" />
+        <TextBox PlaceholderText="Search" />
+      </DockPanel>
+    </enyo:InputBox>
+  </Design.PreviewWith>
+
+  <!-- InputBox: the enyo-input frame around any content. input-focus.png while a descendant has focus. -->
+  <ControlTheme x:Key="{x:Type enyo:InputBox}" TargetType="enyo:InputBox">
+    <Setter Property="Background" Value="{DynamicResource EnyoInputBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoInputCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoInputFrameThickness}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Frame"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:looks-focused">
+      <Setter Property="Background" Value="{DynamicResource EnyoInputFocusBackgroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoInputFocusEdgeBrush}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoInputFocusShadow}" />
+      </Style>
+    </Style>
+    <Style Selector="^.rounded">
+      <Setter Property="Background" Value="{DynamicResource EnyoRoundedInputBackgroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoRoundedInputEdgeBrush}" />
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoRoundedInputCornerRadius}" />
+      <Setter Property="Padding" Value="{DynamicResource EnyoRoundedInputFrame}" />
+    </Style>
+    <Style Selector="^.tool">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolInputBackgroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoToolInputEdgeBrush}" />
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoToolInputCornerRadius}" />
+      <Setter Property="Padding" Value="{DynamicResource EnyoToolInputFrame}" />
+    </Style>
+    <Style Selector="^.tool:looks-focused">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolInputFocusBackgroundBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

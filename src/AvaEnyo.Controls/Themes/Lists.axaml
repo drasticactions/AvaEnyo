@@ -1,0 +1,104 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <ResourceDictionary.MergedDictionaries>
+    <!-- The Item theme, so the swipeable row can be based on it. -->
+    <ResourceInclude Source="avares://AvaEnyo.Controls/Themes/Item.axaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Design.PreviewWith>
+    <StackPanel Width="360">
+      <enyo:SwipeableItem Content="Swipe me" />
+      <enyo:SwipeableItem Content="Confirming" ConfirmShowing="True" />
+      <enyo:ConfirmPrompt Height="76" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- VirtualList: a body-colored scroller with Enyo physics around the virtualizing panel. -->
+  <ControlTheme x:Key="{x:Type enyo:VirtualList}" TargetType="enyo:VirtualList">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            Margin="{TemplateBinding Padding}" />
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    SwipeableItem.css: an Item at least 44 px tall, padded 8/14. The row slides with the finger over the confirm prompt.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:SwipeableItem}" TargetType="enyo:SwipeableItem" BasedOn="{StaticResource {x:Type enyo:Item}}">
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoSwipeableMinHeight}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoSwipeablePadding}" />
+    <Setter Property="ClipToBounds" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <ContentControl Name="PART_Divider" DockPanel.Dock="Top" IsVisible="{TemplateBinding ShowDivider}" Focusable="False">
+            <enyo:Divider Caption="{TemplateBinding DividerCaption}" />
+          </ContentControl>
+          <Panel>
+            <enyo:ConfirmPrompt Name="PART_ConfirmPrompt"
+                                ConfirmCaption="{TemplateBinding ConfirmCaption}"
+                                CancelCaption="{TemplateBinding CancelCaption}"
+                                IsVisible="False" />
+            <Border Name="PART_Border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+          </Panel>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:revealing /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    ConfirmPrompt.css + confirmprompt-background.png (20 px top/bottom slice): a dark textured band, black .71 with a
+    darker shade toward the top and bottom edges. Cancel, then a red Confirm, 10 px apart, centered.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:ConfirmPrompt}" TargetType="enyo:ConfirmPrompt">
+    <Setter Property="Background" Value="{DynamicResource EnyoConfirmPromptBackgroundBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <!-- .enyo-confirmprompt-scrim background-color: #fff under the translucent texture, so the row below is hidden. -->
+          <Border Name="PART_Base" Background="White" />
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" />
+          <Border Name="PART_Shade" Background="{DynamicResource EnyoConfirmPromptShadeBrush}" IsHitTestVisible="False" />
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}">
+            <Button Name="PART_CancelButton" Classes="dark" Content="{TemplateBinding CancelCaption}"
+                    Margin="{DynamicResource EnyoConfirmPromptButtonMargin}" />
+            <Button Name="PART_ConfirmButton" Classes="negative" Content="{TemplateBinding ConfirmCaption}"
+                    Margin="{DynamicResource EnyoConfirmPromptButtonMargin}" />
+          </StackPanel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

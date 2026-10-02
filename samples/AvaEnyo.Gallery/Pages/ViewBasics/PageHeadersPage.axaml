@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.ViewBasics.PageHeadersPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Header">
+      <enyo:Header Content="A plain header" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Header with icon">
+      <enyo:Header Content="Inbox" Icon="{DynamicResource EnyoGlyphFolder}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Dark header">
+      <enyo:Header Classes="dark" Content="Dark header" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Page header with back button">
+      <enyo:PageHeader Content="Details" ShowBackButton="True" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Header with a title and subtitle">
+      <enyo:Header>
+        <StackPanel>
+          <TextBlock Text="Style Matters" />
+          <TextBlock Classes="enyo-item-secondary" Text="a compendium of Onyx styles" />
+        </StackPanel>
+      </enyo:Header>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

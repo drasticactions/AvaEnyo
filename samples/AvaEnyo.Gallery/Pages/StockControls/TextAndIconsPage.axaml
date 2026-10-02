@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.TextAndIconsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Separator">
+      <StackPanel><TextBlock Text="Above" /><Separator /><TextBlock Text="Below" /></StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Label">
+      <StackPanel Orientation="Horizontal" Spacing="8"><Label Content="_Name" Target="{Binding #NameBox}" VerticalAlignment="Center" /><TextBox Name="NameBox" Width="200" /></StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="SelectableTextBlock">
+      <SelectableTextBlock Text="Select this text with the mouse or a long press." />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="PathIcon">
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <PathIcon Data="{DynamicResource EnyoGlyphSearch}" />
+        <PathIcon Data="{DynamicResource EnyoGlyphCheckmark}" />
+        <PathIcon Data="{DynamicResource EnyoGlyphFolder}" />
+        <PathIcon Data="{DynamicResource EnyoGlyphInfo}" />
+        <PathIcon Data="{DynamicResource EnyoGlyphRefresh}" />
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

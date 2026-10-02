@@ -1,0 +1,145 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:Avalonia.Controls.Converters"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="14" Width="300">
+      <ProgressBar Value="40" />
+      <ProgressBar IsIndeterminate="True" />
+      <ProgressBar Classes="item" Value="60" ShowProgressText="True" />
+      <ProgressBar Value="70" Orientation="Vertical" Height="100" HorizontalAlignment="Left" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <converters:StringFormatConverter x:Key="EnyoProgressStringFormatConverter" />
+
+  <!--
+    progress-bar.png (12 px, 4 px caps): a recessed grey track; progress-bar-inner.png: a glossy blue bar.
+    Indeterminate is invented: the blue fill in diagonal stripes that crawl to the right.
+    The item class is ProgressBarItem (progress-item.png): a taller row-like bar whose fill sits behind the text.
+    Value changes animate when enyo:Progress.Animate is true.
+  -->
+  <ControlTheme x:Key="{x:Type ProgressBar}" TargetType="ProgressBar">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoProgressFillBrush}" />
+    <Setter Property="Background" Value="{DynamicResource EnyoProgressTrackBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoTrackEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoProgressCornerRadius}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate TargetType="ProgressBar">
+        <Border Name="ProgressBarRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                ClipToBounds="True"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Panel>
+            <Panel Name="DeterminateRoot">
+              <Border Name="PART_Indicator"
+                      Margin="{TemplateBinding Padding}"
+                      Background="{TemplateBinding Foreground}"
+                      CornerRadius="{TemplateBinding CornerRadius}" />
+            </Panel>
+            <Panel Name="IndeterminateRoot" IsVisible="False" ClipToBounds="True">
+              <Border Name="IndeterminateStripes"
+                      Margin="-24,0,0,0"
+                      Background="{TemplateBinding Foreground}">
+                <Border.RenderTransform>
+                  <TranslateTransform />
+                </Border.RenderTransform>
+                <Border.OpacityMask>
+                  <LinearGradientBrush StartPoint="0,0" EndPoint="12,12" SpreadMethod="Repeat">
+                    <LinearGradientBrush.GradientStops>
+                      <GradientStop Offset="0" Color="#FF000000" />
+                      <GradientStop Offset="0.5" Color="#FF000000" />
+                      <GradientStop Offset="0.5" Color="#40000000" />
+                      <GradientStop Offset="1" Color="#40000000" />
+                    </LinearGradientBrush.GradientStops>
+                  </LinearGradientBrush>
+                </Border.OpacityMask>
+              </Border>
+            </Panel>
+            <LayoutTransformControl Name="PART_LayoutTransformControl"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    IsVisible="{TemplateBinding ShowProgressText}">
+              <TextBlock Foreground="{DynamicResource EnyoTextBrush}" FontSize="{DynamicResource EnyoTextLabelFontSize}">
+                <TextBlock.Text>
+                  <MultiBinding Converter="{StaticResource EnyoProgressStringFormatConverter}">
+                    <TemplateBinding Property="ProgressTextFormat" />
+                    <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
+                    <TemplateBinding Property="Percentage" />
+                    <TemplateBinding Property="Minimum" />
+                    <TemplateBinding Property="Maximum" />
+                  </MultiBinding>
+                </TextBlock.Text>
+              </TextBlock>
+            </LayoutTransformControl>
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:horizontal">
+      <Setter Property="MinWidth" Value="60" />
+      <Setter Property="Height" Value="{DynamicResource EnyoProgressBarHeight}" />
+      <Style Selector="^ /template/ Border#PART_Indicator">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+      </Style>
+    </Style>
+    <Style Selector="^:vertical">
+      <Setter Property="MinHeight" Value="60" />
+      <Setter Property="Width" Value="{DynamicResource EnyoProgressBarHeight}" />
+      <Style Selector="^ /template/ Border#PART_Indicator">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+      </Style>
+      <Style Selector="^ /template/ LayoutTransformControl#PART_LayoutTransformControl">
+        <Setter Property="LayoutTransform">
+          <Setter.Value>
+            <RotateTransform Angle="90" />
+          </Setter.Value>
+        </Setter>
+      </Style>
+    </Style>
+
+    <Style Selector="^:indeterminate">
+      <Style Selector="^ /template/ Panel#DeterminateRoot">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Panel#IndeterminateRoot">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Border#IndeterminateStripes">
+        <Style.Animations>
+          <Animation Duration="0:0:0.8" IterationCount="Infinite">
+            <KeyFrame Cue="0%">
+              <Setter Property="TranslateTransform.X" Value="0" />
+            </KeyFrame>
+            <KeyFrame Cue="100%">
+              <Setter Property="TranslateTransform.X" Value="24" />
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+    </Style>
+
+    <!-- ProgressBarItem: progress-item.png / progress-item-inner.png -->
+    <Style Selector="^.item">
+      <Setter Property="Background" Value="{DynamicResource EnyoProgressItemBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoItemSelectedBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemBottomBorderBrush}" />
+      <Setter Property="BorderThickness" Value="0,0,0,1" />
+      <Setter Property="CornerRadius" Value="0" />
+      <Style Selector="^:horizontal">
+        <Setter Property="Height" Value="NaN" />
+        <Setter Property="MinHeight" Value="{DynamicResource EnyoProgressBarItemMinHeight}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Dividers.LabeledPage">
+  <StackPanel Margin="16,8">
+    <enyo:Divider Caption="Accounts" />
+    <enyo:Item Content="Work" />
+    <enyo:Item Content="Personal" />
+    <enyo:Divider Caption="Folders" />
+    <enyo:Item Content="Inbox" />
+    <enyo:Item Content="Drafts" />
+    <enyo:Item Content="Sent" />
+    <enyo:Divider Caption="With an icon" Icon="{DynamicResource EnyoGlyphFolder}" />
+    <enyo:Item Content="Archive" />
+    <enyo:Divider Caption="With content at the end">
+      <enyo:Divider.Content>
+        <Button Content="Edit" />
+      </enyo:Divider.Content>
+    </enyo:Divider>
+    <enyo:Item Content="Trash" />
+    <enyo:Divider />
+    <TextBlock Classes="enyo-footnote" Margin="8,0" Text="A divider without a caption is a plain blue rule." />
+  </StackPanel>
+</UserControl>

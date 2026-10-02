@@ -1,0 +1,247 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="10" Width="280">
+      <TextBox PlaceholderText="Plain input" />
+      <TextBox Text="Focused frame" />
+      <TextBox Classes="rounded" PlaceholderText="Rounded" />
+      <TextBox Classes="search" PlaceholderText="Search" />
+      <Border Background="#343434" Padding="8">
+        <TextBox Classes="tool" PlaceholderText="Tool input" />
+      </Border>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <MenuFlyout x:Key="EnyoTextBoxContextFlyout">
+    <MenuItem Header="Cut" Command="{Binding $parent[TextBox].Cut}" IsEnabled="{Binding $parent[TextBox].CanCut}" InputGesture="{x:Static TextBox.CutGesture}" />
+    <MenuItem Header="Copy" Command="{Binding $parent[TextBox].Copy}" IsEnabled="{Binding $parent[TextBox].CanCopy}" InputGesture="{x:Static TextBox.CopyGesture}" />
+    <MenuItem Header="Paste" Command="{Binding $parent[TextBox].Paste}" IsEnabled="{Binding $parent[TextBox].CanPaste}" InputGesture="{x:Static TextBox.PasteGesture}" />
+  </MenuFlyout>
+
+  <!-- The clear and search glyph buttons inside a search input (search-input-search.png, search-input-cancel.png). -->
+  <ControlTheme x:Key="EnyoTextBoxGlyphButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoSearchGlyphBrush}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          Foreground="{TemplateBinding Foreground}"
+                          Padding="{TemplateBinding Padding}"
+                          Content="{TemplateBinding Content}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Opacity" Value="0.6" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    enyo-input: a 14 px frame that is transparent until focus, then input-focus.png: a white box with a soft grey
+    edge and a top inner shadow. Variants: rounded (roundedbox.png, a white pill), tool (input-tool.png, a dark
+    translucent box for toolbars that turns white on focus), search (a magnifier that becomes a clear button once
+    there is text) and box (the square middle frame). In a RowGroup, :first, :middle and :last square off the inner
+    corners (input-first/middle/last-focus.png). Disabled: opacity .625.
+  -->
+  <ControlTheme x:Key="{x:Type TextBox}" TargetType="TextBox">
+    <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
+    <Setter Property="Background" Value="{DynamicResource TextControlBackground}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource EnyoInputCaretBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource EnyoInputSelectionBrush}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource TextControlPlaceholderForeground}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoInputCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoInputSpacing}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoInputFontSize}" />
+    <Setter Property="MinWidth" Value="60" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" />
+    <Setter Property="ContextFlyout" Value="{StaticResource EnyoTextBoxContextFlyout}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Panel>
+            <Border Name="PART_BorderElement"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MinHeight="{TemplateBinding MinHeight}" />
+            <Border Name="PART_Frame" Margin="{DynamicResource EnyoInputFrameThickness}">
+              <Grid ColumnDefinitions="Auto,*,Auto">
+                <ContentPresenter Grid.Column="0"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Content="{TemplateBinding InnerLeftContent}" />
+                <DockPanel Name="PART_InnerDockPanel"
+                           Grid.Column="1"
+                           Margin="{TemplateBinding Padding}">
+                  <TextBlock Name="PART_FloatingPlaceholder"
+                             Foreground="{TemplateBinding PlaceholderForeground}"
+                             FontSize="{DynamicResource EnyoTextLabelFontSize}"
+                             IsVisible="False"
+                             Text="{TemplateBinding PlaceholderText}"
+                             DockPanel.Dock="Top" />
+                  <ScrollViewer Name="PART_ScrollViewer"
+                                enyo:Scroll.Fades="False"
+                                HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                                IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                                AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                                BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
+                    <Panel>
+                      <TextBlock Name="PART_Placeholder"
+                                 Foreground="{TemplateBinding PlaceholderForeground}"
+                                 Text="{TemplateBinding PlaceholderText}"
+                                 TextAlignment="{TemplateBinding TextAlignment}"
+                                 TextWrapping="{TemplateBinding TextWrapping}"
+                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                        <TextBlock.IsVisible>
+                          <MultiBinding Converter="{x:Static BoolConverters.And}">
+                            <Binding ElementName="PART_TextPresenter" Path="PreeditText" Converter="{x:Static StringConverters.IsNullOrEmpty}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Text" Converter="{x:Static StringConverters.IsNullOrEmpty}" />
+                          </MultiBinding>
+                        </TextBlock.IsVisible>
+                      </TextBlock>
+                      <TextPresenter Name="PART_TextPresenter"
+                                     Text="{TemplateBinding Text, Mode=TwoWay}"
+                                     CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                                     CaretIndex="{TemplateBinding CaretIndex}"
+                                     SelectionStart="{TemplateBinding SelectionStart}"
+                                     SelectionEnd="{TemplateBinding SelectionEnd}"
+                                     TextAlignment="{TemplateBinding TextAlignment}"
+                                     TextWrapping="{TemplateBinding TextWrapping}"
+                                     LineHeight="{TemplateBinding LineHeight}"
+                                     LetterSpacing="{TemplateBinding LetterSpacing}"
+                                     PasswordChar="{TemplateBinding PasswordChar}"
+                                     RevealPassword="{TemplateBinding RevealPassword}"
+                                     SelectionBrush="{TemplateBinding SelectionBrush}"
+                                     SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                     CaretBrush="{TemplateBinding CaretBrush}"
+                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Panel>
+                    <ScrollViewer.Styles>
+                      <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Cursor" Value="IBeam" />
+                      </Style>
+                    </ScrollViewer.Styles>
+                  </ScrollViewer>
+                </DockPanel>
+                <ContentPresenter Grid.Column="2"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Content="{TemplateBinding InnerRightContent}" />
+              </Grid>
+            </Border>
+          </Panel>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- input-focus.png -->
+    <Style Selector="^:focus /template/ Border#PART_BorderElement">
+      <Setter Property="Background" Value="{DynamicResource TextControlBackgroundFocused}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrushFocused}" />
+      <Setter Property="BoxShadow" Value="{DynamicResource EnyoInputFocusShadow}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.625" />
+    </Style>
+    <Style Selector="^:error /template/ Border#PART_BorderElement">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoErrorBrush}" />
+    </Style>
+    <Style Selector="^[UseFloatingPlaceholder=true]:not(:empty) /template/ TextBlock#PART_FloatingPlaceholder">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <!-- RowGroup positions: input-first/middle/last-focus.png -->
+    <Style Selector="^:first">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoInputCornerRadiusFirst}" />
+    </Style>
+    <Style Selector="^:middle, ^.box">
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:last">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoInputCornerRadiusLast}" />
+    </Style>
+
+    <!-- roundedbox.png: always a white pill -->
+    <Style Selector="^.rounded">
+      <Setter Property="FontSize" Value="{DynamicResource EnyoRoundedInputFontSize}" />
+      <Setter Property="MinHeight" Value="{DynamicResource EnyoRoundedInputMinHeight}" />
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoRoundedInputCornerRadius}" />
+      <Setter Property="Padding" Value="{DynamicResource EnyoRoundedInputSpacing}" />
+      <Setter Property="Margin" Value="0,2" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="Margin" Value="{DynamicResource EnyoRoundedInputFrame}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PART_BorderElement, ^:focus /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{DynamicResource EnyoRoundedInputBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource EnyoRoundedInputEdgeBrush}" />
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoInputFocusShadow}" />
+      </Style>
+    </Style>
+
+    <!-- input-tool.png / input-tool-focus.png -->
+    <Style Selector="^.tool">
+      <Setter Property="FontSize" Value="{DynamicResource EnyoToolInputFontSize}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoToolInputForegroundBrush}" />
+      <Setter Property="PlaceholderForeground" Value="{DynamicResource EnyoToolInputPlaceholderBrush}" />
+      <Setter Property="CaretBrush" Value="{DynamicResource EnyoToolInputForegroundBrush}" />
+      <Setter Property="Padding" Value="{DynamicResource EnyoToolInputSpacing}" />
+      <Setter Property="Margin" Value="{DynamicResource EnyoToolInputMargin}" />
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoToolInputCornerRadius}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="Margin" Value="{DynamicResource EnyoToolInputFrame}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{DynamicResource EnyoToolInputBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource EnyoToolInputEdgeBrush}" />
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoToolInputShadow}" />
+      </Style>
+      <Style Selector="^:focus">
+        <Setter Property="Foreground" Value="{DynamicResource EnyoToolInputFocusForegroundBrush}" />
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource EnyoToolInputFocusPlaceholderBrush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource EnyoToolInputFocusForegroundBrush}" />
+        <Style Selector="^ /template/ Border#PART_BorderElement">
+          <Setter Property="Background" Value="{DynamicResource EnyoToolInputFocusBackgroundBrush}" />
+        </Style>
+      </Style>
+    </Style>
+
+    <!-- search-input-search.png, then search-input-cancel.png once there is text -->
+    <Style Selector="^.search[AcceptsReturn=False]">
+      <Setter Property="InnerRightContent">
+        <Template>
+          <PathIcon Name="PART_SearchGlyph"
+                    Data="{DynamicResource EnyoGlyphSearch}"
+                    Foreground="{DynamicResource EnyoSearchGlyphBrush}"
+                    Width="{DynamicResource EnyoSearchGlyphSize}"
+                    Height="{DynamicResource EnyoSearchGlyphSize}"
+                    Margin="2" />
+        </Template>
+      </Setter>
+    </Style>
+    <Style Selector="^.search[AcceptsReturn=False][IsReadOnly=False]:not(:empty), ^.clearButton[AcceptsReturn=False][IsReadOnly=False]:focus:not(:empty)">
+      <Setter Property="InnerRightContent">
+        <Template>
+          <Button Name="PART_ClearButton"
+                  Theme="{StaticResource EnyoTextBoxGlyphButton}"
+                  Command="{Binding $parent[TextBox].Clear}">
+            <PathIcon Data="{DynamicResource EnyoGlyphCancel}"
+                      Width="{DynamicResource EnyoSearchGlyphSize}"
+                      Height="{DynamicResource EnyoSearchGlyphSize}" />
+          </Button>
+        </Template>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

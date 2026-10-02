@@ -1,0 +1,79 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <StackPanel Orientation="Horizontal" Spacing="4">
+        <CalendarDayButton Content="7" />
+        <CalendarDayButton Content="8" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <!--
+    Invented, in the Onyx language: a round day cell. Pressed shows the item held gradient (Item.css), selected is the
+    blue segment (radiobutton.png, down), today is ringed in Onyx blue.
+  -->
+  <ControlTheme x:Key="{x:Type CalendarDayButton}" TargetType="CalendarDayButton">
+    <Setter Property="ClickMode" Value="Release" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoCalendarDayButtonSize}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoCalendarDayButtonSize}" />
+    <Setter Property="Margin" Value="1" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoPickerFontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoButtonCornerRadius}" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="Root"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Margin="{TemplateBinding Padding}" />
+          </Border>
+          <Border Name="Border"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:today">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoButtonBlueBackgroundBrush}" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentOnBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+    </Style>
+    <Style Selector="^:dayfocused /template/ Border#Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+    </Style>
+    <Style Selector="^:inactive">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSubtextBrush}" />
+    </Style>
+    <Style Selector="^:blackout">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSubtextBrush}" />
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

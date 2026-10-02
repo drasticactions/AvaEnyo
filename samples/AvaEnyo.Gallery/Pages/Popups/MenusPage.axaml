@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Popups.MenusPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Menu">
+      <StackPanel Spacing="6">
+        <Button Name="MenuButton" Content="Sort and view" />
+        <TextBlock Name="MenuResult" Classes="enyo-footnote" Text="Chosen: -" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="PopupSelect">
+      <StackPanel Spacing="6">
+        <Button Name="SelectButton" Content="Choose a fruit" />
+        <TextBlock Name="SelectResult" Classes="enyo-footnote" Text="Selected: -" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="PopupList (500 rows, virtualized)">
+      <StackPanel Spacing="6">
+        <Button Name="ListButton" Content="Pick a row" />
+        <TextBlock Name="ListResult" Classes="enyo-footnote" Text="Selected: -" />
+      </StackPanel>
+    </HeaderedContentControl>
+
+    <enyo:Menu Name="SortMenu">
+      <enyo:MenuItem Header="Sort by date" Value="date" />
+      <enyo:MenuItem Header="Sort by sender" Value="sender" />
+      <enyo:MenuItem Header="More">
+        <enyo:MenuItem Header="Sort by subject" Value="subject" />
+        <enyo:MenuItem Header="Sort by size" Value="size" />
+      </enyo:MenuItem>
+      <enyo:MenuCheckItem Name="FlaggedItem" Header="Flagged only" Value="flagged" IsChecked="True" />
+      <enyo:MenuCheckItem Name="UnreadItem" Header="Unread only" Value="unread" />
+    </enyo:Menu>
+    <enyo:PopupSelect Name="FruitSelect" />
+    <enyo:PopupList Name="RowList" />
+  </StackPanel>
+</UserControl>

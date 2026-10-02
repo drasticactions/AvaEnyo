@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Popups.ModalDialogsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="ModalDialog">
+      <StackPanel Spacing="6">
+        <Button Name="OpenDialogButton" Content="Sign in…" />
+        <TextBlock Name="DialogResult" Classes="enyo-footnote" Text="Result: -" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="DialogPrompt">
+      <StackPanel Spacing="6">
+        <Button Name="OpenPromptButton" Content="Delete account…" Classes="negative" />
+        <TextBlock Name="PromptResult" Classes="enyo-footnote" Text="Result: -" />
+      </StackPanel>
+    </HeaderedContentControl>
+
+    <enyo:ModalDialog Name="SignInDialog" Caption="Sign In">
+      <StackPanel>
+        <enyo:RowGroup Header="Account">
+          <TextBox PlaceholderText="User name" />
+          <TextBox PlaceholderText="Password" PasswordChar="•" />
+        </enyo:RowGroup>
+        <Button Classes="affirmative" Content="Sign In" HorizontalAlignment="Stretch" enyo:Popup.CloseValue="signin" />
+        <Button Content="Cancel" HorizontalAlignment="Stretch" enyo:Popup.CloseValue="cancel" />
+      </StackPanel>
+    </enyo:ModalDialog>
+
+    <enyo:DialogPrompt Name="DeletePrompt"
+                       Title="Delete account?"
+                       Message="This removes the account and its mail from this device. You can add it again later."
+                       AcceptButtonContent="Delete"
+                       CancelButtonContent="Cancel" />
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,92 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="10">
+      <RadioButton Content="Single" GroupName="a" />
+      <RadioButton Content="Checked" GroupName="a" IsChecked="True" />
+      <RadioButton Classes="dark" Content="Dark" GroupName="b" />
+      <RadioButton Classes="dark" Content="Dark checked" GroupName="b" IsChecked="True" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    radiobutton.png, 16 px side slices, 37 px rows: first / middle / last / single, up and down, light and dark.
+    Up: a light gradient segment with a 1 px edge. Down (checked or pressed): a blue gradient with white text.
+    A lone RadioButton looks like a single segment. Inside a RadioGroup the :first, :middle and :last
+    pseudo-classes (set by its OrderedPanel) square off the inner ends.
+  -->
+  <ControlTheme x:Key="{x:Type RadioButton}" TargetType="RadioButton">
+    <Setter Property="Background" Value="{DynamicResource EnyoSegmentBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoSegmentCornerRadiusAll}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoSegmentPadding}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoSegmentFontSize}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            RecognizesAccessKey="True"
+                            TextAlignment="Center"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          <Border Name="PART_FocusVisual"
+                  BorderBrush="{DynamicResource EnyoFocusRingBrush}"
+                  BorderThickness="2"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  IsHitTestVisible="False"
+                  IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:focus-visible /template/ Border#PART_FocusVisual">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:first">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoSegmentCornerRadiusFirst}" />
+    </Style>
+    <Style Selector="^:middle">
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:last">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoSegmentCornerRadiusLast}" />
+    </Style>
+    <Style Selector="^:single">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoSegmentCornerRadiusAll}" />
+    </Style>
+    <Style Selector="^.dark">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+    </Style>
+    <Style Selector="^:checked, ^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentOnBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentOnEdgeBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+    </Style>
+    <!-- enyo-tabbutton: 18 px text, one look for every position. -->
+    <Style Selector="^.tab">
+      <Setter Property="FontSize" Value="{DynamicResource EnyoTabFontSize}" />
+      <Setter Property="Padding" Value="{DynamicResource EnyoTabPadding}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoDisabledTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

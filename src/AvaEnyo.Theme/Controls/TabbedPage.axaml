@@ -1,0 +1,147 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="400" Height="300">
+      <TabbedPage>
+        <ContentPage Header="Home">
+          <TextBlock Text="Home page" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </ContentPage>
+        <ContentPage Header="Favorites">
+          <TextBlock Text="Favorites page" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </ContentPage>
+        <ContentPage Header="Profile">
+          <TextBlock Text="Profile page" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </ContentPage>
+      </TabbedPage>
+    </Border>
+  </Design.PreviewWith>
+
+  <!--
+    The Enyo TabGroup: the tab strip is a band in the header look (header.png) holding equal-width segments.
+  -->
+  <ControlTheme x:Key="EnyoTabbedPageTabControl" TargetType="TabControl">
+    <Setter Property="Background" Value="{DynamicResource EnyoHeaderBackgroundBrush}" />
+    <Setter Property="Padding" Value="8,6" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <Panel Name="PART_TabStripHost" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
+            <Border Background="{TemplateBinding Background}" />
+            <Border Background="{DynamicResource EnyoHeaderSheenBrush}"
+                    BorderBrush="{DynamicResource EnyoHeaderBottomEdgeBrush}"
+                    BorderThickness="0,0,0,1" />
+            <Border Name="PART_TabStrip" Padding="{TemplateBinding Padding}">
+              <ItemsPresenter Name="PART_ItemsPresenter">
+                <ItemsPresenter.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" />
+                  </ItemsPanelTemplate>
+                </ItemsPresenter.ItemsPanel>
+              </ItemsPresenter>
+            </Border>
+          </Panel>
+          <Panel ClipToBounds="True">
+            <ContentPresenter Name="PART_SelectedContentHost2"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch"
+                              IsVisible="False" />
+            <ContentPresenter Name="PART_SelectedContentHost"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch" />
+          </Panel>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > UniformGrid, ^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter > UniformGrid">
+      <Setter Property="Rows" Value="0" />
+      <Setter Property="Columns" Value="1" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    enyo-tabbutton: radiobutton.png, middle slice for every tab (16px side slices), 18 px text. Up is the light
+    segment; selected (enyo-button-depressed) is the blue segment with white text.
+  -->
+  <ControlTheme x:Key="EnyoTabbedPageTabItem" TargetType="TabItem">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTabFontSize}" />
+    <Setter Property="Background" Value="{DynamicResource EnyoSegmentBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="8,6" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="IndicatorTemplate">
+      <DataTemplate>
+        <Border />
+      </DataTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_LayoutRoot"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Padding="{TemplateBinding Padding}">
+            <StackPanel Name="PART_HeaderPanel"
+                        Spacing="4"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+              <ContentPresenter Name="PART_IconPresenter"
+                                Content="{TemplateBinding Icon}"
+                                ContentTemplate="{TemplateBinding IconTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HorizontalAlignment="Center"
+                                IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                Width="20"
+                                Height="20" />
+              <ContentPresenter Name="PART_ContentPresenter"
+                                HorizontalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                FontSize="{TemplateBinding FontSize}" />
+            </StackPanel>
+          </Border>
+          <ContentPresenter Name="PART_SelectedPipe"
+                            Content="{TemplateBinding DataContext}"
+                            ContentTemplate="{TemplateBinding IndicatorTemplate}"
+                            IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed, ^:selected">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentOnBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentOnEdgeBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_LayoutRoot">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type TabbedPage}" TargetType="TabbedPage">
+    <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <TabControl Name="PART_TabControl"
+                      Theme="{StaticResource EnyoTabbedPageTabControl}"
+                      ItemContainerTheme="{StaticResource EnyoTabbedPageTabItem}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

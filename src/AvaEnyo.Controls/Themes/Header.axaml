@@ -1,0 +1,98 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="360">
+      <enyo:Header Content="Header" />
+      <enyo:Header Classes="dark" Content="Dark header" />
+      <enyo:PageHeader Content="Page" ShowBackButton="True" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    header.png, 2px top/bottom slice: a white top line, a white sheen fading from .69 to clear, a #9e9e9e bottom line,
+    over #ccc. The inner box is a flex row, 52 px tall at least, padded 13/12. Any Background tints it.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:Header}" TargetType="enyo:Header">
+    <Setter Property="Background" Value="{DynamicResource EnyoHeaderBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoHeaderForegroundBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoBaseFontSize}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoHeaderInnerPadding}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoHeaderMinHeight}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" />
+          <Border Name="PART_Sheen" Background="{DynamicResource EnyoHeaderSheenBrush}" />
+          <Border Name="PART_TopEdge" Height="1" VerticalAlignment="Top" Background="{DynamicResource EnyoHeaderTopEdgeBrush}" />
+          <Border Name="PART_BottomEdge" Height="1" VerticalAlignment="Bottom" Background="{DynamicResource EnyoHeaderBottomEdgeBrush}" />
+          <DockPanel Margin="{DynamicResource EnyoHeaderFrame}" MinHeight="{DynamicResource EnyoHeaderInnerMinHeight}">
+            <enyo:IconPresenter Name="PART_Icon" DockPanel.Dock="Left" Icon="{TemplateBinding Icon}"
+                              Foreground="{TemplateBinding Foreground}" Width="24" Height="24"
+                              Margin="12,0,0,0" VerticalAlignment="Center"
+                              IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </DockPanel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- .enyo-header-dark: toolbar.png over #343434, white text. -->
+    <Style Selector="^.dark">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolbarBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoToolbarForegroundBrush}" />
+      <Style Selector="^ /template/ Border#PART_Sheen">
+        <Setter Property="Background" Value="{DynamicResource EnyoToolbarSheenBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PART_TopEdge">
+        <Setter Property="Background" Value="{DynamicResource EnyoToolbarHighlightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PART_BottomEdge">
+        <Setter Property="Background" Value="{DynamicResource EnyoToolbarShadeBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <!-- PageHeader: the header band with the title centered and an optional back button. -->
+  <ControlTheme x:Key="{x:Type enyo:PageHeader}" TargetType="enyo:PageHeader" BasedOn="{StaticResource {x:Type enyo:Header}}">
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" />
+          <Border Name="PART_Sheen" Background="{DynamicResource EnyoHeaderSheenBrush}" />
+          <Border Name="PART_TopEdge" Height="1" VerticalAlignment="Top" Background="{DynamicResource EnyoHeaderTopEdgeBrush}" />
+          <Border Name="PART_BottomEdge" Height="1" VerticalAlignment="Bottom" Background="{DynamicResource EnyoHeaderBottomEdgeBrush}" />
+          <Grid ColumnDefinitions="Auto,Auto,*" Margin="{DynamicResource EnyoHeaderFrame}" MinHeight="{DynamicResource EnyoHeaderInnerMinHeight}">
+            <Button Name="PART_BackButton" Grid.Column="0" Margin="6,0,0,0"
+                    IsVisible="{TemplateBinding ShowBackButton}"
+                    AutomationProperties.Name="Back">
+              <PathIcon Data="{DynamicResource EnyoGlyphBack}" Width="16" Height="16" />
+            </Button>
+            <enyo:IconPresenter Name="PART_Icon" Grid.Column="1" Icon="{TemplateBinding Icon}"
+                              Foreground="{TemplateBinding Foreground}" Width="24" Height="24"
+                              Margin="12,0,0,0" VerticalAlignment="Center"
+                              IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}" />
+            <ContentPresenter Name="PART_ContentPresenter" Grid.Column="0" Grid.ColumnSpan="3"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Grid>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Button#PART_BackButton">
+      <Setter Property="ZIndex" Value="1" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

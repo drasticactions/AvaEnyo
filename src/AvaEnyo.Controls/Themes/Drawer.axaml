@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="360" Margin="10">
+      <enyo:Drawer Header="Drawer">
+        <TextBlock Text="Content" Margin="10" />
+      </enyo:Drawer>
+      <enyo:DividerDrawer Caption="Collapsible">
+        <TextBlock Text="Content" Margin="10" />
+      </enyo:DividerDrawer>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- enyo.Drawer: a caption row and the content that opens (250 ms) and closes (100 ms). -->
+  <ControlTheme x:Key="{x:Type enyo:Drawer}" TargetType="enyo:Drawer">
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <ContentPresenter Name="PART_Header"
+                            DockPanel.Dock="Top"
+                            Background="Transparent"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            IsVisible="{TemplateBinding Header, Converter={x:Static ObjectConverters.IsNotNull}}" />
+          <Border Name="PART_ContentHost" ClipToBounds="True">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    DividerDrawer.css + divider-arrow.png (50x40 rows): the divider with a white disc ringed in #5aa6ec at its end;
+    the blue triangle points right when closed and down when open.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:DividerDrawer}" TargetType="enyo:DividerDrawer">
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <enyo:Divider Name="PART_Header"
+                        DockPanel.Dock="Top"
+                        Background="Transparent"
+                        Caption="{TemplateBinding Caption}"
+                        Icon="{TemplateBinding Icon}">
+            <enyo:Divider.Content>
+            <Panel Name="PART_Knob"
+                   Width="{DynamicResource EnyoDividerArrowWidth}"
+                   Height="{DynamicResource EnyoDividerArrowHeight}"
+                   Background="Transparent">
+              <Border Height="{DynamicResource EnyoDividerRuleHeight}"
+                      VerticalAlignment="Center"
+                      Background="{DynamicResource EnyoDividerRuleBrush}" />
+              <Ellipse Name="PART_Disc"
+                       Width="{DynamicResource EnyoDividerKnobSize}"
+                       Height="{DynamicResource EnyoDividerKnobSize}"
+                       Fill="{DynamicResource EnyoDividerArrowFillBrush}"
+                       Stroke="{DynamicResource EnyoDividerArrowBrush}"
+                       StrokeThickness="2.5" />
+              <Path Name="PART_Arrow"
+                    Data="{DynamicResource EnyoGlyphDividerArrow}"
+                    Fill="{DynamicResource EnyoDividerArrowBrush}"
+                    Width="13"
+                    Height="13"
+                    Stretch="Uniform"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    RenderTransformOrigin="50%,50%"
+                    RenderTransform="rotate(0deg)">
+                <Path.Transitions>
+                  <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
+                  </Transitions>
+                </Path.Transitions>
+              </Path>
+            </Panel>
+            </enyo:Divider.Content>
+          </enyo:Divider>
+          <Border Name="PART_ContentHost" ClipToBounds="True">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

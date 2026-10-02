@@ -1,0 +1,99 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="10">
+      <CheckBox Content="Unchecked" />
+      <CheckBox IsChecked="True" Content="Checked" />
+      <CheckBox IsThreeState="True" IsChecked="{x:Null}" Content="Indeterminate" />
+      <CheckBox IsEnabled="False" IsChecked="True" Content="Disabled" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    checkbox.png, 30x31, rows unchecked / checked / disabled. Unchecked: a grey gradient tile, dark at the top.
+    Checked: a blue gradient tile with a light check mark over a dark shade. Disabled: opacity .4 (CheckBox.css).
+    It toggles on press (see CheckBoxPress).
+  -->
+  <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoCheckEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoCheckBoxCornerRadius}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="RootGrid" ColumnDefinitions="Auto,*">
+          <Border Name="PART_Border"
+                  Grid.ColumnSpan="2"
+                  Background="{TemplateBinding Background}" />
+          <Panel Width="{DynamicResource EnyoCheckBoxWidth}"
+                 Height="{DynamicResource EnyoCheckBoxHeight}"
+                 VerticalAlignment="Center">
+            <Border Name="NormalRectangle"
+                    Background="{DynamicResource EnyoCheckOffBrush}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
+            <Path Name="CheckGlyphShade"
+                  Data="{DynamicResource EnyoGlyphCheckmark}"
+                  Fill="{DynamicResource EnyoCheckGlyphShadowBrush}"
+                  Stretch="Uniform"
+                  Margin="5,8,5,4"
+                  Opacity="0"
+                  IsHitTestVisible="False" />
+            <Path Name="CheckGlyph"
+                  Data="{DynamicResource EnyoGlyphCheckmark}"
+                  Fill="{DynamicResource EnyoCheckGlyphBrush}"
+                  Stretch="Uniform"
+                  Margin="5,6,5,6"
+                  Opacity="0"
+                  IsHitTestVisible="False" />
+          </Panel>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Column="1"
+                            Margin="{DynamicResource EnyoCheckBoxContentMargin}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            RecognizesAccessKey="True"
+                            TextWrapping="Wrap"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter:empty">
+      <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Border#NormalRectangle">
+        <Setter Property="Background" Value="{DynamicResource EnyoCheckOnBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Path#CheckGlyph, ^ /template/ Path#CheckGlyphShade">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+    </Style>
+    <Style Selector="^:indeterminate">
+      <Style Selector="^ /template/ Border#NormalRectangle">
+        <Setter Property="Background" Value="{DynamicResource EnyoCheckOnBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Path#CheckGlyph">
+        <Setter Property="Data" Value="{DynamicResource EnyoGlyphMinus}" />
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#NormalRectangle">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

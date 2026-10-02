@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.SpinnersPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Spinners">
+      <WrapPanel Classes="row">
+        <enyo:Spinner IsActive="True" />
+        <enyo:Spinner IsActive="True" Classes="large" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Light spinner on a dark band">
+      <Border Background="{DynamicResource EnyoToolbarBackgroundBrush}" Padding="12" CornerRadius="4">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+          <enyo:Spinner IsActive="True" Classes="light" />
+          <TextBlock Foreground="White" Text="Loading…" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

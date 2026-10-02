@@ -1,0 +1,24 @@
+<!-- Derived from Avalonia.Themes.Fluent/Controls/PathIcon.xaml (MIT, see NOTICE.md). -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <PathIcon Margin="20" Data="{DynamicResource EnyoGlyphSearch}" />
+  </Design.PreviewWith>
+
+  <!-- A glyph at the Onyx icon size (20 px; 16 px compact) unless sized. -->
+  <ControlTheme x:Key="{x:Type PathIcon}" TargetType="PathIcon">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Height" Value="{DynamicResource EnyoPathIconSize}" />
+    <Setter Property="Width" Value="{DynamicResource EnyoPathIconSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}">
+          <Viewbox Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+            <Path Fill="{TemplateBinding Foreground}" Data="{TemplateBinding Data}" Stretch="Uniform" />
+          </Viewbox>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

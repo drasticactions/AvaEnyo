@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="400">
+      <enyo:Toolbar>
+        <enyo:GrabButton />
+        <enyo:ToolButton Content="Reply" />
+        <enyo:Spacer />
+        <enyo:ToolButton Content="Delete" />
+      </enyo:Toolbar>
+      <enyo:Toolbar Classes="light">
+        <Button Content="Done" />
+      </enyo:Toolbar>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    toolbar.png, 2/4 slice: a faint white noise sheen (.15 to .02) and a white .24 top line over #343434, min 54 px.
+    toolbar-light.png over #a9a9a9 for the light class. Background tints it.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:Toolbar}" TargetType="enyo:Toolbar">
+    <Setter Property="Background" Value="{DynamicResource EnyoToolbarBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoToolbarForegroundBrush}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoToolbarMinHeight}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoToolbarFrame}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" />
+          <Border Name="PART_Sheen" Background="{DynamicResource EnyoToolbarSheenBrush}" />
+          <Border Name="PART_TopEdge" Height="1" Margin="0,1,0,0" VerticalAlignment="Top" Background="{DynamicResource EnyoToolbarHighlightBrush}" />
+          <Border Name="PART_BottomEdge" Height="1" VerticalAlignment="Bottom" Background="{DynamicResource EnyoToolbarShadeBrush}" />
+          <ItemsPresenter Name="PART_ItemsPresenter" Margin="{TemplateBinding Padding}" ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^.light">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolbarLightBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoToolbarLightForegroundBrush}" />
+      <Style Selector="^ /template/ Border#PART_Sheen">
+        <Setter Property="Background" Value="{DynamicResource EnyoToolbarLightSheenBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PART_BottomEdge">
+        <Setter Property="Background" Value="{DynamicResource EnyoToolbarLightEdgeBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <!-- grabbutton.png: three dark grooved bars in a 46x54 nub; a sliding handle. -->
+  <ControlTheme x:Key="{x:Type enyo:GrabButton}" TargetType="enyo:GrabButton">
+    <Setter Property="Width" Value="{DynamicResource EnyoGrabButtonWidth}" />
+    <Setter Property="Height" Value="{DynamicResource EnyoGrabButtonHeight}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <Viewbox Stretch="Uniform">
+            <Canvas Width="46" Height="54">
+              <Path Data="{DynamicResource EnyoGlyphGrab}" Fill="{DynamicResource EnyoGrabHighlightBrush}" Canvas.Top="1" />
+              <Path Name="PART_Bars" Data="{DynamicResource EnyoGlyphGrab}" Fill="{DynamicResource EnyoGrabBarBrush}"
+                    Stroke="{DynamicResource EnyoGrabEdgeBrush}" StrokeThickness="1" />
+            </Canvas>
+          </Viewbox>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ Path#PART_Bars">
+      <Setter Property="Opacity" Value="0.7" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

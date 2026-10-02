@@ -1,0 +1,275 @@
+<!-- Derived from Avalonia.Themes.Fluent/Controls/DrawerPage.xaml (MIT, see NOTICE.md). -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <DrawerPage Header="Drawer Page" DrawerLength="200" IsOpen="True" Width="500" Height="300">
+      <ContentPage Header="Drawer Content">
+        <TextBlock Text="Drawer menu" />
+      </ContentPage>
+    </DrawerPage>
+  </Design.PreviewWith>
+
+  <!-- ToolButton.css: the drawer toggle on the toolbar, transparent until pressed or open (button-toolbar.png). -->
+  <ControlTheme x:Key="EnyoDrawerToolToggle" TargetType="ToggleButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoToolbarForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoButtonCornerRadius}" />
+    <Setter Property="Padding" Value="8,4" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoButtonMinHeight}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoButtonMinHeight}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          Content="{TemplateBinding Content}"
+                          Foreground="{TemplateBinding Foreground}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed, ^:checked">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolButtonSheenBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoToolButtonEdgeBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    The drawer is a sliding view on the Onyx body; the content casts sliding-shadow.png (a 20 px gradient to black
+    .34) onto it, as a SlidingView does. The top and bottom bars are toolbar.png (#343434, 2/4px slice).
+  -->
+  <ControlTheme x:Key="{x:Type DrawerPage}" TargetType="DrawerPage">
+    <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="DrawerBackground" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="DrawerHeaderBackground" Value="{DynamicResource EnyoHeaderBackgroundBrush}" />
+    <Setter Property="BackdropBrush" Value="{DynamicResource EnyoScrimBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <SplitView Name="PART_SplitView"
+                   DisplayMode="{TemplateBinding DisplayMode}"
+                   OpenPaneLength="{TemplateBinding DrawerLength}"
+                   CompactPaneLength="{TemplateBinding CompactDrawerLength}"
+                   PaneBackground="{Binding DrawerBackground, RelativeSource={RelativeSource TemplatedParent}}"
+                   IsPaneOpen="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+          <SplitView.Pane>
+            <DockPanel Background="{TemplateBinding DrawerBackground}">
+              <!-- Compact-mode toggle: visible only in CompactOverlay/CompactInline. -->
+              <ToggleButton Name="PART_CompactPaneToggle"
+                            Theme="{StaticResource EnyoDrawerToolToggle}"
+                            Foreground="{DynamicResource EnyoTextBrush}"
+                            DockPanel.Dock="Top"
+                            IsChecked="{Binding #PART_SplitView.IsPaneOpen, Mode=TwoWay}"
+                            IsVisible="False"
+                            HorizontalAlignment="Left"
+                            Width="{TemplateBinding CompactDrawerLength}"
+                            Height="{TemplateBinding CompactDrawerLength}"
+                            AutomationProperties.Name="Toggle navigation drawer">
+                <Panel>
+                  <PathIcon IsVisible="{Binding DrawerIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNull}}"
+                            Data="{DynamicResource EnyoGlyphHamburger}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                  <ContentPresenter Name="PART_CompactPaneIconPresenter"
+                                    Content="{TemplateBinding DrawerIcon}"
+                                    ContentTemplate="{TemplateBinding DrawerIconTemplate}"
+                                    IsVisible="{Binding DrawerIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+                </Panel>
+              </ToggleButton>
+              <ContentPresenter Name="PART_DrawerHeader"
+                                DockPanel.Dock="Top"
+                                Content="{TemplateBinding DrawerHeader}"
+                                ContentTemplate="{TemplateBinding DrawerHeaderTemplate}"
+                                Background="{TemplateBinding DrawerHeaderBackground}"
+                                Foreground="{DynamicResource EnyoHeaderForegroundBrush}"
+                                Padding="{DynamicResource EnyoHeaderInnerPadding}"
+                                MinHeight="{DynamicResource EnyoHeaderMinHeight}"
+                                IsVisible="{TemplateBinding DrawerHeader, Converter={x:Static ObjectConverters.IsNotNull}}" />
+              <ContentPresenter Name="PART_DrawerFooter"
+                                DockPanel.Dock="Bottom"
+                                Content="{TemplateBinding DrawerFooter}"
+                                ContentTemplate="{TemplateBinding DrawerFooterTemplate}"
+                                Background="{TemplateBinding DrawerFooterBackground}"
+                                IsVisible="{TemplateBinding DrawerFooter, Converter={x:Static ObjectConverters.IsNotNull}}" />
+              <ContentPresenter Name="PART_DrawerPresenter"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
+                                Content="{TemplateBinding Drawer}"
+                                ContentTemplate="{TemplateBinding DrawerTemplate}" />
+            </DockPanel>
+          </SplitView.Pane>
+          <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <DockPanel Name="PART_ContentDock">
+              <Border Name="PART_TopBar"
+                      Classes="enyo-drawer-bar"
+                      Padding="{DynamicResource EnyoToolbarFrame}"
+                      MinHeight="{DynamicResource EnyoToolbarMinHeight}"
+                      DockPanel.Dock="Top">
+                <DockPanel HorizontalAlignment="Stretch">
+                  <ToggleButton Name="PART_PaneButton"
+                                Theme="{StaticResource EnyoDrawerToolToggle}"
+                                IsChecked="{Binding #PART_SplitView.IsPaneOpen, Mode=TwoWay}"
+                                DockPanel.Dock="Left"
+                                AutomationProperties.Name="Toggle navigation drawer">
+                    <Panel>
+                      <PathIcon IsVisible="{Binding DrawerIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNull}}"
+                                Data="{DynamicResource EnyoGlyphHamburger}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                      <ContentPresenter Name="PART_PaneIconPresenter"
+                                        Content="{TemplateBinding DrawerIcon}"
+                                        ContentTemplate="{TemplateBinding DrawerIconTemplate}"
+                                        IsVisible="{Binding DrawerIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" />
+                    </Panel>
+                  </ToggleButton>
+                  <ContentPresenter Name="PART_TitlePresenter"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    Foreground="{DynamicResource EnyoToolbarForegroundBrush}"
+                                    VerticalAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    FontSize="{DynamicResource EnyoTextSubheaderFontSize}"
+                                    Margin="8,0,0,0"
+                                    IsVisible="{TemplateBinding Header, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                </DockPanel>
+              </Border>
+              <Border Name="PART_BottomBar"
+                      Classes="enyo-drawer-bar"
+                      Padding="{DynamicResource EnyoToolbarFrame}"
+                      MinHeight="{DynamicResource EnyoToolbarMinHeight}"
+                      DockPanel.Dock="Bottom"
+                      IsVisible="False">
+                <DockPanel HorizontalAlignment="Stretch">
+                  <ToggleButton Name="PART_BottomPaneButton"
+                                Theme="{StaticResource EnyoDrawerToolToggle}"
+                                IsChecked="{Binding #PART_SplitView.IsPaneOpen, Mode=TwoWay}"
+                                DockPanel.Dock="Left"
+                                AutomationProperties.Name="Toggle navigation drawer">
+                    <Panel>
+                      <PathIcon IsVisible="{Binding DrawerIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNull}}"
+                                Data="{DynamicResource EnyoGlyphHamburger}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                      <ContentPresenter Name="PART_BottomPaneIconPresenter"
+                                        Content="{TemplateBinding DrawerIcon}"
+                                        ContentTemplate="{TemplateBinding DrawerIconTemplate}"
+                                        IsVisible="{Binding DrawerIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" />
+                    </Panel>
+                  </ToggleButton>
+                  <ContentPresenter Name="PART_BottomTitlePresenter"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    Foreground="{DynamicResource EnyoToolbarForegroundBrush}"
+                                    VerticalAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    FontSize="{DynamicResource EnyoTextSubheaderFontSize}"
+                                    Margin="8,0,0,0"
+                                    IsVisible="{TemplateBinding Header, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                </DockPanel>
+              </Border>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                CornerRadius="{TemplateBinding CornerRadius}" />
+            </DockPanel>
+            <!-- sliding-shadow.png, mirrored: the content's shadow falls on the drawer to its left. -->
+            <Border Name="PART_SlidingShadow"
+                    Width="{DynamicResource EnyoSlidingShadowWidth}"
+                    HorizontalAlignment="Left"
+                    Background="{DynamicResource EnyoSlidingShadowBrush}"
+                    RenderTransform="scaleX(-1)"
+                    Margin="0"
+                    Opacity="0.6"
+                    IsHitTestVisible="False" />
+            <Border Name="PART_Backdrop"
+                    Background="{TemplateBinding BackdropBrush}"
+                    IsVisible="False"
+                    IsHitTestVisible="False" />
+          </Grid>
+        </SplitView>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^ /template/ Border.enyo-drawer-bar">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolbarBackgroundBrush}" />
+    </Style>
+    <Style Selector="^:placement-right /template/ ToggleButton#PART_PaneButton">
+      <Setter Property="DockPanel.Dock" Value="Right" />
+    </Style>
+    <Style Selector="^ /template/ Border#PART_SlidingShadow">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^ /template/ SplitView#PART_SplitView[IsPaneOpen=True] Border#PART_SlidingShadow">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:placement-right /template/ Border#PART_SlidingShadow, ^:placement-top /template/ Border#PART_SlidingShadow, ^:placement-bottom /template/ Border#PART_SlidingShadow">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:placement-bottom /template/ Border#PART_TopBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:placement-bottom /template/ Border#PART_BottomBar">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:placement-bottom[DisplayMode=CompactOverlay] /template/ Border#PART_BottomBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:placement-bottom[DisplayMode=CompactInline] /template/ Border#PART_BottomBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:placement-bottom /template/ ToggleButton#PART_CompactPaneToggle">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
+    <Style Selector="^:placement-top /template/ ToggleButton#PART_CompactPaneToggle">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
+    <Style Selector="^[DrawerBehavior=Locked] /template/ Border#PART_TopBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[DrawerBehavior=Disabled] /template/ Border#PART_TopBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:detail-is-navpage /template/ Border#PART_TopBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[DisplayMode=CompactOverlay] /template/ Border#PART_TopBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[DisplayMode=CompactOverlay] /template/ ToggleButton#PART_CompactPaneToggle">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^[DisplayMode=CompactInline] /template/ Border#PART_TopBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[DisplayMode=CompactInline] /template/ ToggleButton#PART_CompactPaneToggle">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^[IsInNavigationPage=True] /template/ Border#PART_TopBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:detail-is-navpage /template/ ToggleButton#PART_CompactPaneToggle">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

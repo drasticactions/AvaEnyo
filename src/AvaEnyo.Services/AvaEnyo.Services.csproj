@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaEnyo.Services</RootNamespace>
+    <PackageId>AvaEnyo.Services</PackageId>
+    <Description>webOS-shaped services for Avalonia.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaEnyo.Controls\AvaEnyo.Controls.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaEnyo.Services.Tests" />
+  </ItemGroup>
+
+</Project>

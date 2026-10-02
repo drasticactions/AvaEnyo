@@ -1,0 +1,178 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:anim="using:AvaEnyo.Animations"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="400" Height="600">
+      <NavigationPage />
+    </Border>
+  </Design.PreviewWith>
+
+  <!--
+    The Enyo PageHeader over a Pane. The navigation bar is header.png (2px slice: #ccc with a white sheen, a white top
+    line and a grey bottom line, min height 50, text #444) with the title centered and an Onyx back button. Push and
+    pop use the Pane fly-in (LeftRightFlyin, 300 ms cubic ease-out); modal pages fly in from the bottom like a
+    toaster (350 ms cubic ease-out). Back (Escape, the system back) pops through AvaEnyo.EnyoBack.
+  -->
+  <ControlTheme x:Key="{x:Type NavigationPage}" TargetType="NavigationPage">
+    <!-- Transparent keeps the hit-test surface active for the back-swipe gesture edge area. -->
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="BarHeight" Value="{DynamicResource EnyoHeaderInnerMinHeight}" />
+    <Setter Property="PageTransition" Value="{x:Static anim:EnyoPaneTransitions.FlyIn}" />
+    <Setter Property="ModalTransition">
+      <Setter.Value>
+        <PageSlide Duration="0:0:0.35" Orientation="Vertical" FillMode="Forward"
+                   SlideInEasing="{x:Static anim:EnyoEasing.CubicOut}"
+                   SlideOutEasing="{x:Static anim:EnyoEasing.CubicOut}" />
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <!-- ClipToBounds keeps the fly-in inside the control. -->
+        <Panel ClipToBounds="True">
+          <DockPanel>
+            <!-- Reserves nav-bar height in Inset mode. Invisible in Overlay mode. -->
+            <Border Name="PART_NavBarSpacer"
+                    Height="{TemplateBinding EffectiveBarHeight}"
+                    IsVisible="False"
+                    DockPanel.Dock="Top" />
+
+            <ContentPresenter Name="PART_BottomCommandBar"
+                              DockPanel.Dock="Bottom"
+                              HorizontalContentAlignment="Stretch"
+                              Background="{TemplateBinding Background}"
+                              Content="{Binding CurrentPage?.(NavigationPage.BottomCommandBar), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
+
+            <!-- Back and front presenters enable the fly-in without control recycling. -->
+            <Grid Name="PART_ContentHost"
+                  Background="{TemplateBinding Background}"
+                  ClipToBounds="True">
+              <ContentPresenter Name="PART_PageBackPresenter"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+              <ContentPresenter Name="PART_PagePresenter"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+            </Grid>
+          </DockPanel>
+
+          <!-- The header floats above the content. -->
+          <Border Name="PART_NavigationBar"
+                  ZIndex="1"
+                  VerticalAlignment="Top"
+                  ClipToBounds="True"
+                  Height="{TemplateBinding EffectiveBarHeight}"
+                  Background="{DynamicResource EnyoHeaderBackgroundBrush}">
+            <Panel>
+              <Border Name="PART_NavigationBarSheen"
+                      Background="{DynamicResource EnyoHeaderSheenBrush}"
+                      BorderBrush="{DynamicResource EnyoHeaderTopEdgeBrush}"
+                      BorderThickness="0,1,0,0" />
+              <Border BorderBrush="{DynamicResource EnyoHeaderBottomEdgeBrush}" BorderThickness="0,0,0,1" />
+              <Grid Margin="6,0" ColumnDefinitions="*,Auto,*">
+                <Button Name="PART_BackButton"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Padding="8,0"
+                        IsVisible="{TemplateBinding IsBackButtonEffectivelyVisible}"
+                        ToolTip.Tip="{x:Null}">
+                  <Panel>
+                    <Path Name="PART_BackButtonDefaultIcon"
+                          Data="{DynamicResource EnyoGlyphBack}"
+                          Fill="{Binding $parent[Button].Foreground}"
+                          Width="20"
+                          Height="20"
+                          Stretch="Uniform"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center" />
+                    <ContentPresenter Name="PART_BackButtonContentPresenter"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+
+                <ContentPresenter Name="PART_Header"
+                                  Grid.Column="1"
+                                  FontSize="{DynamicResource EnyoTextHeaderFontSize}"
+                                  Foreground="{DynamicResource EnyoHeaderForegroundBrush}"
+                                  Content="{Binding CurrentPage?.Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                  ContentTemplate="{Binding CurrentPage?.HeaderTemplate, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                  TextTrimming="CharacterEllipsis"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center" />
+
+                <ContentPresenter Name="PART_TopCommandBar"
+                                  Grid.Column="2"
+                                  HorizontalAlignment="Right"
+                                  VerticalContentAlignment="Stretch"
+                                  Foreground="{DynamicResource EnyoHeaderForegroundBrush}"
+                                  Content="{Binding CurrentPage?.(NavigationPage.TopCommandBar), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}">
+                  <ContentPresenter.Styles>
+                    <!-- A command bar in the header drops its toolbar chrome and uses the header text color. -->
+                    <Style Selector="CommandBar">
+                      <Setter Property="Background" Value="Transparent" />
+                      <Setter Property="Foreground" Value="{DynamicResource EnyoHeaderForegroundBrush}" />
+                      <Setter Property="MinHeight" Value="0" />
+                      <Setter Property="Padding" Value="0" />
+                      <Setter Property="VerticalAlignment" Value="Stretch" />
+                    </Style>
+                    <Style Selector="CommandBar /template/ Border#PART_Sheen">
+                      <Setter Property="IsVisible" Value="False" />
+                    </Style>
+                    <Style Selector="CommandBarButton, CommandBarToggleButton">
+                      <Setter Property="MinHeight" Value="0" />
+                      <Setter Property="Padding" Value="8,0" />
+                    </Style>
+                  </ContentPresenter.Styles>
+                </ContentPresenter>
+              </Grid>
+            </Panel>
+          </Border>
+
+          <!-- Header shadow. Margin.Top is set from code to match EffectiveBarHeight. -->
+          <Border Name="PART_NavBarShadow"
+                  ZIndex="1"
+                  VerticalAlignment="Top"
+                  IsVisible="False"
+                  Height="4"
+                  IsHitTestVisible="False"
+                  Background="{DynamicResource EnyoConfirmPromptShadeBrush}"
+                  Opacity="0.3" />
+
+          <!-- Modal overlay: ZIndex=99 holds the static layer during transitions; ZIndex=100 is the animating modal. -->
+          <ContentPresenter Name="PART_ModalBackPresenter"
+                            ZIndex="99"
+                            IsVisible="False"
+                            Background="{DynamicResource EnyoBodyBrush}" />
+          <ContentPresenter Name="PART_ModalPresenter"
+                            ZIndex="100"
+                            IsVisible="False"
+                            Background="{DynamicResource EnyoBodyBrush}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:nav-bar-inset /template/ Border#PART_NavBarSpacer">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:nav-bar-compact /template/ ContentPresenter#PART_TopCommandBar CommandBar">
+      <Setter Property="DefaultLabelPosition" Value="Collapsed" />
+    </Style>
+    <!-- enyo-header-dark: the toolbar look with white text. -->
+    <Style Selector="^.dark">
+      <Style Selector="^ /template/ Border#PART_NavigationBar">
+        <Setter Property="Background" Value="{DynamicResource EnyoToolbarBackgroundBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PART_NavigationBarSheen">
+        <Setter Property="Background" Value="{DynamicResource EnyoToolbarSheenBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource EnyoToolbarHighlightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_Header">
+        <Setter Property="Foreground" Value="{DynamicResource EnyoToolbarForegroundBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

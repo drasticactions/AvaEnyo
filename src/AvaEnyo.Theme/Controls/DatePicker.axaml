@@ -1,0 +1,179 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20" Height="400">
+      <StackPanel Spacing="20" VerticalAlignment="Center">
+        <DatePicker />
+        <DatePicker IsEnabled="False" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <!--
+    Enyo DatePicker: one picker-pill.png pill per field (10px slice, 16 px text, 52 px tall), in the field order of
+    the current culture (DatePicker.SetGrid). The pills sit behind the field TextBlocks and follow their grid column
+    and visibility. Pressed: picker-pill-downstate.png.
+  -->
+  <ControlTheme x:Key="{x:Type DatePicker}" TargetType="DatePicker">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPillForegroundBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoPillEdgeBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoPickerFontSize}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="MinWidth" Value="240" />
+    <Setter Property="MaxWidth" Value="456" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+            <Button Name="PART_FlyoutButton"
+                    Theme="{StaticResource EnyoDateTimePickerFlyoutButton}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Background="{TemplateBinding Background}"
+                    IsEnabled="{TemplateBinding IsEnabled}"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MaxWidth="{TemplateBinding MaxWidth}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    TemplatedControl.IsTemplateFocusTarget="True">
+              <Grid Name="PART_ButtonContentGrid" ColumnDefinitions="78*,Auto,132*,Auto,78*">
+                <Border Theme="{StaticResource EnyoPickerPillHighlight}"
+                        Grid.Column="{Binding #PART_DayTextBlock.(Grid.Column)}" IsVisible="{Binding #PART_DayTextBlock.IsVisible}" />
+                <Border Name="PART_DayPill" Classes="pill" Theme="{StaticResource EnyoPickerPill}"
+                        Grid.Column="{Binding #PART_DayTextBlock.(Grid.Column)}" IsVisible="{Binding #PART_DayTextBlock.IsVisible}" />
+                <Border Theme="{StaticResource EnyoPickerPillHighlight}"
+                        Grid.Column="{Binding #PART_MonthTextBlock.(Grid.Column)}" IsVisible="{Binding #PART_MonthTextBlock.IsVisible}" />
+                <Border Name="PART_MonthPill" Classes="pill" Theme="{StaticResource EnyoPickerPill}"
+                        Grid.Column="{Binding #PART_MonthTextBlock.(Grid.Column)}" IsVisible="{Binding #PART_MonthTextBlock.IsVisible}" />
+                <Border Theme="{StaticResource EnyoPickerPillHighlight}"
+                        Grid.Column="{Binding #PART_YearTextBlock.(Grid.Column)}" IsVisible="{Binding #PART_YearTextBlock.IsVisible}" />
+                <Border Name="PART_YearPill" Classes="pill" Theme="{StaticResource EnyoPickerPill}"
+                        Grid.Column="{Binding #PART_YearTextBlock.(Grid.Column)}" IsVisible="{Binding #PART_YearTextBlock.IsVisible}" />
+                <TextBlock Name="PART_DayTextBlock" Text="{DynamicResource StringDatePickerDayText}" HorizontalAlignment="Center" />
+                <TextBlock Name="PART_MonthTextBlock" Text="{DynamicResource StringDatePickerMonthText}" HorizontalAlignment="Center" />
+                <TextBlock Name="PART_YearTextBlock" Text="{DynamicResource StringDatePickerYearText}" HorizontalAlignment="Center" />
+                <Rectangle Name="PART_FirstSpacer" Fill="Transparent" Width="2" Grid.Column="1" />
+                <Rectangle Name="PART_SecondSpacer" Fill="Transparent" Width="2" Grid.Column="3" />
+              </Grid>
+            </Button>
+
+            <Popup Name="PART_Popup"
+                   WindowManagerAddShadowHint="False"
+                   IsLightDismissEnabled="True"
+                   PlacementTarget="{TemplateBinding}"
+                   Placement="Bottom">
+              <DatePickerPresenter Name="PART_PickerPresenter" />
+            </Popup>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^ /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Margin" Value="{DynamicResource EnyoPickerCaptionPadding}" />
+      <Setter Property="MinWidth" Value="{DynamicResource EnyoPickerCaptionMinWidth}" />
+      <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^ /template/ Button#PART_FlyoutButton:pressed Border.pill">
+      <Setter Property="Background" Value="{DynamicResource EnyoPillDownBrush}" />
+    </Style>
+    <Style Selector="^ /template/ Button#PART_FlyoutButton:focus-visible Border.pill">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+    </Style>
+    <Style Selector="^:hasnodate /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoPlaceholderBrush}" />
+    </Style>
+    <Style Selector="^:error /template/ Button#PART_FlyoutButton Border.pill">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoErrorBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+
+  <!-- popup.png, 24px slice: the flyout is an Onyx popup with one list per field; the selected row is white. -->
+  <ControlTheme x:Key="{x:Type DatePickerPresenter}" TargetType="DatePickerPresenter">
+    <Setter Property="Width" Value="296" />
+    <Setter Property="MinWidth" Value="296" />
+    <Setter Property="MaxHeight" Value="398" />
+    <Setter Property="Background" Value="{DynamicResource EnyoPopupBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoPopupEdgeBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPopupForegroundBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoPopupCornerRadius}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoPickerFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Background"
+                Margin="10"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BoxShadow="{DynamicResource EnyoPopupShadow}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="6"
+                MaxHeight="398">
+          <Grid Name="ContentRoot" RowDefinitions="*,Auto">
+            <Grid Name="PART_PickerContainer" enyo:Scroll.Fades="False">
+              <Grid.Styles>
+                <Style Selector="DateTimePickerPanel > ListBoxItem">
+                  <Setter Property="Theme" Value="{StaticResource EnyoDateTimePickerItem}" />
+                </Style>
+              </Grid.Styles>
+              <Panel Name="PART_MonthHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_MonthSelector" PanelType="Month" ItemHeight="40" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_MonthUpButton" Theme="{StaticResource EnyoDateTimePickerUpButton}" />
+                <RepeatButton Name="PART_MonthDownButton" Theme="{StaticResource EnyoDateTimePickerDownButton}" />
+              </Panel>
+              <Panel Name="PART_DayHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_DaySelector" PanelType="Day" ItemHeight="40" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_DayUpButton" Theme="{StaticResource EnyoDateTimePickerUpButton}" />
+                <RepeatButton Name="PART_DayDownButton" Theme="{StaticResource EnyoDateTimePickerDownButton}" />
+              </Panel>
+              <Panel Name="PART_YearHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_YearSelector" PanelType="Year" ItemHeight="40" ShouldLoop="False" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_YearUpButton" Theme="{StaticResource EnyoDateTimePickerUpButton}" />
+                <RepeatButton Name="PART_YearDownButton" Theme="{StaticResource EnyoDateTimePickerDownButton}" />
+              </Panel>
+              <Border Name="HighlightRect" IsHitTestVisible="False" ZIndex="-1"
+                      Background="{DynamicResource EnyoPickerItemSelectedBrush}"
+                      BorderBrush="{DynamicResource EnyoItemBottomBorderBrush}"
+                      BorderThickness="0,1"
+                      Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center" Height="40" />
+              <Rectangle Name="PART_FirstSpacer" Fill="{DynamicResource EnyoItemBottomBorderBrush}"
+                         HorizontalAlignment="Center" Width="1" Grid.Column="1" />
+              <Rectangle Name="PART_SecondSpacer" Fill="{DynamicResource EnyoItemBottomBorderBrush}"
+                         HorizontalAlignment="Center" Width="1" Grid.Column="3" />
+            </Grid>
+
+            <Grid Name="AcceptDismissGrid" Grid.Row="1" ColumnDefinitions="*,*" Margin="0,6,0,0">
+              <Button Name="PART_AcceptButton" Grid.Column="0" Classes="affirmative" HorizontalAlignment="Stretch">
+                <Path Data="{DynamicResource EnyoGlyphCheckmark}" Fill="{Binding $parent[Button].Foreground}"
+                      Width="18" Height="18" Stretch="Uniform" />
+              </Button>
+              <Button Name="PART_DismissButton" Grid.Column="1" HorizontalAlignment="Stretch">
+                <Path Data="{DynamicResource EnyoGlyphCancel}" Fill="{Binding $parent[Button].Foreground}"
+                      Width="14" Height="14" Stretch="Uniform" />
+              </Button>
+            </Grid>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^ /template/ Panel:pointerover RepeatButton">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

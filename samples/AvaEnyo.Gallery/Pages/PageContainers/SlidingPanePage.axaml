@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.PageContainers.SlidingPanePage">
+  <enyo:SlidingPane Name="Pane" MultiViewMinWidth="500">
+    <enyo:SlidingView Width="220">
+      <DockPanel>
+        <enyo:Header DockPanel.Dock="Top" Content="Left" />
+        <ScrollViewer>
+          <StackPanel>
+            <enyo:Item Content="Drag the views" />
+            <enyo:Item Content="Tap a grab button" />
+            <enyo:Item Content="Press Escape to go back" />
+          </StackPanel>
+        </ScrollViewer>
+      </DockPanel>
+    </enyo:SlidingView>
+    <enyo:SlidingView Width="240" PeekWidth="60">
+      <DockPanel>
+        <enyo:Header DockPanel.Dock="Top" Content="Middle (peek 60)" />
+        <enyo:Toolbar DockPanel.Dock="Bottom">
+          <enyo:GrabButton />
+        </enyo:Toolbar>
+        <TextBlock Margin="12" TextWrapping="Wrap" Text="This view stops 60 px from the left when selected." />
+      </DockPanel>
+    </enyo:SlidingView>
+    <enyo:SlidingView enyo:Flex.Value="1" Dismissible="True">
+      <DockPanel>
+        <enyo:Header DockPanel.Dock="Top" Content="Right (dismissible)" />
+        <enyo:Toolbar DockPanel.Dock="Bottom">
+          <enyo:GrabButton />
+          <enyo:Spacer />
+          <enyo:ToolButton Name="ShowButton" Content="Show again" />
+        </enyo:Toolbar>
+        <TextBlock Margin="12" TextWrapping="Wrap" Text="Drag this view right more than 100 px to dismiss it." />
+      </DockPanel>
+    </enyo:SlidingView>
+  </enyo:SlidingPane>
+</UserControl>

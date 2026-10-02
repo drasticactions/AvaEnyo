@@ -1,0 +1,128 @@
+<!-- Public, so AvaEnyo.Controls can base its button controls on EnyoButtonTheme. -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="4">
+      <Button Content="Light" />
+      <Button Classes="dark" Content="Dark" />
+      <Button Classes="affirmative" Content="Affirmative" />
+      <Button Classes="negative" Content="Negative" />
+      <Button Classes="blue" Content="Blue" />
+      <Button Classes="gray" Content="Gray" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    button-up.png, 4px slice, radius 5. Enyo draws the sprite over the background color, so the frame here is
+    translucent: a vertical sheen and a 1 px edge over Background. Any Background tints the button.
+    Pressed: button-down.png, an inner shadow. No scale.
+  -->
+  <ControlTheme x:Key="EnyoButtonTheme" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoButtonCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoButtonPadding}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoButtonMargin}" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoButtonMinWidth}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoButtonMinHeight}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoButtonFontSize}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame"
+                  Background="{DynamicResource EnyoButtonSheenBrush}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Margin="{DynamicResource EnyoButtonFrameThickness}"
+                            Padding="{TemplateBinding Padding}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            LineHeight="{DynamicResource EnyoButtonLineHeight}"
+                            TextAlignment="Center"
+                            RecognizesAccessKey="True"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          <Border Name="PART_FocusVisual"
+                  BorderBrush="{DynamicResource EnyoFocusRingBrush}"
+                  BorderThickness="2"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Margin="-2"
+                  IsHitTestVisible="False"
+                  IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:focus-visible /template/ Border#PART_FocusVisual">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushPressed}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="Background" Value="{DynamicResource EnyoButtonPressedSheenBrush}" />
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoButtonPressedShadow}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+
+    <!-- Button.css variants -->
+    <Style Selector="^.light">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonForegroundBrush}" />
+    </Style>
+    <Style Selector="^.dark">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonDarkBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.affirmative">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonAffirmativeBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.negative">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonNegativeBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.blue, ^.default">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonBlueBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.gray">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonGrayBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.standard-width">
+      <Setter Property="MinWidth" Value="{DynamicResource EnyoButtonStandardWidth}" />
+    </Style>
+    <Style Selector="^.notification">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonNotificationBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+      <Setter Property="Padding" Value="{DynamicResource EnyoNotificationButtonPadding}" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <Style Selector="^.notification-affirmative">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonNotificationAffirmativeBackgroundBrush}" />
+    </Style>
+    <Style Selector="^.notification-negative">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonNotificationNegativeBackgroundBrush}" />
+    </Style>
+    <Style Selector="^.notification-alternate">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonNotificationAlternateBackgroundBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type Button}" TargetType="Button" BasedOn="{StaticResource EnyoButtonTheme}" />
+</ResourceDictionary>

@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Motion.EasingCurvesPage">
+  <StackPanel Classes="page">
+    <TextBlock Classes="enyo-paragraph" Text="The enyo.easing curves, progress (x) against eased progress (y). Most Enyo motion uses cubicOut." />
+    <WrapPanel Name="Curves" />
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaEnyo.Animations</RootNamespace>
+    <PackageId>AvaEnyo.Animations</PackageId>
+    <Description>Enyo 1.0 (WebOS) easing curves, durations, animation runner and scroll physics for Avalonia.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaEnyo.Theme" />
+    <InternalsVisibleTo Include="AvaEnyo.Controls" />
+    <InternalsVisibleTo Include="AvaEnyo.Services" />
+    <InternalsVisibleTo Include="AvaEnyo.Animations.Tests" />
+    <InternalsVisibleTo Include="AvaEnyo.Theme.Tests" />
+    <InternalsVisibleTo Include="AvaEnyo.Controls.Tests" />
+    <InternalsVisibleTo Include="AvaEnyo.Services.Tests" />
+  </ItemGroup>
+
+</Project>

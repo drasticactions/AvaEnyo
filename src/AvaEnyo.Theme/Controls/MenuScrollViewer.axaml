@@ -1,0 +1,52 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:prim="using:AvaEnyo.Primitives"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <ScrollViewer Theme="{DynamicResource EnyoMenuScrollViewer}" Width="200" Height="100">
+      <StackPanel Spacing="20">
+        <TextBlock Text="Item 1" />
+        <TextBlock Text="Item 2" />
+        <TextBlock Text="Item 3" />
+        <TextBlock Text="Item 4" />
+      </StackPanel>
+    </ScrollViewer>
+  </Design.PreviewWith>
+
+  <!-- Menus use the small arrow fades instead of the body fades (menu-fade-arrow-up/down.png). -->
+  <ControlTheme x:Key="EnyoMenuScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="IsScrollInertiaEnabled" Value="False" />
+    <Setter Property="IsScrollChainingEnabled" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <prim:EnyoScrollContentPresenter Name="PART_ContentPresenter"
+                                           Background="{TemplateBinding Background}"
+                                           Padding="{TemplateBinding Padding}" />
+          <Path Name="PART_FadeTop"
+                Data="{DynamicResource EnyoGlyphFadeArrowUp}"
+                Fill="{DynamicResource EnyoMenuFadeArrowBrush}"
+                Width="20" Height="{DynamicResource EnyoMenuFadeHeight}" Stretch="Fill"
+                VerticalAlignment="Top" HorizontalAlignment="Center"
+                IsHitTestVisible="False" IsVisible="False" />
+          <Path Name="PART_FadeBottom"
+                Data="{DynamicResource EnyoGlyphFadeArrowDown}"
+                Fill="{DynamicResource EnyoMenuFadeArrowBrush}"
+                Width="20" Height="{DynamicResource EnyoMenuFadeHeight}" Stretch="Fill"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                IsHitTestVisible="False" IsVisible="False" />
+          <!-- Hidden scroll bars. -->
+          <ScrollBar Name="PART_HorizontalScrollBar" Orientation="Horizontal" Opacity="0" IsHitTestVisible="False" />
+          <ScrollBar Name="PART_VerticalScrollBar" Orientation="Vertical" Opacity="0" IsHitTestVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:scroll-up /template/ Path#PART_FadeTop">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:scroll-down /template/ Path#PART_FadeBottom">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

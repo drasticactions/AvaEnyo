@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20" Width="200">
+      <RefreshVisualizer />
+    </Border>
+  </Design.PreviewWith>
+
+  <!--
+    Invented: Enyo had no pull to refresh. A light round knob in the slider-handle.png language (grey gradient, a
+    1 px dark edge, a soft shadow) holding the refresh arrow in the spinner grey. The visualizer turns it as the
+    pull grows.
+  -->
+  <ControlTheme x:Key="{x:Type RefreshVisualizer}" TargetType="RefreshVisualizer">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="IsHitTestVisible" Value="False" />
+    <Setter Property="Height" Value="100" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoSpinnerBrush}" />
+    <Setter Property="Content">
+      <Template>
+        <Border Name="PART_Knob"
+                Width="40"
+                Height="40"
+                CornerRadius="20"
+                Background="{DynamicResource EnyoHandleBrush}"
+                BorderBrush="{DynamicResource EnyoHandleEdgeBrush}"
+                BorderThickness="1"
+                BoxShadow="{DynamicResource EnyoHandleShadow}">
+          <PathIcon Name="PART_Icon"
+                    Data="{DynamicResource EnyoGlyphRefresh}"
+                    Foreground="{DynamicResource EnyoSpinnerBrush}"
+                    Width="22"
+                    Height="22" />
+        </Border>
+      </Template>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root" MinHeight="80" Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

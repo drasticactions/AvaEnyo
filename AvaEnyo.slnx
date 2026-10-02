@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AvaEnyo.Animations/AvaEnyo.Animations.csproj" />
+    <Project Path="src/AvaEnyo.Theme/AvaEnyo.Theme.csproj" />
+    <Project Path="src/AvaEnyo.Controls/AvaEnyo.Controls.csproj" />
+    <Project Path="src/AvaEnyo.Services/AvaEnyo.Services.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AvaEnyo.Animations.Tests/AvaEnyo.Animations.Tests.csproj" />
+    <Project Path="tests/AvaEnyo.Theme.Tests/AvaEnyo.Theme.Tests.csproj" />
+    <Project Path="tests/AvaEnyo.Controls.Tests/AvaEnyo.Controls.Tests.csproj" />
+    <Project Path="tests/AvaEnyo.Services.Tests/AvaEnyo.Services.Tests.csproj" />
+  </Folder>
+  <Folder Name="/solution-items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="NOTICE.md" />
+  </Folder>
+</Solution>

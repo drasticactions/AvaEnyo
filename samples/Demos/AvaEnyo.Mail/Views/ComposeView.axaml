@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:samples="using:AvaEnyo.Samples"
+             x:Class="AvaEnyo.Mail.Views.ComposeView">
+  <UserControl.Resources>
+    <DataTemplate x:Key="ContactTemplate" x:DataType="samples:Contact">
+      <StackPanel>
+        <TextBlock Text="{Binding Name}" />
+        <TextBlock Classes="enyo-subtext" Text="{Binding Email}" />
+      </StackPanel>
+    </DataTemplate>
+  </UserControl.Resources>
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+      <Button Name="CancelButton" Classes="standard-width" Content="Cancel" />
+      <enyo:ActivityButton Name="SendButton" Classes="standard-width affirmative" Content="Send" />
+    </StackPanel>
+    <enyo:RowGroup Name="Fields" DockPanel.Dock="Top">
+      <DockPanel>
+        <TextBlock Classes="field" Text="To" />
+        <enyo:TokenInput Name="ToInput" PlaceholderText="Name or address" />
+      </DockPanel>
+      <DockPanel>
+        <TextBlock Classes="field" Text="Cc" />
+        <enyo:TokenInput Name="CcInput" />
+      </DockPanel>
+      <DockPanel>
+        <TextBlock Classes="field" Text="Subject" />
+        <TextBox Name="SubjectBox" />
+      </DockPanel>
+    </enyo:RowGroup>
+    <TextBox Name="BodyBox" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="180" VerticalContentAlignment="Top"
+             PlaceholderText="Message" Margin="3,6,3,0" />
+  </DockPanel>
+</UserControl>

@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.NumericKeypadPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Phone">
+      <StackPanel Spacing="8" Width="320" HorizontalAlignment="Left">
+        <TextBlock Name="PhoneDisplay" FontSize="28" HorizontalAlignment="Center" Text=" " />
+        <enyo:NumericKeypad Name="Phone" Mode="Phone" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="PIN">
+      <StackPanel Spacing="8" Width="320" HorizontalAlignment="Left">
+        <TextBlock Name="PinDisplay" FontSize="28" HorizontalAlignment="Center" Text=" " />
+        <enyo:NumericKeypad Name="Pin" Mode="Pin" ShowLetters="False" />
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

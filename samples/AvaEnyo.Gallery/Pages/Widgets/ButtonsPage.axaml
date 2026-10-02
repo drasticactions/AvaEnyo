@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.ButtonsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Buttons">
+      <WrapPanel Classes="row">
+        <Button Content="Light" />
+        <Button Classes="dark" Content="Dark" />
+        <Button Classes="affirmative" Content="Affirmative" />
+        <Button Classes="negative" Content="Negative" />
+        <Button Classes="blue" Content="Blue" />
+        <Button Classes="gray" Content="Gray" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Standard width">
+      <StackPanel>
+        <Button Classes="standard-width" Content="OK" />
+        <Button Classes="standard-width affirmative" Content="Save" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Custom tints">
+      <WrapPanel Classes="row">
+        <Button Background="DeepPink" Foreground="White" Content="Deep pink" />
+        <Button Background="Orange" Content="Orange" />
+        <Button Background="#5c3b8e" Foreground="White" Content="Purple" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Disabled">
+      <WrapPanel Classes="row">
+        <Button IsEnabled="False" Content="Light" />
+        <Button IsEnabled="False" Classes="affirmative" Content="Affirmative" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Notification buttons">
+      <WrapPanel Classes="row">
+        <Button Classes="notification" Content="Dismiss" />
+        <Button Classes="notification notification-affirmative" Content="Accept" />
+        <Button Classes="notification notification-negative" Content="Decline" />
+        <Button Classes="notification notification-alternate" Content="Snooze" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Icon buttons and toggles">
+      <WrapPanel Classes="row">
+        <enyo:IconButton Icon="{DynamicResource EnyoGlyphSearch}" Content="Search" />
+        <enyo:IconButton Icon="{DynamicResource EnyoGlyphPlus}" />
+        <ToggleButton Content="Toggle" IsChecked="True" />
+        <RepeatButton Content="Repeat" />
+      </WrapPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

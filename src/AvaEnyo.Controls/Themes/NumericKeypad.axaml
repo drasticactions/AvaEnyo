@@ -1,0 +1,79 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Orientation="Horizontal" Spacing="10" Margin="10">
+      <enyo:NumericKeypad Width="300" />
+      <enyo:NumericKeypad Width="300" Mode="Pin" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <ResourceDictionary.MergedDictionaries>
+    <!-- The Onyx button theme, so the keys can be based on it. -->
+    <ResourceInclude Source="avares://AvaEnyo.Theme/Controls/Button.axaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- dialpad.css: a 3x4 grid of keys. -->
+  <ControlTheme x:Key="{x:Type enyo:NumericKeypad}" TargetType="enyo:NumericKeypad">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+          <UniformGrid Name="PART_Grid" Columns="3" Rows="4" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    DialpadButton: a large bold digit (.keypad-digit 30 px) over a letters line (.keypad-letters 16 px, kept tall even
+    when empty so digits line up), inside the Onyx button frame (button-up.png, 4px slice) instead of the dark
+    telephony sprite.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:NumericKeypadButton}" TargetType="enyo:NumericKeypadButton" BasedOn="{StaticResource EnyoButtonTheme}">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoKeypadKeyHeight}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoKeypadDigitFontSize}" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame" Background="{DynamicResource EnyoButtonSheenBrush}"
+                  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalContentAlignment="Center" />
+            <enyo:IconPresenter Name="PART_Icon"
+                                Icon="{TemplateBinding Icon}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Width="{DynamicResource EnyoIconButtonIconSize}"
+                                Height="{DynamicResource EnyoIconButtonIconSize}"
+                                IsVisible="False" />
+            <TextBlock Name="PART_Letters"
+                       Text="{TemplateBinding Letters}"
+                       FontSize="{DynamicResource EnyoKeypadLetterFontSize}"
+                       FontWeight="Normal"
+                       Foreground="{DynamicResource EnyoSubtextBrush}"
+                       HorizontalAlignment="Center"
+                       MinHeight="{DynamicResource EnyoKeypadLetterFontSize}"
+                       IsVisible="{TemplateBinding ShowLetters}" />
+          </StackPanel>
+          <Border Name="PART_FocusVisual" IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:has-icon /template/ enyo|IconPresenter#PART_Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:has-icon /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

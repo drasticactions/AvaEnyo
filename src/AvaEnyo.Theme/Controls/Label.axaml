@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20">
+      <Label Content="_Label" />
+      <Label Classes="enyo-label" Content="Section label" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- Plain body text. The enyo-label class is the Onyx label: #1879cd, .7rem, uppercase. -->
+  <ControlTheme x:Key="{x:Type Label}" TargetType="Label">
+    <Setter Property="Padding" Value="3" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Content="{TemplateBinding Content}"
+                          Padding="{TemplateBinding Padding}"
+                          RecognizesAccessKey="True"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.enyo-label">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoLabelBrush}" />
+      <Setter Property="FontSize" Value="{DynamicResource EnyoTextLabelFontSize}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

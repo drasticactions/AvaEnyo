@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20" Width="300">
+      <TableViewRow />
+    </Border>
+  </Design.PreviewWith>
+
+  <!--
+    Item.css: padding 10, a 1 px light top edge (white .5) and a 1 px dark bottom edge (black .2); pressed is the
+    held gradient (#daebfb to #c5e0f9 at .4) and selected keeps it.
+  -->
+  <ControlTheme x:Key="{x:Type TableViewRow}" TargetType="TableViewRow">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoItemPadding}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{DynamicResource EnyoItemBottomBorderBrush}"
+                BorderThickness="0,0,0,1"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+          <Border Name="PART_TopEdge"
+                  BorderBrush="{DynamicResource EnyoItemTopBorderBrush}"
+                  BorderThickness="0,1,0,0"
+                  Padding="{TemplateBinding Padding}">
+            <TableViewCellsPresenter Name="PART_CellsPresenter" />
+          </Border>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemSelectedBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

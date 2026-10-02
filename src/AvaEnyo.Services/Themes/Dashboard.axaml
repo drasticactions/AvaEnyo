@@ -1,0 +1,51 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:svc="using:AvaEnyo.Services"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <svc:DashboardPresenter Width="400" />
+  </Design.PreviewWith>
+
+  <!--
+    The webOS 3 dashboard (invented from the TouchPad notification bar): a dark rounded bar, icon at the left, white
+    title over grey text, and a blue badge counting stacked layers.
+  -->
+  <ControlTheme x:Key="{x:Type svc:DashboardPresenter}" TargetType="svc:DashboardPresenter">
+    <Setter Property="Background" Value="{DynamicResource EnyoDashboardBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoDashboardForegroundBrush}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoDashboardHeight}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Bar"
+                Background="{TemplateBinding Background}"
+                CornerRadius="6"
+                BoxShadow="{DynamicResource EnyoMenuShadow}"
+                Padding="10,6">
+          <DockPanel>
+            <Image Name="PART_Icon" DockPanel.Dock="Left" Width="32" Height="32" Margin="0,0,10,0"
+                   VerticalAlignment="Center"
+                   Source="{Binding Notification.Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                   IsVisible="{Binding Notification.Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
+            <Border Name="PART_Badge" DockPanel.Dock="Right" VerticalAlignment="Center" MinWidth="24" Height="24"
+                    CornerRadius="12" Padding="6,0" Background="{DynamicResource EnyoBadgeBackgroundBrush}" IsVisible="False">
+              <TextBlock Text="{Binding Notification.LayerCount, RelativeSource={RelativeSource TemplatedParent}}"
+                         FontSize="14" FontWeight="Bold" Foreground="{DynamicResource EnyoDashboardForegroundBrush}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <StackPanel VerticalAlignment="Center">
+              <TextBlock Name="PART_Title" FontSize="{DynamicResource EnyoButtonFontSize}" FontWeight="SemiBold"
+                         Foreground="{TemplateBinding Foreground}" TextTrimming="CharacterEllipsis"
+                         Text="{Binding Notification.DisplayTitle, RelativeSource={RelativeSource TemplatedParent}}" />
+              <TextBlock Name="PART_Text" FontSize="{DynamicResource EnyoTextSubtextFontSize}"
+                         Foreground="{DynamicResource EnyoDashboardSubtextBrush}" TextTrimming="CharacterEllipsis"
+                         Text="{Binding Notification.DisplayText, RelativeSource={RelativeSource TemplatedParent}}" />
+            </StackPanel>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:layered /template/ Border#PART_Badge">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

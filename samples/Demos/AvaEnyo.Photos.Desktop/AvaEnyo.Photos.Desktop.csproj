@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AvaEnyoIsLibrary>false</AvaEnyoIsLibrary>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AvaEnyo.Photos.Desktop</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <!-- AOT check: dotnet publish -c Release -r linux-x64 /p:PublishAot=true -->
+    <IsAotCompatible>true</IsAotCompatible>
+    <TrimMode>full</TrimMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Wayland" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaEnyo.Photos\AvaEnyo.Photos.csproj" />
+  </ItemGroup>
+
+</Project>

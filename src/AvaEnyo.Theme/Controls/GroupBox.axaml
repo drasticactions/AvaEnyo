@@ -1,0 +1,85 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="300" Margin="20">
+      <GroupBox Header="Account">
+        <TextBlock Margin="10" Text="Content" />
+      </GroupBox>
+      <GroupBox>
+        <TextBlock Margin="10" Text="Unlabeled" />
+      </GroupBox>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    group-labeled.png (36/14/14/14 slice) and group-unlabeled.png (14 slice): a 1 px dark outline with a 1 px white
+    highlight under its bottom edge. A labeled group adds a darker 36 px band behind a white, uppercase, .7rem bold
+    label with a #646454 0 1 text shadow. The inside is transparent, so the rows sit on the body color.
+  -->
+  <ControlTheme x:Key="{x:Type GroupBox}" TargetType="GroupBox">
+    <Setter Property="Background" Value="{DynamicResource EnyoGroupBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoGroupEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoGroupCornerRadius}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoGroupMargin}" />
+    <Setter Property="Padding" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="RootGrid">
+          <!-- the white highlight 1 px under the bottom edge -->
+          <Border Name="PART_Highlight"
+                  Margin="0,1,0,-1"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  BorderThickness="0,0,0,1"
+                  BorderBrush="{DynamicResource EnyoGroupHighlightBrush}" />
+          <Border Name="PART_Frame"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  ClipToBounds="True">
+            <Grid RowDefinitions="Auto,*">
+              <Border Name="Header"
+                      Grid.Row="0"
+                      MinHeight="{DynamicResource EnyoGroupLabeledTop}"
+                      Background="{DynamicResource EnyoGroupBandBrush}"
+                      Padding="{DynamicResource EnyoGroupLabelPadding}"
+                      IsVisible="{TemplateBinding Header, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <ContentPresenter Name="PART_HeaderPresenter"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  FontSize="{DynamicResource EnyoGroupLabelFontSize}"
+                                  FontWeight="Bold"
+                                  Foreground="{DynamicResource EnyoGroupLabelForegroundBrush}"
+                                  VerticalContentAlignment="Center"
+                                  RecognizesAccessKey="True">
+                  <ContentPresenter.DataTemplates>
+                    <!-- A text label is uppercased with a #646454 0 1 text shadow. -->
+                    <DataTemplate DataType="x:String">
+                      <TextBlock Text="{Binding}" enyo:TextTransform.Uppercase="True">
+                        <TextBlock.Effect>
+                          <DropShadowDirectionEffect Color="{DynamicResource EnyoGroupLabelShadowColor}"
+                                                     Direction="270" ShadowDepth="1" BlurRadius="0" Opacity="1" />
+                        </TextBlock.Effect>
+                      </TextBlock>
+                    </DataTemplate>
+                  </ContentPresenter.DataTemplates>
+                </ContentPresenter>
+              </Border>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Grid.Row="1"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                RecognizesAccessKey="True"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}" />
+            </Grid>
+          </Border>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

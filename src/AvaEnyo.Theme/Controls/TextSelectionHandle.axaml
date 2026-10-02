@@ -1,0 +1,47 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <TextSelectionHandle Margin="20" />
+  </Design.PreviewWith>
+
+  <!-- Invented: the touch selection handle is an Onyx blue drop with a light edge. -->
+  <ControlTheme x:Key="{x:Type TextSelectionHandle}" TargetType="TextSelectionHandle">
+    <Setter Property="Background" Value="{DynamicResource EnyoButtonBlueBackgroundBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Border Padding="0,0,0,10" Background="Transparent">
+            <Path Name="PART_HandlePathIcon"
+                  Width="20"
+                  Height="20"
+                  Stretch="Uniform"
+                  Cursor="Arrow"
+                  Data="M10,0 L20,10 A10,10 0 1 1 0,10 Z"
+                  Fill="{TemplateBinding Background}"
+                  Stroke="{DynamicResource EnyoItemTopBorderBrush}"
+                  StrokeThickness="1" />
+          </Border>
+          <Border Name="PART_Indicator"
+                  Background="Transparent"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  Width="1"
+                  Height="5" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:start /template/ Path#PART_HandlePathIcon">
+      <Setter Property="RenderTransform">
+        <ScaleTransform ScaleX="-1" ScaleY="1" />
+      </Setter>
+    </Style>
+    <Style Selector="^:end /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    <Style Selector="^:start /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

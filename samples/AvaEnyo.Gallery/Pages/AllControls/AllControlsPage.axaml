@@ -1,0 +1,308 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.AllControls.AllControlsPage">
+  <!-- Theming/onyx/App.js of Enyo 1.0, section by section, for side-by-side review. -->
+  <UserControl.Styles>
+    <!-- The Example kind: a 1 px #333 box with a #bbb caption bar, 24/12 px margin. -->
+    <Style Selector="HeaderedContentControl.example">
+      <!-- margin: 24px 12px; CSS collapses the vertical margins, so the gap between boxes is 24, not 48. -->
+      <Setter Property="Margin" Value="12,24,12,0" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border BorderBrush="#333333" BorderThickness="1">
+            <DockPanel>
+              <Border DockPanel.Dock="Top" Background="#bbbbbb" Padding="6">
+                <ContentPresenter Content="{TemplateBinding Header}" Foreground="#333333" />
+              </Border>
+              <ContentPresenter Content="{TemplateBinding Content}" Padding="12" />
+            </DockPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="HeaderedContentControl.example Button">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="StackPanel.row > Button">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+  </UserControl.Styles>
+
+  <DockPanel>
+    <enyo:Header DockPanel.Dock="Top" Content="Enyo Onyx Theme" />
+    <enyo:Toolbar DockPanel.Dock="Bottom">
+      <enyo:GrabButton />
+      <Button Classes="dark" Content="Normal dark button" />
+      <enyo:ToolButton Content="ToolButton" />
+      <enyo:ToolButton Icon="{DynamicResource EnyoGlyphPlus}" IsEnabled="False" />
+      <enyo:ToolButton Icon="{DynamicResource EnyoGlyphBack}" />
+      <enyo:ToolButton Icon="{DynamicResource EnyoGlyphMore}" IsToggle="True" />
+      <enyo:ToolButton Icon="{DynamicResource EnyoGlyphCheckmark}" />
+      <TextBox Classes="tool" Text="It's a tool" Width="200" />
+      <TextBox Classes="tool search" Width="160" />
+      <enyo:ToolButton Content="ToolButton" />
+    </enyo:Toolbar>
+    <ScrollViewer>
+      <StackPanel Margin="0,0,0,24">
+        <HeaderedContentControl Classes="example" Header="Activity Button">
+          <StackPanel>
+            <enyo:ActivityButton Content="Inactive" HorizontalAlignment="Stretch" />
+            <enyo:ActivityButton Content="Active" IsActive="True" HorizontalAlignment="Stretch" />
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Input and RichText">
+          <StackPanel>
+            <TextBox Text="Hello World" InnerRightContent="Foo" />
+            <TextBox Classes="box" PlaceholderText="Foo bar bat" />
+            <TextBox AcceptsReturn="True" PlaceholderText="RichText" />
+            <TextBox AcceptsReturn="True" Text="RichText" FontWeight="Bold" />
+            <enyo:InputBox>
+              <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="Left" Margin="0,0,8,0" VerticalAlignment="Center" />
+                <TextBlock DockPanel.Dock="Right" Text="Right" VerticalAlignment="Center" />
+                <TextBox Text="InputBox" />
+              </DockPanel>
+            </enyo:InputBox>
+            <TextBox Classes="rounded" Text="Rounded Input" InnerRightContent="Foo" />
+            <enyo:InputBox Classes="rounded">
+              <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="Left" Margin="0,0,8,0" VerticalAlignment="Center" />
+                <TextBlock DockPanel.Dock="Right" Text="Right" VerticalAlignment="Center" />
+                <TextBox Text="RoundedInputBox" />
+              </DockPanel>
+            </enyo:InputBox>
+            <TextBox Classes="tool" Text="It's a tool" Margin="0,2" />
+            <enyo:InputBox Classes="tool" Margin="0,2">
+              <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="Left" Margin="0,0,8,0" VerticalAlignment="Center" />
+                <TextBlock DockPanel.Dock="Right" Text="Right" VerticalAlignment="Center" />
+                <TextBox Classes="tool" Text="ToolInputBox" />
+              </DockPanel>
+            </enyo:InputBox>
+            <TextBox Classes="search" Margin="0,2" />
+            <TextBox Classes="search box" Margin="0,2" />
+            <TextBox Classes="search rounded" />
+            <TextBox Classes="search tool" Margin="0,2" />
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Slider &amp; ProgressSlider">
+          <StackPanel>
+            <Slider Value="30" />
+            <enyo:ProgressSlider Name="ProgressSliderSample" Value="50" BarValue="40" AltBarValue="70" />
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Group and RowGroup">
+          <StackPanel>
+            <enyo:RowGroup>
+              <TextBox Text="Input" />
+              <TextBox Text="Input" PasswordChar="•" />
+              <TextBox Text="Input" />
+              <TextBox Text="RichText" FontWeight="Bold" AcceptsReturn="True" />
+            </enyo:RowGroup>
+            <enyo:RowGroup Header="Labeled RowGroup">
+              <TextBox Text="Input" />
+              <TextBox Text="Input" />
+              <TextBox />
+              <TextBox Text="Input" />
+            </enyo:RowGroup>
+            <enyo:Group>
+              <TextBox Text="Input" />
+            </enyo:Group>
+            <enyo:Group Header="Labeled Group">
+              <TextBox Text="Input" />
+            </enyo:Group>
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Picker (needs to fix popup position)">
+          <StackPanel>
+            <enyo:PickerGroup Label="integer">
+              <enyo:IntegerPicker />
+            </enyo:PickerGroup>
+            <enyo:EnyoTimePicker />
+            <enyo:EnyoDatePicker />
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Checkbox">
+          <StackPanel Classes="row" Orientation="Horizontal" Spacing="8">
+            <CheckBox />
+            <CheckBox IsChecked="True" />
+            <CheckBox IsEnabled="False" />
+            <CheckBox IsChecked="True" IsEnabled="False" />
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="ToggleButton">
+          <StackPanel Orientation="Horizontal" Spacing="30">
+            <ToggleSwitch />
+            <ToggleSwitch OnContent="Enableamente" OffContent="Disableamente" />
+            <ToggleSwitch IsEnabled="False" />
+            <ToggleSwitch IsEnabled="False" IsChecked="True" />
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Button">
+          <StackPanel Name="ButtonRows" />
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Notification Buttons">
+          <StackPanel Name="NotificationRows" />
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Radio Buttons">
+          <StackPanel>
+            <StackPanel Name="RadioLight" Spacing="2" />
+            <StackPanel Name="RadioDark" Spacing="2" Background="#333333" />
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Tabs">
+          <StackPanel Spacing="2">
+            <enyo:TabGroup SelectedIndex="0">
+              <enyo:TabSegment Content="Enabled" />
+              <enyo:TabSegment Content="bar" />
+              <enyo:TabSegment Content="Disabled" IsEnabled="False" />
+              <enyo:TabSegment Content="baz" />
+            </enyo:TabGroup>
+            <enyo:TabGroup SelectedIndex="0">
+              <enyo:TabSegment Content="Single Selected" />
+            </enyo:TabGroup>
+            <enyo:TabGroup>
+              <enyo:TabSegment Content="Single" />
+            </enyo:TabGroup>
+            <enyo:TabGroup>
+              <enyo:TabSegment Content="Disabled" IsEnabled="False" />
+            </enyo:TabGroup>
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Popup and AppMenu">
+          <StackPanel Classes="row" Orientation="Horizontal" Spacing="4">
+            <Button Name="PopupButton" Content="Popup" />
+            <enyo:Popup Name="SamplePopup" ShowScrim="True">
+              <StackPanel Spacing="6">
+                <TextBlock Text="This is a popup!" />
+                <Button Name="PopupClose" Content="Close" HorizontalAlignment="Stretch" />
+              </StackPanel>
+            </enyo:Popup>
+            <Button Name="MenuButton" Content="Menu" />
+            <enyo:Menu Name="SampleMenu">
+              <enyo:MenuItem Header="Uno" />
+              <enyo:MenuItem Header="Duex" />
+              <enyo:MenuItem Header="San" />
+            </enyo:Menu>
+            <Button Name="AppMenuButton" Content="AppMenu" />
+            <enyo:AppMenu Name="SampleAppMenu">
+              <enyo:AppMenuItem Header="Foo" />
+              <enyo:EditMenu />
+              <enyo:AppMenuItem Header="Foo" />
+              <enyo:AppMenuItem Header="Bar" />
+              <enyo:AppMenuItem Header="Bat" />
+            </enyo:AppMenu>
+            <ComboBox SelectedIndex="0" VerticalAlignment="Center">
+              <ComboBoxItem Content="Foo" />
+              <ComboBoxItem Content="Bar Happy pie people" />
+              <ComboBoxItem Content="Bat" />
+            </ComboBox>
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="ProgresBar">
+          <ProgressBar Name="Bar" Value="35" Cursor="Hand" />
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="ProgresBarItem">
+          <StackPanel Spacing="2">
+            <Panel>
+              <ProgressBar Name="BarItem1" Classes="item" Value="40" Cursor="Hand" />
+              <TextBlock Text="Progressing short... " Margin="8,0" VerticalAlignment="Center" IsHitTestVisible="False" />
+            </Panel>
+            <Panel>
+              <ProgressBar Name="BarItem2" Classes="item" Value="65" Height="48" Cursor="Hand" />
+              <TextBlock Text="Progressing tall... " Margin="8,0" VerticalAlignment="Center" IsHitTestVisible="False" />
+            </Panel>
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="ProgressButton">
+          <StackPanel Name="ProgressButtons" Spacing="2" />
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Divider and Drawer">
+          <StackPanel>
+            <enyo:Divider Caption="Address" />
+            <enyo:Divider Caption="Email" />
+            <enyo:DividerDrawer Caption="EXAMPLE 1" IsOpen="False">
+              <TextBlock Text="Something..." Margin="14" />
+            </enyo:DividerDrawer>
+            <enyo:DividerDrawer Caption="EXAMPLE 2" IsOpen="False">
+              <TextBlock Text="More Stuffs..." Margin="14" />
+            </enyo:DividerDrawer>
+            <enyo:DividerDrawer Caption="EXAMPLE 3" Icon="{DynamicResource EnyoGlyphInfo}" IsOpen="False">
+              <TextBlock Text="Yahoo..." Margin="14" />
+            </enyo:DividerDrawer>
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="List (Item and SwipeableItem)">
+          <enyo:VirtualList Name="SampleList" Height="200" Background="LightGray" Swipeable="True" />
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="ListSelector">
+          <ComboBox enyo:ListSelectorAssist.Label="status" SelectedIndex="2">
+            <ComboBoxItem Content="Away" />
+            <ComboBoxItem Content="Available" />
+            <ComboBoxItem Content="Offline" />
+          </ComboBox>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Header">
+          <StackPanel>
+            <enyo:Header Content="Header" Margin="8" />
+            <enyo:Header Margin="8">
+              <TextBlock Text="Header&#10;&#10;Tall" />
+            </enyo:Header>
+            <enyo:Header Content="Header - Colored" Background="#6677aa" Margin="8" />
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="Toolbar">
+          <StackPanel>
+            <enyo:Toolbar Margin="8">
+              <enyo:ToolButton Content="Foo" />
+              <Button Classes="dark" Content="Foo" />
+              <enyo:ToolButton Icon="{DynamicResource EnyoGlyphCancel}" />
+              <enyo:ToolButton Icon="{DynamicResource EnyoGlyphBack}" />
+              <TextBox Classes="tool" Text="It's a tool" Width="160" />
+              <enyo:ToolButton Content="Foo" />
+            </enyo:Toolbar>
+            <enyo:Toolbar Margin="8" Classes="light">
+              <enyo:ToolButton Content="Foo" />
+              <Button Classes="dark" Content="Foo" />
+              <enyo:ToolButton Icon="{DynamicResource EnyoGlyphCancel}" />
+              <enyo:ToolButton Icon="{DynamicResource EnyoGlyphBack}" />
+              <TextBox Classes="tool" Text="It's a tool" Width="160" />
+              <enyo:ToolButton Content="Foo" />
+            </enyo:Toolbar>
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Classes="example" Header="ToolButton">
+          <enyo:Toolbar>
+            <enyo:ToolButton Content="Caption" />
+            <enyo:ToolButton Icon="{DynamicResource EnyoGlyphSearch}" />
+            <enyo:ToolButton Icon="{DynamicResource EnyoGlyphPlus}" Content="Both" />
+            <enyo:ToolButton Content="Toggle" IsToggle="True" IsChecked="True" />
+            <enyo:ToolButton Content="Disabled" IsEnabled="False" />
+          </enyo:Toolbar>
+        </HeaderedContentControl>
+        <Panel Height="10" />
+      </StackPanel>
+    </ScrollViewer>
+  </DockPanel>
+</UserControl>

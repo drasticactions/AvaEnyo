@@ -1,0 +1,196 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="320" Margin="20" Spacing="12">
+      <enyo:ProgressSlider Value="30" BarValue="45" AltBarValue="70" />
+      <enyo:ProgressButton Value="40" Content="Downloading" />
+      <enyo:ProgressButton Value="65" Content="Upload" Classes="affirmative" Cancelable="False" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="EnyoProgressSliderButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="EnyoProgressSliderThumb" TargetType="Thumb">
+    <Setter Property="Background" Value="{DynamicResource EnyoHandleBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoHandleEdgeBrush}" />
+    <Setter Property="Width" Value="{DynamicResource EnyoSliderHandleSize}" />
+    <Setter Property="Height" Value="{DynamicResource EnyoSliderHandleSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Border Width="{DynamicResource EnyoSliderHandleDiameter}"
+                  Height="{DynamicResource EnyoSliderHandleDiameter}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1"
+                  CornerRadius="100"
+                  BoxShadow="{DynamicResource EnyoHandleShadow}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoHandleDownBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    ProgressSlider.css: the slider-track.png track (10 px, 4 px caps) with the slider-progress.png bar (blue) and the
+    slider-progress-secondary.png alt bar (light, under the bar), and the slider-handle.png handle on top.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:ProgressSlider}" TargetType="enyo:ProgressSlider">
+    <Setter Property="Background" Value="{DynamicResource EnyoTrackBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTrackFillBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoTrackEdgeBrush}" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoSliderMinWidth}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoSliderHandleSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="SliderContainer" Margin="{TemplateBinding Padding}" Background="Transparent">
+          <Panel Name="PART_Bars"
+                 Height="{DynamicResource EnyoSliderTrackHeight}"
+                 Margin="{DynamicResource EnyoSliderTrackInsetHorizontal}"
+                 VerticalAlignment="Center">
+            <Border Name="TrackBackground"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{DynamicResource EnyoSliderTrackCornerRadius}" />
+            <enyo:ProgressFill Name="PART_AltBar"
+                               HorizontalAlignment="Left"
+                               Ratio="{TemplateBinding AltBarRatio}"
+                               Background="{DynamicResource EnyoTrackSecondaryBrush}"
+                               BorderBrush="{DynamicResource EnyoTrackEdgeBrush}"
+                               BorderThickness="1"
+                               CornerRadius="{DynamicResource EnyoSliderTrackCornerRadius}" />
+            <enyo:ProgressFill Name="PART_Bar"
+                               HorizontalAlignment="Left"
+                               Ratio="{TemplateBinding BarRatio}"
+                               Background="{TemplateBinding Foreground}"
+                               BorderBrush="{DynamicResource EnyoTrackEdgeBrush}"
+                               BorderThickness="1"
+                               CornerRadius="{DynamicResource EnyoSliderTrackCornerRadius}" />
+          </Panel>
+          <Track Name="PART_Track"
+                 Minimum="{TemplateBinding Minimum}"
+                 Maximum="{TemplateBinding Maximum}"
+                 Value="{TemplateBinding Value, Mode=TwoWay}"
+                 IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                 Orientation="Horizontal">
+            <Track.DecreaseButton>
+              <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource EnyoProgressSliderButton}" />
+            </Track.DecreaseButton>
+            <Track.IncreaseButton>
+              <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource EnyoProgressSliderButton}" />
+            </Track.IncreaseButton>
+            <Thumb Name="thumb" ZIndex="1" Theme="{StaticResource EnyoProgressSliderThumb}" />
+          </Track>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    ProgressButton.css: button-down.png (4 px, radius 5) over rgba(23,23,23,.5) with white 18 px text on a 34 px line;
+    the filled part is button.png (the raised sheen) in the variant color; progress-button-cancel.png (a 32 px white
+    cross) at the right.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:ProgressButton}" TargetType="enyo:ProgressButton">
+    <Setter Property="Background" Value="{DynamicResource EnyoButtonDarkBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoButtonPressedEdgeBrush}" />
+    <Setter Property="BarBrush" Value="Transparent" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoButtonCornerRadius}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoButtonMargin}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoProgressButtonMinHeight}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoProgressButtonFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  BoxShadow="{DynamicResource EnyoButtonPressedShadow}" />
+          <enyo:ProgressFill Name="PART_Bar"
+                             HorizontalAlignment="Left"
+                             Ratio="{TemplateBinding Ratio}"
+                             Background="{TemplateBinding BarBrush}"
+                             CornerRadius="{TemplateBinding CornerRadius}">
+            <Border Background="{DynamicResource EnyoButtonSheenBrush}"
+                    BorderBrush="{DynamicResource EnyoButtonEdgeBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
+          </enyo:ProgressFill>
+          <DockPanel Margin="5,0">
+            <Button Name="PART_CancelButton"
+                    DockPanel.Dock="Right"
+                    Width="{DynamicResource EnyoProgressCancelSize}"
+                    Height="{DynamicResource EnyoProgressCancelSize}"
+                    Margin="0,2,-3,2"
+                    Padding="0"
+                    MinWidth="0"
+                    MinHeight="0"
+                    Focusable="False"
+                    IsVisible="{TemplateBinding Cancelable}"
+                    AutomationProperties.Name="Cancel">
+              <Button.Template>
+                <ControlTemplate>
+                  <Panel Background="Transparent">
+                    <Path Name="Cross"
+                          Data="{DynamicResource EnyoGlyphCancel}"
+                          Fill="{DynamicResource EnyoButtonVariantForegroundBrush}"
+                          Width="16"
+                          Height="16"
+                          Stretch="Uniform" />
+                  </Panel>
+                </ControlTemplate>
+              </Button.Template>
+            </Button>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}"
+                              VerticalAlignment="Center" />
+          </DockPanel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Button#PART_CancelButton:pressed Path#Cross">
+      <Setter Property="Opacity" Value="0.6" />
+    </Style>
+    <Style Selector="^.affirmative">
+      <Setter Property="BarBrush" Value="{DynamicResource EnyoButtonAffirmativeBackgroundBrush}" />
+    </Style>
+    <Style Selector="^.negative">
+      <Setter Property="BarBrush" Value="{DynamicResource EnyoButtonNegativeBackgroundBrush}" />
+    </Style>
+    <Style Selector="^.blue">
+      <Setter Property="BarBrush" Value="{DynamicResource EnyoButtonBlueBackgroundBrush}" />
+    </Style>
+    <Style Selector="^.dark">
+      <Setter Property="BarBrush" Value="{DynamicResource EnyoButtonDarkBackgroundBrush}" />
+    </Style>
+    <Style Selector="^.light">
+      <Setter Property="BarBrush" Value="{DynamicResource EnyoButtonBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonForegroundBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

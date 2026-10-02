@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.TokenInputPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Recipients">
+      <StackPanel Spacing="8">
+        <enyo:TokenInput Name="Tokens" PlaceholderText="To" />
+        <TextBlock Classes="enyo-footnote" TextWrapping="Wrap" Text="Type a name and a comma, or pick a suggestion. Backspace in the empty box selects, then removes, the last chip." />
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

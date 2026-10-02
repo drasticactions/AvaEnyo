@@ -1,0 +1,109 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Menu Width="320">
+      <MenuItem Header="File">
+        <MenuItem Header="New" />
+        <MenuItem Header="Open" />
+      </MenuItem>
+      <MenuItem Header="Edit" />
+    </Menu>
+  </Design.PreviewWith>
+
+  <!--
+    Invented: Enyo had no menu bar. A light toolbar (toolbar-light.png: #a9a9a9 under a white sheen, 1 px light top
+    edge and dark bottom edge) with item captions that take the held gradient when selected. The drop-downs are
+    enyo-popup-menu frames (menu-background.png).
+  -->
+  <ControlTheme x:Key="EnyoTopLevelMenuItem" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoToolbarLightForegroundBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoMenuItemFontSize}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoMenuBarItemPadding}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoButtonCornerRadius}" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_LayoutRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Panel>
+            <ContentPresenter Name="PART_HeaderPresenter"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              RecognizesAccessKey="True"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Stretch"
+                              Margin="{TemplateBinding Padding}" />
+            <Popup Name="PART_Popup"
+                   WindowManagerAddShadowHint="False"
+                   MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                   IsLightDismissEnabled="True"
+                   IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+                   Placement="BottomEdgeAlignedLeft"
+                   HorizontalOffset="-6"
+                   OverlayInputPassThroughElement="{Binding $parent[Menu]}">
+              <Border Margin="{DynamicResource EnyoMenuShadowMargin}"
+                      Background="{DynamicResource EnyoMenuBackgroundBrush}"
+                      BorderBrush="{DynamicResource EnyoMenuEdgeBrush}"
+                      BorderThickness="1"
+                      BoxShadow="{DynamicResource EnyoMenuShadow}"
+                      Padding="{DynamicResource EnyoMenuInnerPadding}"
+                      MinWidth="160"
+                      MaxWidth="480"
+                      CornerRadius="{DynamicResource EnyoMenuCornerRadius}"
+                      TextElement.Foreground="{DynamicResource EnyoPopupForegroundBrush}">
+                <ScrollViewer Theme="{StaticResource EnyoMenuScrollViewer}">
+                  <ItemsPresenter Name="PART_ItemsPresenter"
+                                  ItemsPanel="{TemplateBinding ItemsPanel}"
+                                  Grid.IsSharedSizeScope="True" />
+                </ScrollViewer>
+              </Border>
+            </Popup>
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:open /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type Menu}" TargetType="Menu">
+    <Setter Property="Background" Value="{DynamicResource EnyoToolbarLightBackgroundBrush}" />
+    <Setter Property="Height" Value="{DynamicResource EnyoMenuBarHeight}" />
+    <Setter Property="Padding" Value="4,3" />
+    <Setter Property="ItemContainerTheme" Value="{StaticResource EnyoTopLevelMenuItem}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Background="{DynamicResource EnyoToolbarLightSheenBrush}"
+                  BorderBrush="{DynamicResource EnyoToolbarLightEdgeBrush}"
+                  BorderThickness="0,0,0,1"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border VerticalAlignment="Top" Height="1" Background="{DynamicResource EnyoToolbarHighlightBrush}" />
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  HorizontalAlignment="Stretch"
+                  Padding="{TemplateBinding Padding}">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            VerticalAlignment="Stretch"
+                            KeyboardNavigation.TabNavigation="Continue" />
+          </Border>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

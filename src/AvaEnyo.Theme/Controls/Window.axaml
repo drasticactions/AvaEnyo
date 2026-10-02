@@ -1,0 +1,31 @@
+<!-- Derived from Avalonia.Themes.Fluent/Controls/Window.xaml (MIT, see NOTICE.md). -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <!-- theme.css body: #d8d8d8, #333, 20 px Prelude -->
+  <ControlTheme x:Key="{x:Type Window}" TargetType="Window">
+    <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="TopLevel.SystemBarColor" Value="{DynamicResource EnyoToolbarBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoBaseFontSize}" />
+    <Setter Property="FontFamily" Value="{DynamicResource EnyoFontFamily}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+          <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+          <Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
+          <VisualLayerManager Name="PART_VisualLayerManager">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </VisualLayerManager>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

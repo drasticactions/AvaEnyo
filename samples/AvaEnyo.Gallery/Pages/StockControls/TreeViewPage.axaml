@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.TreeViewPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="TreeView">
+      <TreeView>
+        <TreeViewItem Header="Accounts" IsExpanded="True">
+          <TreeViewItem Header="Work">
+            <TreeViewItem Header="Inbox" />
+            <TreeViewItem Header="Sent" />
+          </TreeViewItem>
+          <TreeViewItem Header="Personal" IsExpanded="True">
+            <TreeViewItem Header="Inbox" />
+            <TreeViewItem Header="Travel" />
+          </TreeViewItem>
+        </TreeViewItem>
+        <TreeViewItem Header="Calendars" />
+      </TreeView>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

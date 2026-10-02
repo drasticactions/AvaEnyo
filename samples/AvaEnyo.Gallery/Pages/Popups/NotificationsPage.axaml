@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Popups.NotificationsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Dashboard notifications">
+      <WrapPanel Classes="row">
+        <Button Name="ShowButton" Content="Show a notification" />
+        <Button Name="LayerButton" Content="Add a layer to the last one" />
+        <Button Name="UpdateButton" Content="Update its text" />
+        <Button Name="DismissButton" Content="Dismiss it" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <TextBlock Name="EventText" Classes="enyo-footnote" TextWrapping="Wrap"
+               Text="Swipe a dashboard sideways to dismiss it; tap it to activate. Up to three show at once." />
+  </StackPanel>
+</UserControl>

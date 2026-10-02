@@ -1,0 +1,81 @@
+<!-- Styles that reach into content, which a ControlTheme may not do. -->
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:enyo="https://github.com/avaenyo"
+        x:ClassModifier="internal">
+  <!-- A text box inside an InputBox draws no frame of its own; the box draws it. -->
+  <Style Selector="enyo|InputBox TextBox">
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+  <!-- Input.css: .enyo-item > .enyo-input { margin: -11px -10px } so an input fills its row instead of padding it. -->
+  <Style Selector="enyo|Item > TextBox, TextBox.in-row">
+    <Setter Property="Margin" Value="{DynamicResource EnyoInputInRowMargin}" />
+  </Style>
+
+  <!-- group D -->
+  <!-- enyo-picker-item-selected: the chosen row of a popup list is bold on white. -->
+  <Style Selector="enyo|PopupListPresenter enyo|Item:selected">
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+  <Style Selector="enyo|PopupListPresenter enyo|Item:selected /template/ Border#PART_Border">
+    <Setter Property="Background" Value="{DynamicResource EnyoPickerItemSelectedBrush}" />
+  </Style>
+  <!-- dialog-group-unlabeled.png: a group inside a modal dialog has a light fill and no side margin. -->
+  <Style Selector="enyo|ModalDialogPresenter enyo|Group">
+    <Setter Property="Background" Value="{DynamicResource EnyoDialogGroupBackgroundBrush}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoDialogGroupMargin}" />
+  </Style>
+  <!-- DialogPrompt.css -->
+  <Style Selector="enyo|DialogPresenter TextBlock.enyo-dialog-prompt-title">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoDialogTitleBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoDialogPromptTitleFontSize}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoDialogPromptTitlePadding}" />
+  </Style>
+  <Style Selector="enyo|DialogPresenter Border.enyo-dialog-prompt-rule">
+    <Setter Property="Background" Value="{DynamicResource EnyoDialogRuleBrush}" />
+  </Style>
+  <Style Selector="enyo|DialogPresenter StackPanel.enyo-dialog-prompt-content">
+    <Setter Property="Margin" Value="{DynamicResource EnyoDialogPromptContentPadding}" />
+  </Style>
+  <Style Selector="enyo|DialogPresenter TextBlock.enyo-dialog-prompt-message">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoDialogMessageBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoDialogPromptMessageFontSize}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoDialogPromptContentPadding}" />
+  </Style>
+  <!-- end of group D -->
+
+  <!-- group E -->
+  <!-- end of group E -->
+
+  <!-- group F -->
+  <!-- A row lifted for reordering: an opaque body-colored row with a drop shadow. -->
+  <Style Selector="enyo|VirtualList enyo|Item:reordering /template/ Border#PART_Border">
+    <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="BoxShadow" Value="{DynamicResource EnyoReorderShadow}" />
+  </Style>
+  <!-- Grid cells (Layout="Grid") draw no row edges. -->
+  <Style Selector="enyo|VirtualList enyo|Item.grid-cell">
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="2" />
+  </Style>
+  <!-- end of group F -->
+
+  <!-- group G -->
+  <!-- end of group G -->
+
+  <!-- group H -->
+  <!-- The entry box of a TokenInput draws no frame or focus look; the TokenInput draws them. -->
+  <Style Selector="TextBox.token-entry /template/ Border#PART_BorderElement">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  <Style Selector="TextBox.token-entry /template/ Border#PART_Frame">
+    <Setter Property="Margin" Value="0" />
+  </Style>
+  <!-- end of group H -->
+
+  <!-- group S -->
+  <!-- end of group S -->
+</Styles>

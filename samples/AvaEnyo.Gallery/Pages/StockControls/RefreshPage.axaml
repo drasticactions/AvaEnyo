@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.RefreshPage">
+  <RefreshContainer Name="Refresh">
+    <ListBox Name="Rows" />
+  </RefreshContainer>
+</UserControl>

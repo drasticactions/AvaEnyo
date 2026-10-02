@@ -1,0 +1,56 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <enyo:SnapScroller Width="300" Height="100">
+      <Border Width="300" Background="#2071bb" />
+      <Border Width="300" Background="#2aa100" />
+    </enyo:SnapScroller>
+  </Design.PreviewWith>
+
+  <!-- SnapScroller: no chrome; the strip clips and slides its items. -->
+  <ControlTheme x:Key="{x:Type enyo:SnapScroller}" TargetType="enyo:SnapScroller">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}">
+          <enyo:SnapStrip Name="PART_Strip" Orientation="{TemplateBinding Orientation}">
+            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </enyo:SnapStrip>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- Carousel: three holders, each the size of the carousel, side by side. No chrome. -->
+  <ControlTheme x:Key="{x:Type enyo:Carousel}" TargetType="enyo:Carousel">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}">
+          <enyo:CarouselStrip Name="PART_Strip" Orientation="{TemplateBinding Orientation}">
+            <!-- The holders get ContentTemplate from code, and only for views that are not controls. -->
+            <ContentControl Name="PART_Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+            <ContentControl Name="PART_Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+            <ContentControl Name="PART_Right" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+          </enyo:CarouselStrip>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:VirtualCarousel}" TargetType="enyo:VirtualCarousel" BasedOn="{StaticResource {x:Type enyo:Carousel}}" />
+
+  <!-- ImageView.css: photos on black, full size. -->
+  <ControlTheme x:Key="{x:Type enyo:ImageView}" TargetType="enyo:ImageView" BasedOn="{StaticResource {x:Type enyo:Carousel}}">
+    <Setter Property="Background" Value="{DynamicResource EnyoImageViewBackgroundBrush}" />
+  </ControlTheme>
+
+  <!-- CroppableImage.css, plus an invented frame: dimming outside the crop and a thin light border. -->
+  <ControlTheme x:Key="{x:Type enyo:CroppableImage}" TargetType="enyo:CroppableImage">
+    <Setter Property="ScrimBrush" Value="{DynamicResource EnyoCropScrimBrush}" />
+    <Setter Property="FrameBrush" Value="{DynamicResource EnyoCropFrameBrush}" />
+    <Setter Property="CropMargin" Value="{DynamicResource EnyoCropMargin}" />
+  </ControlTheme>
+</ResourceDictionary>

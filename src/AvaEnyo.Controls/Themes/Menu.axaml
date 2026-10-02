@@ -1,0 +1,163 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel>
+      <enyo:Menu>
+        <enyo:MenuItem Header="Cut" />
+        <enyo:MenuItem Header="Copy" />
+      </enyo:Menu>
+      <enyo:MenuPresenter Margin="20">
+        <StackPanel>
+          <enyo:MenuItem Header="Open" />
+          <enyo:MenuItem Header="More" IsOpen="True">
+            <enyo:MenuItem Header="Child" />
+          </enyo:MenuItem>
+          <enyo:MenuCheckItem Header="Wrap" IsChecked="True" />
+        </StackPanel>
+      </enyo:MenuPresenter>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- The placeholders: no visuals. -->
+  <ControlTheme x:Key="{x:Type enyo:Menu}" TargetType="enyo:Menu">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+  <ControlTheme x:Key="{x:Type enyo:PopupSelect}" TargetType="enyo:PopupSelect">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+  <ControlTheme x:Key="{x:Type enyo:PopupList}" TargetType="enyo:PopupList">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    menu-background.png, 20px slice: a #ebebeb to #cdcdcd fill, a dark .41 edge, radius ~7, a ~6 px soft shadow. The
+    rows scroll inside, with the small arrow fades of the menu scroller.
+  -->
+  <ControlTheme x:Key="EnyoMenuFrameTheme" TargetType="enyo:PopupPresenter">
+    <Setter Property="Background" Value="{DynamicResource EnyoMenuBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPopupForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoMenuEdgeBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoMenuCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoMenuInnerPadding}" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoPopupMinWidth}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoMenuItemFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Frame"
+                Margin="{DynamicResource EnyoMenuShadowMargin}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                BoxShadow="{DynamicResource EnyoMenuShadow}">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        Theme="{DynamicResource EnyoMenuScrollViewer}"
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:MenuPresenter}" TargetType="enyo:MenuPresenter" BasedOn="{StaticResource EnyoMenuFrameTheme}" />
+  <ControlTheme x:Key="{x:Type enyo:PopupListPresenter}" TargetType="enyo:PopupListPresenter" BasedOn="{StaticResource EnyoMenuFrameTheme}" />
+
+  <!--
+    MenuItem.css: a row of the menu, 16 px text on a 22 px line, item edges, the held gradient while pressed. Children
+    open below in a drawer, indented 24 px per level; the menuitem-arrow chevron turns down while open. A check item
+    shows checkmark.png on the right.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:MenuItem}" TargetType="enyo:MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPopupForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemEdgeBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoMenuItemFontSize}" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <Border Name="PART_Row" DockPanel.Dock="Top"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="0,1">
+            <DockPanel>
+              <enyo:IconPresenter Name="PART_Icon" DockPanel.Dock="Left"
+                                  Icon="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}"
+                                  Width="{DynamicResource EnyoMenuIconSize}" Height="{DynamicResource EnyoMenuIconSize}"
+                                  Margin="0,0,8,0" VerticalAlignment="Center"
+                                  IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}" />
+              <Panel Name="PART_Arrow" DockPanel.Dock="Right"
+                     Width="{DynamicResource EnyoMenuArrowWidth}" Height="{DynamicResource EnyoMenuArrowHeight}"
+                     Margin="0,0,-5,0" IsVisible="False">
+                <Path Name="PART_ArrowGlyph" Data="{DynamicResource EnyoGlyphChevronRight}"
+                      Fill="{DynamicResource EnyoChevronBrush}" Width="12" Height="12" Stretch="Uniform"
+                      RenderTransformOrigin="50%,50%" />
+              </Panel>
+              <Path Name="PART_Check" DockPanel.Dock="Right" Data="{DynamicResource EnyoGlyphCheckmark}"
+                    Fill="{DynamicResource EnyoLabelBrush}" Width="20" Height="20" Stretch="Uniform"
+                    Margin="8,0,0,0" IsVisible="False" />
+              <ContentPresenter Name="PART_HeaderPresenter"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                LineHeight="{DynamicResource EnyoMenuItemLineHeight}"
+                                TextTrimming="CharacterEllipsis"
+                                VerticalAlignment="Center" />
+            </DockPanel>
+          </Border>
+          <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ Border#PART_Row">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:first /template/ Border#PART_Row">
+      <Setter Property="BorderThickness" Value="0,0,0,1" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemBottomBorderBrush}" />
+    </Style>
+    <Style Selector="^:last:not(:open) /template/ Border#PART_Row">
+      <Setter Property="BorderThickness" Value="0,1,0,0" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemTopBorderBrush}" />
+    </Style>
+    <Style Selector="^:single:not(:open) /template/ Border#PART_Row">
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^:has-items /template/ Panel#PART_Arrow">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:open /template/ Path#PART_ArrowGlyph">
+      <Setter Property="RenderTransform" Value="rotate(90deg)" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Row">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:MenuCheckItem}" TargetType="enyo:MenuCheckItem" BasedOn="{StaticResource {x:Type enyo:MenuItem}}">
+    <Style Selector="^:checked /template/ Path#PART_Check">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

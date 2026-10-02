@@ -1,0 +1,304 @@
+<!-- Derived from Avalonia.Themes.Fluent/Controls/ManagedFileChooser.xaml (MIT, see NOTICE.md). -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dialogs="using:Avalonia.Dialogs"
+                    xmlns:internal="using:Avalonia.Dialogs.Internal"
+                    xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20" Width="800" Height="500">
+      <dialogs:ManagedFileChooser />
+    </Border>
+  </Design.PreviewWith>
+
+  <!--
+    Invented, in the Onyx language: a header band (header.png) with the location input, a sliding-view style list of
+    places on the left, the files as Enyo items (held and selected gradients), and Onyx buttons at the bottom. The
+    icons are flat folder and file glyphs in Onyx blue and grey.
+  -->
+  <ControlTheme x:Key="{x:Type dialogs:ManagedFileChooser}" TargetType="dialogs:ManagedFileChooser">
+    <ControlTheme.Resources>
+      <ResourceDictionary>
+        <internal:ResourceSelectorConverter x:Key="Icons">
+          <DrawingGroup x:Key="Icon_Folder">
+            <GeometryDrawing Geometry="M 0 0 L 16 16" />
+            <GeometryDrawing Brush="#FF3A8BCB" Geometry="M 0,3 L 0,13 C 0,14 0,14 1,14 L 15,14 C 16,14 16,14 16,13 L 16,5 C 16,4 16,4 15,4 L 7.5,4 L 6,2 L 1,2 C 0,2 0,2 0,3 Z" />
+            <GeometryDrawing Brush="#FF5AA6EC" Geometry="M 0,6 L 16,6 L 16,13 C 16,14 16,14 15,14 L 1,14 C 0,14 0,14 0,13 Z" />
+          </DrawingGroup>
+          <DrawingGroup x:Key="Icon_File">
+            <GeometryDrawing Geometry="M 0 0 L 16 16" />
+            <GeometryDrawing Brush="#FF828282" Geometry="M 2 0 L 10 0 L 14 4 L 14 16 L 2 16 Z" />
+            <GeometryDrawing Brush="#FFF2F2F2" Geometry="M 3 1 L 9.7 1 L 13 4.3 L 13 15 L 3 15 Z" />
+            <GeometryDrawing Brush="#FF828282" Geometry="M 9 1 L 9 5 L 14 5 L 14 4 L 10 4 L 10 1 Z" />
+          </DrawingGroup>
+          <DrawingGroup x:Key="Icon_Volume">
+            <GeometryDrawing Geometry="M 0 0 L 16 16" />
+            <GeometryDrawing Brush="#FF4B4B4B" Geometry="M 1 9 C 1,8 1,8 2,8 L 14 8 C 15,8 15,8 15,9 L 15 11 C 15,12 15,12 14,12 L 2 12 C 1,12 1,12 1,11 Z" />
+            <GeometryDrawing Brush="#FFA9A9A9" Geometry="M 4 5 L 12 5 L 14.5 7.5 L 1.5 7.5 Z" />
+            <GeometryDrawing Brush="#FF2AA100" Geometry="M 3,9.5 L 4.5,9.5 L 4.5,10.5 L 3,10.5 Z" />
+          </DrawingGroup>
+        </internal:ResourceSelectorConverter>
+      </ResourceDictionary>
+    </ControlTheme.Resources>
+    <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoPopupFontSize}" />
+    <Setter Property="Template" x:DataType="internal:ManagedFileChooserViewModel">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <DockPanel>
+            <ListBox Name="PART_QuickLinks"
+                     DockPanel.Dock="Left"
+                     ItemsSource="{Binding QuickLinks}"
+                     SelectedIndex="{Binding QuickLinksSelectedIndex}"
+                     Focusable="False"
+                     MaxWidth="240">
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <StackPanel Spacing="8" Orientation="Horizontal" Background="Transparent">
+                    <Image Width="16" Height="16">
+                      <Image.Source>
+                        <DrawingImage Drawing="{Binding IconKey, Converter={StaticResource Icons}}" />
+                      </Image.Source>
+                    </Image>
+                    <TextBlock Text="{Binding DisplayName}" />
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+            <Panel Name="NavBarHost" DockPanel.Dock="Top" MinHeight="{DynamicResource EnyoHeaderMinHeight}">
+              <Border Background="{DynamicResource EnyoHeaderBackgroundBrush}" />
+              <Border Background="{DynamicResource EnyoHeaderSheenBrush}"
+                      BorderBrush="{DynamicResource EnyoHeaderBottomEdgeBrush}"
+                      BorderThickness="0,0,0,1" />
+              <DockPanel Name="NavBar" Margin="8,4" VerticalAlignment="Center">
+                <Button Command="{Binding GoUp}" DockPanel.Dock="Left" Margin="0,0,8,0">
+                  <Path Data="M 0 7 L 7 0 L 14 7 M 7 0 L 7 16"
+                        Stroke="{CompiledBinding $parent[Button].Foreground}"
+                        StrokeThickness="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                </Button>
+                <Button Command="{Binding Refresh}" DockPanel.Dock="Right" Margin="8,0,0,0">
+                  <PathIcon Data="{DynamicResource EnyoGlyphRefresh}" Width="16" Height="16" />
+                </Button>
+                <TextBox Name="Location" Text="{Binding Location}" VerticalAlignment="Center">
+                  <TextBox.KeyBindings>
+                    <KeyBinding Command="{Binding EnterPressed}" Gesture="Enter" />
+                  </TextBox.KeyBindings>
+                </TextBox>
+              </DockPanel>
+            </Panel>
+            <DockPanel Margin="8,0,8,6" DockPanel.Dock="Bottom">
+              <Rectangle Fill="{DynamicResource EnyoItemBottomBorderBrush}" Height="1" Margin="0,0,0,6" DockPanel.Dock="Top" />
+              <DockPanel Margin="4,0">
+                <DockPanel DockPanel.Dock="Top" Margin="0,0,0,4">
+                  <ComboBox DockPanel.Dock="Right"
+                            IsVisible="{Binding ShowFilters}"
+                            ItemsSource="{Binding Filters}"
+                            SelectedItem="{Binding SelectedFilter}" />
+                  <TextBox Text="{Binding FileName}"
+                           PlaceholderText="{DynamicResource StringManagedFileChooserFileNamePlaceholder}"
+                           IsVisible="{Binding !SelectingFolder}" />
+                </DockPanel>
+                <CheckBox IsChecked="{Binding ShowHiddenFiles}"
+                          Content="{DynamicResource StringManagedFileChooserShowHiddenFilesText}"
+                          DockPanel.Dock="Left" />
+                <UniformGrid Name="Finalize" HorizontalAlignment="Right" Rows="1">
+                  <Button Command="{Binding Ok}" Classes="affirmative" MinWidth="{DynamicResource EnyoButtonStandardWidth}"
+                          Content="{DynamicResource StringManagedFileChooserOkText}" />
+                  <Button Command="{Binding Cancel}" MinWidth="{DynamicResource EnyoButtonStandardWidth}"
+                          Content="{DynamicResource StringManagedFileChooserCancelText}" />
+                </UniformGrid>
+              </DockPanel>
+            </DockPanel>
+
+            <DockPanel Grid.IsSharedSizeScope="True">
+              <Grid DockPanel.Dock="Top" Margin="15,6,0,0" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="20" SharedSizeGroup="Icon" />
+                  <ColumnDefinition Width="275" SharedSizeGroup="Name" />
+                  <ColumnDefinition Width="16" SharedSizeGroup="Splitter" />
+                  <ColumnDefinition Width="200" SharedSizeGroup="Modified" />
+                  <ColumnDefinition Width="16" SharedSizeGroup="Splitter" />
+                  <ColumnDefinition Width="150" SharedSizeGroup="Type" />
+                  <ColumnDefinition Width="16" SharedSizeGroup="Splitter" />
+                  <ColumnDefinition Width="200" SharedSizeGroup="Size" />
+                  <ColumnDefinition Width="16" SharedSizeGroup="Splitter" />
+                </Grid.ColumnDefinitions>
+                <Grid.Styles>
+                  <Style Selector="GridSplitter">
+                    <Setter Property="Background" Value="{DynamicResource EnyoItemBottomBorderBrush}" />
+                    <Setter Property="Template">
+                      <ControlTemplate>
+                        <Border VerticalAlignment="Stretch" BorderThickness="0" Background="#01000000">
+                          <Rectangle Width="1" VerticalAlignment="Stretch" Fill="{TemplateBinding Background}" />
+                        </Border>
+                      </ControlTemplate>
+                    </Setter>
+                  </Style>
+                </Grid.Styles>
+                <TextBlock Grid.Column="1" Classes="enyo-label" Text="{DynamicResource StringManagedFileChooserNameColumn}" />
+                <GridSplitter Grid.Column="2" />
+                <TextBlock Grid.Column="3" Classes="enyo-label" Text="{DynamicResource StringManagedFileChooserDateModifiedColumn}" />
+                <GridSplitter Grid.Column="4" />
+                <TextBlock Grid.Column="5" Classes="enyo-label" Text="{DynamicResource StringManagedFileChooserTypeColumn}" />
+                <GridSplitter Grid.Column="6" />
+                <TextBlock Grid.Column="7" Classes="enyo-label" Text="{DynamicResource StringManagedFileChooserSizeColumn}" />
+                <GridSplitter Grid.Column="8" />
+              </Grid>
+              <ListBox Name="PART_Files"
+                       ItemsSource="{Binding Items}"
+                       Margin="0,5"
+                       SelectionMode="{Binding SelectionMode}"
+                       SelectedItems="{Binding SelectedItems}"
+                       Background="Transparent"
+                       ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                  <DataTemplate x:DataType="internal:ManagedFileChooserItemViewModel">
+                    <Grid Background="Transparent">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="Icon" />
+                        <ColumnDefinition SharedSizeGroup="Name" />
+                        <ColumnDefinition SharedSizeGroup="Splitter" />
+                        <ColumnDefinition SharedSizeGroup="Modified" />
+                        <ColumnDefinition SharedSizeGroup="Splitter" />
+                        <ColumnDefinition SharedSizeGroup="Type" />
+                        <ColumnDefinition SharedSizeGroup="Splitter" />
+                        <ColumnDefinition SharedSizeGroup="Size" />
+                        <ColumnDefinition SharedSizeGroup="Splitter" />
+                      </Grid.ColumnDefinitions>
+                      <Image Width="16" Height="16">
+                        <Image.Source>
+                          <DrawingImage Drawing="{Binding IconKey, Converter={StaticResource Icons}}" />
+                        </Image.Source>
+                      </Image>
+                      <TextBlock Grid.Column="1" Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
+                      <TextBlock Grid.Column="3" Text="{Binding Modified}" Classes="enyo-subtext" />
+                      <TextBlock Grid.Column="5" Text="{Binding Type}" Classes="enyo-subtext" />
+                      <TextBlock Grid.Column="7" HorizontalAlignment="Right" Classes="enyo-subtext">
+                        <TextBlock.Text>
+                          <Binding Path="Size">
+                            <Binding.Converter>
+                              <internal:FileSizeStringConverter />
+                            </Binding.Converter>
+                          </Binding>
+                        </TextBlock.Text>
+                      </TextBlock>
+                    </Grid>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+            </DockPanel>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- The places list: a pane on the body color with sliding-shadow.png at its right edge. -->
+    <Style Selector="^ /template/ ListBox#PART_QuickLinks">
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Width" Value="220" />
+      <Setter Property="Padding" Value="0,10" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="border"
+                  BoxShadow="inset -10 0 10 -10 #57000000"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <ScrollViewer Name="PART_ScrollViewer"
+                          HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                          VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              ItemsPanel="{TemplateBinding ItemsPanel}"
+                              Margin="{TemplateBinding Padding}" />
+            </ScrollViewer>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <!-- Item.css rows: 1 px light top edge, 1 px dark bottom edge, held and selected gradients. -->
+      <Setter Property="ItemContainerTheme">
+        <ControlTheme TargetType="ListBoxItem">
+          <Setter Property="Padding" Value="{DynamicResource EnyoItemPadding}" />
+          <Setter Property="Template">
+            <ControlTemplate>
+              <Border Name="LayoutRoot"
+                      BorderBrush="{DynamicResource EnyoItemBottomBorderBrush}"
+                      BorderThickness="0,0,0,1">
+                <Border BorderBrush="{DynamicResource EnyoItemTopBorderBrush}" BorderThickness="0,1,0,0">
+                  <ContentPresenter Name="PART_ContentPresenter"
+                                    Background="Transparent"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Content="{TemplateBinding Content}"
+                                    Padding="{TemplateBinding Padding}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                </Border>
+              </Border>
+            </ControlTemplate>
+          </Setter>
+          <Style Selector="^:pressed /template/ Border#LayoutRoot, ^:selected /template/ Border#LayoutRoot">
+            <Setter Property="Background" Value="{DynamicResource EnyoItemSelectedBrush}" />
+          </Style>
+        </ControlTheme>
+      </Setter>
+    </Style>
+
+    <Style Selector="^ /template/ DockPanel#NavBar Button">
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="MinWidth" Value="40" />
+    </Style>
+    <Style Selector="^ /template/ UniformGrid#Finalize > Button">
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+  </ControlTheme>
+
+  <!-- dialog.png language: a short message and an affirmative and a plain button. -->
+  <ControlTheme x:Key="{x:Type dialogs:ManagedFileChooserOverwritePrompt}" TargetType="dialogs:ManagedFileChooserOverwritePrompt">
+    <Setter Property="MinWidth" Value="270" />
+    <Setter Property="MaxWidth" Value="400" />
+    <Setter Property="Padding" Value="10" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <StackPanel Spacing="10">
+            <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource EnyoDialogMessageBrush}">
+              <TextBlock.Text>
+                <MultiBinding>
+                  <MultiBinding.Converter>
+                    <converters:StringFormatConverter />
+                  </MultiBinding.Converter>
+                  <DynamicResource ResourceKey="StringManagedFileChooserOverwritePromptFileAlreadyExistsText" />
+                  <Binding Path="FileName" RelativeSource="{RelativeSource TemplatedParent}" />
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
+            <StackPanel HorizontalAlignment="Right" Spacing="6" Orientation="Horizontal">
+              <Button Classes="negative"
+                      Content="{DynamicResource StringManagedFileChooserOverwritePromptConfirmText}"
+                      MinWidth="80"
+                      IsDefault="True"
+                      Command="{Binding Confirm, RelativeSource={RelativeSource TemplatedParent}}" />
+              <Button Content="{DynamicResource StringManagedFileChooserOverwritePromptCancelText}"
+                      MinWidth="80"
+                      IsCancel="True"
+                      Command="{Binding Cancel, RelativeSource={RelativeSource TemplatedParent}}" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

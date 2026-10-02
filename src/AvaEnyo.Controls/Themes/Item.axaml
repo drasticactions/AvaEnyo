@@ -1,0 +1,126 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="300">
+      <enyo:Item Content="First" />
+      <enyo:Item Content="Selected" IsSelected="True" />
+      <enyo:Item Content="Last" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    Item.css: padding 10, .9rem, 1 px top edge rgba(255,255,255,.5), 1 px bottom edge rgba(0,0,0,.2). The edges are
+    one Border whose brush is light above the middle and dark below it. Held and selected: the blue gradient.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:Item}" TargetType="enyo:Item">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="0,1" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoItemPadding}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoItemFontSize}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoItemMinHeight}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <ContentControl Name="PART_Divider" DockPanel.Dock="Top" IsVisible="{TemplateBinding ShowDivider}" Focusable="False">
+            <enyo:Divider Caption="{TemplateBinding DividerCaption}" />
+          </ContentControl>
+          <Border Name="PART_Border"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}">
+            <Panel>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+              <!-- The selected look of a grid cell, over its content. -->
+              <Border Name="PART_SelectionFrame"
+                      Background="{DynamicResource EnyoGridCellSelectedTintBrush}"
+                      BorderBrush="{DynamicResource EnyoGridCellSelectedEdgeBrush}"
+                      BorderThickness="3"
+                      IsHitTestVisible="False"
+                      IsVisible="False">
+                <Border Width="22" Height="22" Margin="0,5,5,0" CornerRadius="11"
+                        HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Background="{DynamicResource EnyoGridCellSelectedEdgeBrush}">
+                  <Path Data="{DynamicResource EnyoGlyphCheckmark}" Fill="White" Width="12" Height="12" Stretch="Uniform" />
+                </Border>
+              </Border>
+            </Panel>
+          </Border>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^[DividerKind=Alpha] /template/ ContentControl#PART_Divider">
+      <Setter Property="Content">
+        <Template>
+          <enyo:AlphaDivider Caption="{Binding $parent[enyo:Item].DividerCaption}" />
+        </Template>
+      </Setter>
+    </Style>
+    <Style Selector="^:held /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemSelectedBrush}" />
+    </Style>
+    <Style Selector="^.grid-cell:selected /template/ Border#PART_SelectionFrame">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <!-- First and last rows draw their one edge in a solid brush. -->
+    <Style Selector="^:first">
+      <Setter Property="BorderThickness" Value="0,0,0,1" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemBottomBorderBrush}" />
+    </Style>
+    <Style Selector="^:last">
+      <Setter Property="BorderThickness" Value="0,1,0,0" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemTopBorderBrush}" />
+    </Style>
+    <Style Selector="^:single">
+      <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
+
+    <!-- Inside a group, or with the rounded class: radius 8, cut by position. -->
+    <Style Selector="^.rounded">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoItemCornerRadius}" />
+    </Style>
+    <Style Selector="^.rounded:first">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoItemCornerRadiusTop}" />
+    </Style>
+    <Style Selector="^.rounded:middle">
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^.rounded:last">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoItemCornerRadiusBottom}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:RowItem}" TargetType="enyo:RowItem" BasedOn="{StaticResource {x:Type enyo:Item}}" />
+
+  <!-- Items in a group take the rounded shape. -->
+  <ControlTheme x:Key="EnyoGroupItem" TargetType="enyo:Item" BasedOn="{StaticResource {x:Type enyo:Item}}">
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoItemCornerRadius}" />
+    <Style Selector="^:first">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoItemCornerRadiusTop}" />
+    </Style>
+    <Style Selector="^:middle">
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:last">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoItemCornerRadiusBottom}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

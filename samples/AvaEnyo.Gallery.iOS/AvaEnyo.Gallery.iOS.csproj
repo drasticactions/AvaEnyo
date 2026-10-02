@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AvaEnyoIsLibrary>false</AvaEnyoIsLibrary>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-ios</TargetFramework>
+    <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
+    <RootNamespace>AvaEnyo.Gallery.iOS</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- IL2026/IL2045/IL2072/IL2075: linker warnings inside Avalonia's designer support, not ours; IL2121 follows from hiding them. -->
+    <NoWarn>$(NoWarn);CS1591;IL2026;IL2045;IL2072;IL2075;IL2121</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <!-- Debug runs on the interpreter with no AOT compilation; the simulator also skips linking. -->
+    <UseInterpreter>true</UseInterpreter>
+    <MtouchInterpreter>all</MtouchInterpreter>
+    <MtouchLink Condition="$(RuntimeIdentifier.StartsWith('iossimulator'))">None</MtouchLink>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.iOS" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaEnyo.Gallery\AvaEnyo.Gallery.csproj" />
+  </ItemGroup>
+
+</Project>

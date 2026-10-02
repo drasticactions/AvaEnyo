@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaEnyo</RootNamespace>
+    <PackageId>AvaEnyo.Theme</PackageId>
+    <Description>The webOS Enyo 1.0 Onyx theme for Avalonia.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaEnyo.Animations\AvaEnyo.Animations.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets/Fonts/*.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaEnyo.Controls" />
+    <InternalsVisibleTo Include="AvaEnyo.Services" />
+    <InternalsVisibleTo Include="AvaEnyo.Theme.Tests" />
+    <InternalsVisibleTo Include="AvaEnyo.Controls.Tests" />
+    <InternalsVisibleTo Include="AvaEnyo.Services.Tests" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AvaEnyoIsLibrary>false</AvaEnyoIsLibrary>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
+    <RootNamespace>AvaEnyo.Mail.Android</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- IL2026/IL2045/IL2072/IL2075: linker warnings inside Avalonia's designer support, not ours; IL2121 follows from hiding them. -->
+    <NoWarn>$(NoWarn);CS1591;IL2026;IL2045;IL2072;IL2075;IL2121</NoWarn>
+    <ApplicationId>com.avaenyo.mail</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>0.1.0</ApplicationDisplayVersion>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Android" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaEnyo.Mail\AvaEnyo.Mail.csproj" />
+  </ItemGroup>
+
+</Project>

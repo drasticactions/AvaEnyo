@@ -1,0 +1,127 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:AvaEnyo.Mail.ViewModels"
+             xmlns:samples="using:AvaEnyo.Samples"
+             xmlns:views="using:AvaEnyo.Mail.Views"
+             x:Class="AvaEnyo.Mail.MainView"
+             x:DataType="vm:MailViewModel">
+  <Panel>
+    <Panel Name="PopupHost" />
+
+    <!-- The app pane: the mail panels, and Preferences, which flies in from the app menu. -->
+    <enyo:Pane Name="RootPane">
+      <!-- From Layouts/Sliding: folders, messages, and the reader. -->
+      <enyo:SlidingPane Name="Sliding">
+        <!-- Folders: accounts and their folders with unread counts. -->
+        <enyo:SlidingView Name="FoldersView" Width="320">
+          <DockPanel>
+            <enyo:Header DockPanel.Dock="Top" Content="Mail" enyo:AppMenuService.IsOpenRegion="True" />
+            <enyo:Toolbar DockPanel.Dock="Bottom">
+              <enyo:ToolButton Name="FoldersComposeButton" ToolTip.Tip="New message">
+                <enyo:ToolButton.Icon>
+                  <PathIcon Data="{DynamicResource EnyoGlyphPlus}" Width="20" Height="20" />
+                </enyo:ToolButton.Icon>
+              </enyo:ToolButton>
+              <enyo:Spacer />
+              <enyo:ToolButton Name="PreferencesButton" Content="Preferences" />
+            </enyo:Toolbar>
+            <ScrollViewer>
+              <ItemsControl Name="AccountsList" ItemsSource="{Binding Accounts}" Margin="0,6,0,12">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate x:DataType="vm:AccountRow">
+                    <enyo:Group Header="{Binding Name}" ItemsSource="{Binding Folders}">
+                      <enyo:Group.ItemTemplate>
+                        <DataTemplate x:DataType="vm:FolderRow">
+                          <DockPanel>
+                            <Border Classes="count" DockPanel.Dock="Right" IsVisible="{Binding HasUnread}">
+                              <TextBlock Text="{Binding Unread}" />
+                            </Border>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                          </DockPanel>
+                        </DataTemplate>
+                      </enyo:Group.ItemTemplate>
+                    </enyo:Group>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </DockPanel>
+        </enyo:SlidingView>
+
+        <!-- Messages: a virtual list with day dividers and swipe to delete. -->
+        <enyo:SlidingView Name="MessagesView" Width="320" FixedWidth="True">
+          <DockPanel>
+            <enyo:Header DockPanel.Dock="Top">
+              <TextBlock Text="{Binding FolderTitle}" TextTrimming="CharacterEllipsis" />
+            </enyo:Header>
+            <enyo:Toolbar DockPanel.Dock="Top" Classes="light" MinHeight="0" Padding="6,4">
+              <TextBox Name="SearchBox" Classes="search rounded" PlaceholderText="Search" enyo:Flex.Value="1"
+                       Text="{Binding SearchText}" />
+            </enyo:Toolbar>
+            <enyo:Toolbar DockPanel.Dock="Bottom">
+              <enyo:GrabButton />
+              <enyo:Spacer />
+              <enyo:ToolButton Name="SelectButton" Content="Select" IsToggle="True" IsChecked="{Binding IsMultiSelect}" />
+              <enyo:ToolButton Name="DeleteSelectedButton" Content="Delete" IsVisible="{Binding IsMultiSelect}" />
+              <enyo:ToolButton Name="MessagesComposeButton" ToolTip.Tip="New message">
+                <enyo:ToolButton.Icon>
+                  <PathIcon Data="{DynamicResource EnyoGlyphPlus}" Width="20" Height="20" />
+                </enyo:ToolButton.Icon>
+              </enyo:ToolButton>
+            </enyo:Toolbar>
+            <enyo:VirtualList Name="MessageList" ItemsSource="{Binding Messages}" Swipeable="True">
+              <enyo:VirtualList.ItemTemplate>
+                <DataTemplate x:DataType="samples:MailMessage">
+                  <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Classes="time" Text="{Binding TimeText}" />
+                    <StackPanel>
+                      <StackPanel Orientation="Horizontal">
+                        <Ellipse Classes="unread-dot" IsVisible="{Binding IsUnread}" />
+                        <TextBlock Classes="sender" Classes.unread="{Binding IsUnread}" Text="{Binding From.Name}" />
+                      </StackPanel>
+                      <TextBlock Classes="enyo-item-secondary enyo-text-ellipsis" Text="{Binding Subject}" />
+                      <TextBlock Classes="enyo-subtext" Text="{Binding Preview}" TextWrapping="Wrap" MaxLines="2"
+                                 IsVisible="{Binding $parent[UserControl].((vm:MailViewModel)DataContext).Preferences.ShowPreview}" />
+                    </StackPanel>
+                  </DockPanel>
+                </DataTemplate>
+              </enyo:VirtualList.ItemTemplate>
+            </enyo:VirtualList>
+          </DockPanel>
+        </enyo:SlidingView>
+
+        <!-- Reader: the open message. Drag it right to dismiss. -->
+        <enyo:SlidingView Name="ReaderView" enyo:Flex.Value="1" Dismissible="True" PeekWidth="320">
+          <DockPanel>
+            <enyo:Header DockPanel.Dock="Top">
+              <DockPanel>
+                <Image Name="SenderAvatar" DockPanel.Dock="Left" IsVisible="{Binding HasMessage}" Width="44" Height="44" Margin="0,0,12,0" VerticalAlignment="Center" />
+                <TextBlock DockPanel.Dock="Right" Classes="time" Text="{Binding SelectedMessage.TimeText, FallbackValue=''}" />
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="{Binding SelectedMessage.Subject, FallbackValue='No message selected'}" TextTrimming="CharacterEllipsis" />
+                  <TextBlock Classes="enyo-item-secondary enyo-text-ellipsis" Text="{Binding SelectedMessage.From.Name, FallbackValue=''}" />
+                </StackPanel>
+              </DockPanel>
+            </enyo:Header>
+            <enyo:Toolbar DockPanel.Dock="Bottom">
+              <enyo:GrabButton />
+              <enyo:Spacer />
+              <enyo:ToolButton Name="ReplyButton" Content="Reply" IsEnabled="{Binding HasMessage}" />
+              <enyo:ToolButton Name="ForwardButton" Content="Forward" IsEnabled="{Binding HasMessage}" />
+              <enyo:ToolButton Name="DeleteButton" Content="Delete" IsEnabled="{Binding HasMessage}" />
+            </enyo:Toolbar>
+            <ScrollViewer>
+              <StackPanel Margin="20,16">
+                <TextBlock Classes="enyo-subtext" Text="{Binding SelectedMessage.DayCaption, FallbackValue=''}" Margin="0,0,0,8" />
+                <SelectableTextBlock Classes="body" Text="{Binding SelectedMessage.Body, FallbackValue='Pick a message on the left.'}" />
+              </StackPanel>
+            </ScrollViewer>
+          </DockPanel>
+        </enyo:SlidingView>
+      </enyo:SlidingPane>
+
+      <views:PreferencesView Name="PreferencesPage" DataContext="{Binding Preferences}" />
+    </enyo:Pane>
+  </Panel>
+</UserControl>

@@ -1,0 +1,118 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <enyo:AppMenuPresenter>
+      <StackPanel>
+        <enyo:AppMenuItem Header="New Message" />
+        <enyo:EditMenu IsExpanded="True" ShowShortcuts="True" />
+        <enyo:HelpMenu />
+        <enyo:AppMenu><enyo:AppMenuItem Header="Hidden" /></enyo:AppMenu>
+      </StackPanel>
+    </enyo:AppMenuPresenter>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type enyo:AppMenu}" TargetType="enyo:AppMenu">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    AppMenu.css + appmenu.png (12/24/20/24 slice): a dark #454545 to #363636 body at .95 with a #585858 top line,
+    pinned to the top-left of the window; the soft shadow sits outside the right and bottom edges. White 18 px,
+    min width 210.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:AppMenuPresenter}" TargetType="enyo:AppMenuPresenter">
+    <Setter Property="Background" Value="{DynamicResource EnyoAppMenuBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoAppMenuForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoAppMenuEdgeBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoAppMenuFontSize}" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoAppMenuMinWidth}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Frame"
+                Margin="0,0,10,10"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="0,1,0,0"
+                CornerRadius="0,0,6,6"
+                BoxShadow="{DynamicResource EnyoMenuShadow}"
+                ClipToBounds="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="11,0,11,4" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    AppMenuItem.css: padding 10/7/10/5, 18 px white, appmenu-divider.png as a 2 px bottom line (none on the last
+    item); held = appmenu-highlight.png, a blue bar. Children open below, indented 24 px.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:AppMenuItem}" TargetType="enyo:AppMenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoAppMenuForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoAppMenuDividerBrush}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoAppMenuItemPadding}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoAppMenuFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel>
+          <Border Name="PART_Header"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="0,0,0,2">
+            <DockPanel Margin="{TemplateBinding Padding}">
+              <enyo:IconPresenter Name="PART_Icon" DockPanel.Dock="Left" Icon="{TemplateBinding Icon}"
+                                  Foreground="{TemplateBinding Foreground}" Width="24" Height="24" Margin="0,0,8,0"
+                                  IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}" />
+              <Path Name="PART_Arrow" DockPanel.Dock="Right" Data="{DynamicResource EnyoGlyphChevronRight}"
+                    Fill="{TemplateBinding Foreground}" Width="12" Height="12" Stretch="Uniform"
+                    VerticalAlignment="Center" Margin="8,0,0,0" IsVisible="False" />
+              <TextBlock Name="PART_Shortcut" DockPanel.Dock="Right" Opacity="0.6" Margin="12,0,0,0"
+                         VerticalAlignment="Center"
+                         Text="{Binding $parent[enyo:AppMenuItem].Shortcut, StringFormat='Ctrl+{0}'}"
+                         IsVisible="{TemplateBinding ShowShortcut}" />
+              <ContentPresenter Name="PART_HeaderPresenter"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                VerticalAlignment="Center" />
+            </DockPanel>
+          </Border>
+          <ItemsPresenter Name="PART_ItemsPresenter" Margin="24,0,0,0" IsVisible="False"
+                          ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:held /template/ Border#PART_Header">
+      <Setter Property="Background" Value="{DynamicResource EnyoAppMenuHeldBrush}" />
+    </Style>
+    <Style Selector="^:has-items /template/ Path#PART_Arrow">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:expanded /template/ Path#PART_Arrow">
+      <Setter Property="Data" Value="{DynamicResource EnyoGlyphChevronDown}" />
+    </Style>
+    <Style Selector="^:expanded /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:last /template/ Border#PART_Header">
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Header">
+      <Setter Property="Background" Value="{DynamicResource EnyoAppMenuHeldBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:EditMenu}" TargetType="enyo:EditMenu" BasedOn="{StaticResource {x:Type enyo:AppMenuItem}}" />
+  <ControlTheme x:Key="{x:Type enyo:HelpMenu}" TargetType="enyo:HelpMenu" BasedOn="{StaticResource {x:Type enyo:AppMenuItem}}" />
+</ResourceDictionary>

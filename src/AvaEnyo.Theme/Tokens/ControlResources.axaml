@@ -1,0 +1,65 @@
+<!--
+  Layer 3: Fluent key names used by the stock control templates, mapped to the Enyo keys of Layer 2. Aliases
+  resolve at lookup time, so the Compact overlay and app overrides of the Enyo keys apply. Hand-written.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo">
+  <!-- Button family -->
+  <enyo:ResourceAlias x:Key="ButtonBackground" Target="EnyoButtonBackgroundBrush" />
+  <enyo:ResourceAlias x:Key="ButtonBackgroundPressed" Target="EnyoButtonBackgroundBrush" />
+  <enyo:ResourceAlias x:Key="ButtonBackgroundDisabled" Target="EnyoButtonBackgroundBrush" />
+  <enyo:ResourceAlias x:Key="ButtonForeground" Target="EnyoButtonForegroundBrush" />
+  <enyo:ResourceAlias x:Key="ButtonForegroundPressed" Target="EnyoButtonForegroundBrush" />
+  <enyo:ResourceAlias x:Key="ButtonForegroundDisabled" Target="EnyoButtonForegroundBrush" />
+  <enyo:ResourceAlias x:Key="ButtonBorderBrush" Target="EnyoButtonEdgeBrush" />
+  <enyo:ResourceAlias x:Key="ButtonBorderBrushPressed" Target="EnyoButtonPressedEdgeBrush" />
+  <enyo:ResourceAlias x:Key="ButtonBorderBrushDisabled" Target="EnyoButtonEdgeBrush" />
+  <enyo:ResourceAlias x:Key="ButtonPadding" Target="EnyoButtonPadding" />
+  <enyo:ResourceAlias x:Key="ControlCornerRadius" Target="EnyoButtonCornerRadius" />
+  <enyo:ResourceAlias x:Key="ControlContentThemeFontSize" Target="EnyoButtonFontSize" />
+  <enyo:ResourceAlias x:Key="ContentControlThemeFontFamily" Target="EnyoFontFamily" />
+  <enyo:ResourceAlias x:Key="SystemRegionBrush" Target="EnyoBodyBrush" />
+  <enyo:ResourceAlias x:Key="SystemControlForegroundBaseHighBrush" Target="EnyoTextBrush" />
+
+  <!-- Group A: inputs, toggles, range and small controls -->
+  <enyo:ResourceAlias x:Key="TextControlForeground" Target="EnyoInputForegroundBrush" />
+  <enyo:ResourceAlias x:Key="TextControlBackground" Target="EnyoInputBackgroundBrush" />
+  <enyo:ResourceAlias x:Key="TextControlBackgroundFocused" Target="EnyoInputFocusBackgroundBrush" />
+  <enyo:ResourceAlias x:Key="TextControlBorderBrushFocused" Target="EnyoInputFocusEdgeBrush" />
+  <enyo:ResourceAlias x:Key="TextControlPlaceholderForeground" Target="EnyoPlaceholderBrush" />
+  <enyo:ResourceAlias x:Key="TextControlSelectionHighlightColor" Target="EnyoInputSelectionBrush" />
+  <enyo:ResourceAlias x:Key="SystemControlErrorTextForegroundBrush" Target="EnyoErrorBrush" />
+  <!-- end of group A -->
+
+  <!-- Group B: lists, selection, menus, popups and containers -->
+  <enyo:ResourceAlias x:Key="ComboBoxForeground" Target="EnyoTextBrush" />
+  <enyo:ResourceAlias x:Key="ListBoxItemPadding" Target="EnyoItemPadding" />
+  <enyo:ResourceAlias x:Key="MenuFlyoutPresenterBackground" Target="EnyoMenuBackgroundBrush" />
+  <enyo:ResourceAlias x:Key="MenuFlyoutItemForeground" Target="EnyoPopupForegroundBrush" />
+  <enyo:ResourceAlias x:Key="FlyoutPresenterBackground" Target="EnyoPopupBackgroundBrush" />
+  <enyo:ResourceAlias x:Key="ToolTipForeground" Target="EnyoPopupForegroundBrush" />
+  <enyo:ResourceAlias x:Key="ToolTipBackground" Target="EnyoToolTipBackgroundBrush" />
+  <!-- end of group B -->
+
+  <!-- Group C: dates, pages, commands and the remaining stock controls -->
+  <!-- The invariant strings the stock DatePicker, TimePicker and ManagedFileChooser templates read. -->
+  <x:String x:Key="StringDatePickerDayText">day</x:String>
+  <x:String x:Key="StringDatePickerMonthText">month</x:String>
+  <x:String x:Key="StringDatePickerYearText">year</x:String>
+  <x:String x:Key="StringTimePickerHourText">hour</x:String>
+  <x:String x:Key="StringTimePickerMinuteText">minute</x:String>
+  <x:String x:Key="StringTimePickerSecondText">second</x:String>
+  <x:String x:Key="StringManagedFileChooserFileNamePlaceholder">File name</x:String>
+  <x:String x:Key="StringManagedFileChooserShowHiddenFilesText">Show hidden files</x:String>
+  <x:String x:Key="StringManagedFileChooserOkText">OK</x:String>
+  <x:String x:Key="StringManagedFileChooserCancelText">Cancel</x:String>
+  <x:String x:Key="StringManagedFileChooserNameColumn">Name</x:String>
+  <x:String x:Key="StringManagedFileChooserDateModifiedColumn">Date Modified</x:String>
+  <x:String x:Key="StringManagedFileChooserTypeColumn">Type</x:String>
+  <x:String x:Key="StringManagedFileChooserSizeColumn">Size</x:String>
+  <x:String x:Key="StringManagedFileChooserOverwritePromptFileAlreadyExistsText">{0} already exists. Do you want to replace it?</x:String>
+  <x:String x:Key="StringManagedFileChooserOverwritePromptConfirmText">Yes</x:String>
+  <x:String x:Key="StringManagedFileChooserOverwritePromptCancelText">No</x:String>
+  <!-- end of group C -->
+</ResourceDictionary>

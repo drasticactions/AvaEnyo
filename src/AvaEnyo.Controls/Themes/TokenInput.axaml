@@ -1,0 +1,133 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="360" Margin="10" Spacing="10">
+      <enyo:TokenInput PlaceholderText="To" />
+      <WrapPanel>
+        <enyo:TokenChip Content="Ada Lovelace" />
+        <enyo:TokenChip Content="Selected" IsSelected="True" />
+      </WrapPanel>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    AtomizingInput.css: the enyo-input frame (14 px, clear until focused, input-focus.png when focused) around a
+    wrapping row of ContactAtom pills and the text box.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:TokenInput}" TargetType="enyo:TokenInput">
+    <Setter Property="Background" Value="{DynamicResource EnyoInputBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoInputForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoInputCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoInputFrameThickness}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoInputFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Frame"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Padding="{TemplateBinding Padding}">
+            <enyo:TokenPanel Name="PART_Panel"
+                             FillChild="{Binding #PART_TextBox}"
+                             Overflow="{Binding #PART_ShowAll}">
+              <TextBox Name="PART_TextBox"
+                       Classes="token-entry"
+                       MinWidth="40"
+                       VerticalAlignment="Center"
+                       Text="{TemplateBinding Text, Mode=TwoWay}"
+                       PlaceholderText="{TemplateBinding PlaceholderText}" />
+              <Button Name="PART_ShowAll"
+                      Classes="token-more"
+                      Content="{Binding #PART_Panel.HiddenCount, StringFormat='+{0}'}" />
+            </enyo:TokenPanel>
+          </Border>
+          <enyo:Popup Name="PART_SuggestionsPopup" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:focus-within">
+      <Setter Property="Background" Value="{DynamicResource EnyoInputFocusBackgroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoInputFocusEdgeBrush}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoInputFocusShadow}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.625" />
+    </Style>
+    <!-- The text box draws no frame of its own; the input draws it. -->
+    <Style Selector="^ /template/ TextBox#PART_TextBox">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="4,0" />
+      <Setter Property="Margin" Value="0" />
+    </Style>
+    <!-- .enyo-addressing-expand-button: blue 16 px "+N". -->
+    <Style Selector="^ /template/ Button#PART_ShowAll">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoLabelBrush}" />
+      <Setter Property="FontSize" Value="{DynamicResource EnyoButtonFontSize}" />
+      <Setter Property="Margin" Value="14,0,0,0" />
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <ContentPresenter Name="PART_ContentPresenter" Content="{TemplateBinding Content}"
+                            Background="{TemplateBinding Background}" Padding="4"
+                            VerticalAlignment="Center" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+
+  <!--
+    ContactAtom: a rounded pill, 16 px text with ellipsis, 3 px margin; the light segment sheen (radiobutton.png up)
+    with a dark .25 edge. Selected: the blue segment with white text.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:TokenChip}" TargetType="enyo:TokenChip">
+    <Setter Property="Background" Value="{DynamicResource EnyoSegmentBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoTokenChipCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoTokenChipPadding}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoTokenChipHeight}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoButtonFontSize}" />
+    <Setter Property="Margin" Value="3" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Padding="{TemplateBinding Padding}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="NoWrap"
+                            VerticalContentAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected, ^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentOnBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentOnEdgeBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Lists.PagedListPage">
+  <DockPanel>
+    <Border DockPanel.Dock="Right" Width="220" Background="{DynamicResource EnyoHeaderBackgroundBrush}">
+      <DockPanel>
+        <enyo:Divider DockPanel.Dock="Top" Caption="Page log" />
+        <ScrollViewer>
+          <TextBlock Name="Log" Margin="8,0" Classes="enyo-subtext" TextWrapping="Wrap" />
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+    <enyo:VirtualList Name="List" />
+  </DockPanel>
+</UserControl>

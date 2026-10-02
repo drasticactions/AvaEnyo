@@ -1,0 +1,70 @@
+<!-- Derived from Avalonia.Themes.Fluent/Controls/AutoCompleteBox.xaml (MIT, see NOTICE.md). -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Width="260">
+      <AutoCompleteBox PlaceholderText="Type a fruit" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- An enyo-input with an Onyx popup (popup.png: light gradient, soft drop shadow) listing the suggestions. -->
+  <ControlTheme x:Key="{x:Type AutoCompleteBox}" TargetType="AutoCompleteBox">
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
+    <Setter Property="Background" Value="{DynamicResource TextControlBackground}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource TextControlPlaceholderForeground}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoInputCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoInputSpacing}" />
+    <Setter Property="MaxDropDownHeight" Value="300" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_LayoutRoot">
+          <TextBox Name="PART_TextBox"
+                   PlaceholderText="{TemplateBinding PlaceholderText}"
+                   PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                   Width="{TemplateBinding Width}"
+                   Foreground="{TemplateBinding Foreground}"
+                   Background="{TemplateBinding Background}"
+                   BorderBrush="{TemplateBinding BorderBrush}"
+                   BorderThickness="{TemplateBinding BorderThickness}"
+                   CornerRadius="{TemplateBinding CornerRadius}"
+                   CaretIndex="{TemplateBinding CaretIndex, Mode=TwoWay}"
+                   ClearSelectionOnLostFocus="{TemplateBinding ClearSelectionOnLostFocus}"
+                   Padding="{TemplateBinding Padding}"
+                   Margin="0"
+                   DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                   MaxLength="{TemplateBinding MaxLength}"
+                   InnerLeftContent="{TemplateBinding InnerLeftContent}"
+                   InnerRightContent="{TemplateBinding InnerRightContent}" />
+          <Popup Name="PART_Popup"
+                 WindowManagerAddShadowHint="False"
+                 MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                 IsLightDismissEnabled="True"
+                 PlacementTarget="{TemplateBinding}">
+            <Border Margin="{DynamicResource EnyoPopupShadowMargin}">
+              <Border Name="PART_SuggestionsContainer"
+                      Padding="0,6"
+                      BorderThickness="1"
+                      BorderBrush="{DynamicResource EnyoPopupEdgeBrush}"
+                      Background="{DynamicResource EnyoPopupBackgroundBrush}"
+                      CornerRadius="{DynamicResource EnyoPopupCornerRadius}"
+                      BoxShadow="{DynamicResource EnyoPopupShadow}"
+                      ClipToBounds="True">
+                <ListBox Name="PART_SelectingItemsControl"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         Foreground="{DynamicResource EnyoPopupForegroundBrush}"
+                         ItemTemplate="{TemplateBinding ItemTemplate}"
+                         ScrollViewer.IsScrollChainingEnabled="False" />
+              </Border>
+            </Border>
+          </Popup>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

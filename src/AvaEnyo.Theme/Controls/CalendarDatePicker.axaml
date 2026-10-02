@@ -1,0 +1,126 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="using:System"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20" Height="420">
+      <CalendarDatePicker VerticalAlignment="Top" />
+    </Border>
+  </Design.PreviewWith>
+
+  <!-- Invented: a small calendar page glyph with today's day number, drawn in the chevron grey. -->
+  <ControlTheme x:Key="EnyoCalendarDatePickerButton" TargetType="Button">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoChevronBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Margin" Value="2,0,8,0" />
+    <Setter Property="Width" Value="22" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Height="24" Width="22" Background="{TemplateBinding Background}"
+              HorizontalAlignment="Center" VerticalAlignment="Center" RowDefinitions="6,*">
+          <Border Grid.Row="0" Background="{TemplateBinding Foreground}" CornerRadius="3,3,0,0" />
+          <Border Grid.Row="1" BorderThickness="1.5,0,1.5,1.5" BorderBrush="{TemplateBinding Foreground}" CornerRadius="0,0,3,3" />
+          <TextBlock Grid.Row="1"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontSize="11"
+                     FontWeight="Bold"
+                     Foreground="{TemplateBinding Foreground}"
+                     Text="{Binding Source={x:Static sys:DateTime.Today}, Path=Day}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonBlueBackgroundBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    input-focus.png, 14px slice, radius 6: a white field with a soft grey top edge and an inner shadow, a calendar
+    glyph button at the right. The drop-down is an Onyx popup (popup.png) holding the calendar.
+  -->
+  <ControlTheme x:Key="{x:Type CalendarDatePicker}" TargetType="CalendarDatePicker">
+    <Setter Property="Background" Value="{DynamicResource EnyoInputFocusBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoInputForegroundBrush}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource EnyoPlaceholderBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoInputFocusEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoInputCornerRadius}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoInputFontSize}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoButtonMinHeight}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Padding" Value="8,4" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Panel Name="LayoutRoot" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border Name="Background"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Background="{TemplateBinding Background}"
+                    BoxShadow="{DynamicResource EnyoInputFocusShadow}" />
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBox Name="PART_TextBox"
+                       Foreground="{TemplateBinding Foreground}"
+                       Background="Transparent"
+                       BorderBrush="Transparent"
+                       BorderThickness="0"
+                       Margin="{TemplateBinding BorderThickness}"
+                       Padding="{TemplateBinding Padding}"
+                       PlaceholderText="{TemplateBinding PlaceholderText}"
+                       PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                       UseFloatingPlaceholder="{TemplateBinding UseFloatingPlaceholder}"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                       HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                       Grid.Column="0">
+                <TextBox.Styles>
+                  <!-- The field above draws the frame; the inner text box draws none in any state. -->
+                  <Style Selector="TextBox#PART_TextBox /template/ Border">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BoxShadow" Value="{DynamicResource EnyoNoShadow}" />
+                  </Style>
+                </TextBox.Styles>
+              </TextBox>
+              <Button Name="PART_Button"
+                      Theme="{StaticResource EnyoCalendarDatePickerButton}"
+                      Grid.Column="1"
+                      Focusable="False" />
+              <Popup Name="PART_Popup"
+                     PlacementTarget="{TemplateBinding}"
+                     IsLightDismissEnabled="True">
+                <Border Margin="10" BoxShadow="{DynamicResource EnyoPopupShadow}" CornerRadius="{DynamicResource EnyoGroupCornerRadius}">
+                  <Calendar Name="PART_Calendar"
+                            FirstDayOfWeek="{TemplateBinding FirstDayOfWeek}"
+                            IsTodayHighlighted="{TemplateBinding IsTodayHighlighted}"
+                            SelectedDate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedDate, Mode=TwoWay}"
+                            DisplayDate="{TemplateBinding DisplayDate}"
+                            DisplayDateStart="{TemplateBinding DisplayDateStart}"
+                            DisplayDateEnd="{TemplateBinding DisplayDateEnd}"
+                            Background="{DynamicResource EnyoPopupBackgroundBrush}"
+                            BorderBrush="{DynamicResource EnyoPopupEdgeBrush}" />
+                </Border>
+              </Popup>
+            </Grid>
+          </Panel>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:focus-within /template/ Border#Background">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+    </Style>
+    <Style Selector="^:error /template/ Border#Background">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoErrorBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.625" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

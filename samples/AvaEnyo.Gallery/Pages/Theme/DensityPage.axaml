@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Theme.DensityPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Density">
+      <StackPanel Spacing="6">
+        <enyo:RadioGroup Name="Choice">
+          <enyo:RadioSegment Content="Default (Enyo)" />
+          <enyo:RadioSegment Content="Compact" />
+        </enyo:RadioGroup>
+        <TextBlock Classes="enyo-paragraph" Text="Density applies to the whole app: every DynamicResource metric re-resolves when it changes. The table shows the live value of each metric." />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Controls">
+      <StackPanel>
+        <enyo:Toolbar>
+          <enyo:ToolButton Content="Tool" />
+          <Button Content="Button" />
+          <enyo:Spacer />
+          <ToggleSwitch IsChecked="True" />
+        </enyo:Toolbar>
+        <enyo:Group Header="Group">
+          <enyo:Item Content="Item" />
+          <enyo:Item>
+            <CheckBox Content="Check box" IsChecked="True" />
+          </enyo:Item>
+        </enyo:Group>
+        <Slider Value="40" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Metrics">
+      <Grid Name="Table" ColumnDefinitions="*,Auto" />
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

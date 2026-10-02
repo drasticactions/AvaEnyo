@@ -1,0 +1,149 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="10">
+      <SplitButton Content="Split">
+        <SplitButton.Flyout>
+          <Flyout>Hello</Flyout>
+        </SplitButton.Flyout>
+      </SplitButton>
+      <ToggleSplitButton Content="Toggle split" IsChecked="True" />
+      <SplitButton Classes="affirmative" Content="Affirmative" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    button-up.png / button-down.png halves. The primary part keeps the left corners, the arrow part the right ones; a
+    1 px edge separates them. The open flyout or a checked toggle shows the down frame.
+  -->
+  <ControlTheme x:Key="EnyoSplitButtonComponent" TargetType="Button">
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoButtonEdgeBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame"
+                  Background="{DynamicResource EnyoButtonSheenBrush}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Margin="{DynamicResource EnyoButtonFrameThickness}"
+                            Padding="{TemplateBinding Padding}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            LineHeight="{DynamicResource EnyoButtonLineHeight}"
+                            RecognizesAccessKey="True"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed, ^[Tag=flyout-open], ^[Tag=checked], ^[Tag=checked-flyout-open]">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoButtonPressedEdgeBrush}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="Background" Value="{DynamicResource EnyoButtonPressedSheenBrush}" />
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoButtonPressedShadow}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type SplitButton}" TargetType="SplitButton">
+    <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoButtonFontSize}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoButtonMinHeight}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoButtonMargin}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="True" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoButtonPadding}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto">
+          <Button Name="PART_PrimaryButton"
+                  Grid.Column="0"
+                  Theme="{StaticResource EnyoSplitButtonComponent}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Content="{TemplateBinding Content}"
+                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                  Command="{TemplateBinding Command}"
+                  CommandParameter="{TemplateBinding CommandParameter}"
+                  CornerRadius="{DynamicResource EnyoButtonCornerRadiusLeft}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                  Padding="{TemplateBinding Padding}"
+                  Focusable="False"
+                  KeyboardNavigation.IsTabStop="False" />
+          <Button Name="PART_SecondaryButton"
+                  Grid.Column="1"
+                  Theme="{StaticResource EnyoSplitButtonComponent}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{DynamicResource EnyoButtonCornerRadiusRight}"
+                  MinWidth="{DynamicResource EnyoButtonMinHeight}"
+                  Padding="0"
+                  Margin="-1,0,0,0"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Focusable="False"
+                  KeyboardNavigation.IsTabStop="False">
+            <Path Data="{DynamicResource EnyoGlyphMenuArrow}"
+                  Fill="{TemplateBinding Foreground}"
+                  Width="{DynamicResource EnyoListSelectorArrowWidth}"
+                  Height="{DynamicResource EnyoDropDownArrowHeight}"
+                  Stretch="Uniform" />
+          </Button>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="flyout-open" />
+    </Style>
+    <Style Selector="^:checked /template/ Button">
+      <Setter Property="Tag" Value="checked" />
+    </Style>
+    <Style Selector="^:checked:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="checked-flyout-open" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <Style Selector="^.dark">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonDarkBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.affirmative">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonAffirmativeBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.negative">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonNegativeBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.blue">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonBlueBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+    <Style Selector="^.gray">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonGrayBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoButtonVariantForegroundBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

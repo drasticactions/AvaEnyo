@@ -1,0 +1,39 @@
+<!-- Vector redraws of the glyph-like Onyx images. Coordinates are in a 24x24 box unless noted. -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- search-input-search.png: a ring with a handle to the lower right -->
+  <StreamGeometry x:Key="EnyoGlyphSearch">M10,2 A8,8 0 1 0 14.9,16.3 L20.3,21.7 A1.4,1.4 0 0 0 22.3,19.7 L16.9,14.3 A8,8 0 0 0 10,2 Z M10,5 A5,5 0 1 1 10,15 A5,5 0 1 1 10,5 Z</StreamGeometry>
+  <!-- search-input-cancel.png: a heavy diagonal cross -->
+  <StreamGeometry x:Key="EnyoGlyphCancel">M5.6,3.5 L12,9.9 L18.4,3.5 L20.5,5.6 L14.1,12 L20.5,18.4 L18.4,20.5 L12,14.1 L5.6,20.5 L3.5,18.4 L9.9,12 L3.5,5.6 Z</StreamGeometry>
+  <!-- checkmark.png -->
+  <StreamGeometry x:Key="EnyoGlyphCheckmark">M2,12.5 L5.2,9.4 L9.5,13.6 L18.8,4.2 L22,7.4 L9.5,19.8 Z</StreamGeometry>
+  <!-- menuitem-arrow.png, collapsed and expanded -->
+  <StreamGeometry x:Key="EnyoGlyphChevronRight">M8,4 L16,12 L8,20 L6,18 L12,12 L6,6 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphChevronDown">M4,8 L12,16 L20,8 L18,6 L12,12 L6,6 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphChevronLeft">M16,4 L8,12 L16,20 L18,18 L12,12 L18,6 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphChevronUp">M4,16 L12,8 L20,16 L18,18 L12,12 L6,18 Z</StreamGeometry>
+  <!-- menu-arrow.png: 14x10 down triangle -->
+  <StreamGeometry x:Key="EnyoGlyphMenuArrow">M0,0 L14,0 L7,10 Z</StreamGeometry>
+  <!-- menu-fade-arrow-up.png / -down.png: 20x10 triangles -->
+  <StreamGeometry x:Key="EnyoGlyphFadeArrowUp">M0,10 L10,0 L20,10 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphFadeArrowDown">M0,0 L20,0 L10,10 Z</StreamGeometry>
+  <!-- divider-arrow.png: the triangle inside the knob (right-pointing; rotate 90 for open) -->
+  <StreamGeometry x:Key="EnyoGlyphDividerArrow">M8,5 L19,12 L8,19 Z</StreamGeometry>
+  <!-- grabbutton.png: three rounded vertical bars in a 46x54 box -->
+  <StreamGeometry x:Key="EnyoGlyphGrab">M14,16 L19,16 L19,38 L14,38 Z M20.5,16 L25.5,16 L25.5,38 L20.5,38 Z M27,16 L32,16 L32,38 L27,38 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphBack">M10.5,4 L2.5,12 L10.5,20 L12.6,17.9 L8.2,13.5 L21.5,13.5 L21.5,10.5 L8.2,10.5 L12.6,6.1 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphPlus">M10.5,3 L13.5,3 L13.5,10.5 L21,10.5 L21,13.5 L13.5,13.5 L13.5,21 L10.5,21 L10.5,13.5 L3,13.5 L3,10.5 L10.5,10.5 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphMinus">M3,10.5 L21,10.5 L21,13.5 L3,13.5 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphBackspace">M8,4 L22,4 L22,20 L8,20 L1,12 Z M11.5,8.2 L10.1,9.6 L12.5,12 L10.1,14.4 L11.5,15.8 L13.9,13.4 L16.3,15.8 L17.7,14.4 L15.3,12 L17.7,9.6 L16.3,8.2 L13.9,10.6 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphClose">M6.3,5 L12,10.7 L17.7,5 L19,6.3 L13.3,12 L19,17.7 L17.7,19 L12,13.3 L6.3,19 L5,17.7 L10.7,12 L5,6.3 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphMaximize">M5,5 L19,5 L19,19 L5,19 Z M6.5,8 L6.5,17.5 L17.5,17.5 L17.5,8 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphRestore">M8,4 L20,4 L20,16 L17,16 L17,14.5 L18.5,14.5 L18.5,7 L9.5,7 L9.5,8 L8,8 Z M4,8 L16,8 L16,20 L4,20 Z M5.5,11 L5.5,18.5 L14.5,18.5 L14.5,11 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphMinimize">M5,16 L19,16 L19,18 L5,18 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphFolder">M2,5 L9,5 L11,7.5 L22,7.5 L22,20 L2,20 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphFile">M5,2 L14,2 L20,8 L20,22 L5,22 Z M14,2.5 L14,8 L19.5,8 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphError">M12,2 A10,10 0 1 0 12,22 A10,10 0 1 0 12,2 Z M10.6,6 L13.4,6 L13,14 L11,14 Z M12,15.5 A1.6,1.6 0 1 1 12,18.7 A1.6,1.6 0 1 1 12,15.5 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphInfo">M12,2 A10,10 0 1 0 12,22 A10,10 0 1 0 12,2 Z M12,5.3 A1.6,1.6 0 1 1 12,8.5 A1.6,1.6 0 1 1 12,5.3 Z M10.6,10 L13.4,10 L13.4,18 L10.6,18 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphRefresh">M12,4 A8,8 0 1 0 19.7,14 L17,14 A5.4,5.4 0 1 1 15.8,8.2 L13,11 L21,11 L21,3 L17.7,6.3 A8,8 0 0 0 12,4 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphMore">M5,10 A2,2 0 1 1 5,14 A2,2 0 1 1 5,10 Z M12,10 A2,2 0 1 1 12,14 A2,2 0 1 1 12,10 Z M19,10 A2,2 0 1 1 19,14 A2,2 0 1 1 19,10 Z</StreamGeometry>
+  <StreamGeometry x:Key="EnyoGlyphHamburger">M3,5 L21,5 L21,7.5 L3,7.5 Z M3,10.75 L21,10.75 L21,13.25 L3,13.25 Z M3,16.5 L21,16.5 L21,19 L3,19 Z</StreamGeometry>
+</ResourceDictionary>

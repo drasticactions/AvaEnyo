@@ -1,0 +1,90 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:prim="using:AvaEnyo.Primitives"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <ScrollViewer Width="200" Height="200">
+      <StackPanel Spacing="20">
+        <TextBlock Text="Item 1" />
+        <TextBlock Text="Item 2" />
+        <TextBlock Text="Item 3" />
+        <TextBlock Text="Item 4" />
+        <TextBlock Text="Item 5" />
+        <TextBlock Text="Item 6" />
+        <TextBlock Text="Item 7" />
+      </StackPanel>
+    </ScrollViewer>
+  </Design.PreviewWith>
+
+  <!--
+    Scroller / FadeScroller. The presenter runs Enyo's scroll physics (EnyoScrollContentPresenter) and sets the
+    pseudo-classes used here: :scroll-up/-down/-left/-right when the content can scroll that way, :fades when
+    enyo:Scroll.Fades is on, :mouse-active for a second after mouse or pen activity. The fades are 54 px gradients
+    of the body color (Enyo's fade images). The scroll bars are thin overlays shown only for mouse and pen.
+  -->
+  <ControlTheme x:Key="{x:Type ScrollViewer}" TargetType="ScrollViewer">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="IsScrollInertiaEnabled" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <prim:EnyoScrollContentPresenter Name="PART_ContentPresenter"
+                                           Background="{TemplateBinding Background}"
+                                           HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
+                                           VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}"
+                                           HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
+                                           VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
+                                           Padding="{TemplateBinding Padding}" />
+          <Border Name="PART_FadeTop" VerticalAlignment="Top" Height="{DynamicResource EnyoScrollFadeSize}"
+                  Background="{DynamicResource EnyoScrollFadeTopBrush}" IsHitTestVisible="False" IsVisible="False" />
+          <Border Name="PART_FadeBottom" VerticalAlignment="Bottom" Height="{DynamicResource EnyoScrollFadeSize}"
+                  Background="{DynamicResource EnyoScrollFadeBottomBrush}" IsHitTestVisible="False" IsVisible="False" />
+          <Border Name="PART_FadeLeft" HorizontalAlignment="Left" Width="{DynamicResource EnyoScrollFadeSize}"
+                  Background="{DynamicResource EnyoScrollFadeLeftBrush}" IsHitTestVisible="False" IsVisible="False" />
+          <Border Name="PART_FadeRight" HorizontalAlignment="Right" Width="{DynamicResource EnyoScrollFadeSize}"
+                  Background="{DynamicResource EnyoScrollFadeRightBrush}" IsHitTestVisible="False" IsVisible="False" />
+          <ScrollBar Name="PART_HorizontalScrollBar"
+                     Orientation="Horizontal"
+                     VerticalAlignment="Bottom"
+                     Margin="2,0,6,2"
+                     Opacity="0">
+            <ScrollBar.Transitions>
+              <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.25" />
+              </Transitions>
+            </ScrollBar.Transitions>
+          </ScrollBar>
+          <ScrollBar Name="PART_VerticalScrollBar"
+                     Orientation="Vertical"
+                     HorizontalAlignment="Right"
+                     Margin="0,2,2,6"
+                     Opacity="0">
+            <ScrollBar.Transitions>
+              <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.25" />
+              </Transitions>
+            </ScrollBar.Transitions>
+          </ScrollBar>
+          <Panel Name="PART_ScrollBarsSeparator" IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:fades:scroll-up /template/ Border#PART_FadeTop">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:fades:scroll-down /template/ Border#PART_FadeBottom">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:fades:scroll-left /template/ Border#PART_FadeLeft">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:fades:scroll-right /template/ Border#PART_FadeRight">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:mouse-active /template/ ScrollBar">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+  </ControlTheme>
+
+</ResourceDictionary>

@@ -1,0 +1,15 @@
+<Styles x:Class="AvaEnyo.Controls.AvaEnyoControlsTheme"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/ControlResources.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <ResourceInclude x:Key="CompactMetrics" Source="avares://AvaEnyo.Controls/Themes/CompactMetrics.axaml" />
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <StyleInclude Source="avares://AvaEnyo.Controls/Themes/_Controls.axaml" />
+</Styles>

@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.NotificationsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="WindowNotificationManager">
+      <StackPanel Orientation="Horizontal" Spacing="6">
+        <Button Name="InfoButton" Content="Information" />
+        <Button Name="ErrorButton" Classes="negative" Content="Error" />
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

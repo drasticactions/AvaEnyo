@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build-test-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Tokens are up to date
+        run: python3 tools/gen-tokens.py --check
+      - name: Naming gate
+        run: |
+          # The earlier toolkit and the web library it reproduced must not be named anywhere in the repository.
+          if grep -rniE 'ava[w]in|win[j]s' --exclude-dir=.git .; then
+            echo "Forbidden name found." >&2
+            exit 1
+          fi
+      - name: Build libraries and tests
+        run: dotnet build AvaEnyo.slnx -c Release
+      - name: Headless tests
+        run: |
+          dotnet run --project tests/AvaEnyo.Animations.Tests -c Release
+          dotnet run --project tests/AvaEnyo.Theme.Tests -c Release
+          dotnet run --project tests/AvaEnyo.Controls.Tests -c Release
+          dotnet run --project tests/AvaEnyo.Services.Tests -c Release
+      - name: Build desktop samples
+        run: |
+          for p in samples/AvaEnyo.Gallery.Desktop samples/Demos/AvaEnyo.{Mail,Photos}.Desktop; do
+            dotnet build "$p" -c Release
+          done
+      - name: AOT smoke
+        run: |
+          for p in samples/AvaEnyo.Gallery.Desktop samples/Demos/AvaEnyo.Mail.Desktop samples/Demos/AvaEnyo.Photos.Desktop; do
+            dotnet publish "$p" -c Release -r linux-x64 /p:PublishAot=true /p:TreatWarningsAsErrors=true -o "artifacts/aot/$(basename $p)"
+          done
+      - name: Pack
+        run: dotnet pack AvaEnyo.slnx -c Release -o artifacts/packages
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: artifacts/packages/*.nupkg

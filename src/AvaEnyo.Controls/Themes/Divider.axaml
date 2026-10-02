@@ -1,0 +1,74 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="300" Margin="10">
+      <enyo:Divider Caption="Accounts" />
+      <enyo:AlphaDivider Caption="B" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    Divider.css + divider.png (6x4: clear, #4987c0, #5aa6ec, white .21). A 7 px lead, the bold 12 pt caption in
+    #3a8bcb, then a 4 px rule that takes the rest of the row (Enyo's left cap, flex 1000); the caption truncates
+    first (flex .1). Rule margin 13 px above and below.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:Divider}" TargetType="enyo:Divider">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoDividerCaptionBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoDividerFontSize}" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <enyo:RowPanel>
+          <Panel Width="{DynamicResource EnyoDividerRightCapWidth}" />
+          <enyo:IconPresenter Name="PART_Icon" Icon="{TemplateBinding Icon}" Margin="0,0,6,0"
+                              Foreground="{TemplateBinding Foreground}" Width="20" Height="20"
+                              VerticalAlignment="Center" IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}" />
+          <TextBlock Name="PART_Caption" enyo:RowPanel.Role="Shrink"
+                     Text="{TemplateBinding Caption}"
+                     Foreground="{TemplateBinding Foreground}"
+                     FontSize="{TemplateBinding FontSize}"
+                     FontWeight="{TemplateBinding FontWeight}"
+                     TextTrimming="CharacterEllipsis"
+                     VerticalAlignment="Center" />
+          <!-- The rule keeps at least 3 px past its 6 px margin (.enyo-divider-left-cap min-width 3). -->
+          <Border enyo:RowPanel.Role="Fill" Padding="{DynamicResource EnyoDividerMargin}" MinWidth="9">
+            <Border Name="PART_Rule"
+                    Height="{DynamicResource EnyoDividerRuleHeight}"
+                    Margin="{DynamicResource EnyoDividerLeftCapMargin}"
+                    Background="{DynamicResource EnyoDividerRuleBrush}"
+                    VerticalAlignment="Center" />
+          </Border>
+          <ContentPresenter enyo:RowPanel.Role="End" Content="{TemplateBinding Content}" VerticalAlignment="Center" />
+        </enyo:RowPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- Divider.css .enyo-divider-alpha: 30 px tall, rule from 30 px, letter at 7 px in #4299ea. -->
+  <ControlTheme x:Key="{x:Type enyo:AlphaDivider}" TargetType="enyo:AlphaDivider">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoAlphaDividerCaptionBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoDividerFontSize}" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Height" Value="{DynamicResource EnyoAlphaDividerHeight}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Rule"
+                  Height="{DynamicResource EnyoDividerRuleHeight}"
+                  Margin="{DynamicResource EnyoAlphaDividerRuleMargin}"
+                  Background="{DynamicResource EnyoDividerRuleBrush}"
+                  VerticalAlignment="Center" />
+          <TextBlock Name="PART_Caption"
+                     Text="{TemplateBinding Caption}"
+                     Foreground="{TemplateBinding Foreground}"
+                     FontSize="{TemplateBinding FontSize}"
+                     FontWeight="{TemplateBinding FontWeight}"
+                     Margin="7,0,0,0"
+                     VerticalAlignment="Center" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

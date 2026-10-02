@@ -1,0 +1,250 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="10" Width="300">
+      <Slider Value="40" />
+      <Slider Value="70" TickPlacement="BottomRight" TickFrequency="10" />
+      <Slider Value="30" IsEnabled="False" />
+      <Slider Value="50" Orientation="Vertical" Height="150" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- slider-track.png (10 px, 4 px caps) and slider-progress.png: the filled part is drawn by the decrease button
+       and runs under the handle to its center. -->
+  <ControlTheme x:Key="EnyoSliderHorizontalDecreaseButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Border Name="TrackFill"
+                  Height="{DynamicResource EnyoSliderTrackHeight}"
+                  Margin="{DynamicResource EnyoSliderFillOverlapHorizontal}"
+                  VerticalAlignment="Center"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{DynamicResource EnyoTrackEdgeBrush}"
+                  BorderThickness="1"
+                  CornerRadius="{DynamicResource EnyoSliderTrackCornerRadius}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="EnyoSliderVerticalDecreaseButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Border Name="TrackFill"
+                  Width="{DynamicResource EnyoSliderTrackHeight}"
+                  Margin="{DynamicResource EnyoSliderFillOverlapVertical}"
+                  HorizontalAlignment="Center"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{DynamicResource EnyoTrackEdgeBrush}"
+                  BorderThickness="1"
+                  CornerRadius="{DynamicResource EnyoSliderTrackCornerRadius}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="EnyoSliderIncreaseButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- slider-handle.png, 40x40 rows up / down: a grey disc that turns blue while held. -->
+  <ControlTheme x:Key="EnyoSliderThumb" TargetType="Thumb">
+    <Setter Property="Background" Value="{DynamicResource EnyoHandleBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoHandleEdgeBrush}" />
+    <Setter Property="Width" Value="{DynamicResource EnyoSliderHandleSize}" />
+    <Setter Property="Height" Value="{DynamicResource EnyoSliderHandleSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Border Name="Disc"
+                  Width="{DynamicResource EnyoSliderHandleDiameter}"
+                  Height="{DynamicResource EnyoSliderHandleDiameter}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1"
+                  CornerRadius="100"
+                  BoxShadow="{DynamicResource EnyoHandleShadow}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoHandleDownBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    enyo-slider: a 10 px track with rounded 4 px caps, the filled part in blue, and a 40x40 handle area whose disc is
+    centered on the value. A tap on the track animates the handle there in 350 ms (SliderGestures).
+  -->
+  <ControlTheme x:Key="{x:Type Slider}" TargetType="Slider">
+    <Setter Property="Background" Value="{DynamicResource EnyoTrackBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTrackFillBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoTrackEdgeBrush}" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoSliderHandleSize}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoSliderHandleSize}" />
+
+    <Style Selector="^:horizontal">
+      <Setter Property="MinWidth" Value="{DynamicResource EnyoSliderMinWidth}" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DataValidationErrors>
+            <Grid Name="SliderContainer" Margin="{TemplateBinding Padding}" Background="Transparent" RowDefinitions="Auto,Auto,Auto">
+              <Grid.Styles>
+                <Style Selector="TickBar">
+                  <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                </Style>
+              </Grid.Styles>
+              <TickBar Name="TopTickBar"
+                       Grid.Row="0"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       Height="4"
+                       Placement="Top"
+                       IsVisible="False"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       Fill="{DynamicResource EnyoSubtextBrush}" />
+              <Border Name="TrackBackground"
+                      Grid.Row="1"
+                      Height="{DynamicResource EnyoSliderTrackHeight}"
+                      Margin="{DynamicResource EnyoSliderTrackInsetHorizontal}"
+                      VerticalAlignment="Center"
+                      Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource EnyoSliderTrackCornerRadius}" />
+              <Track Name="PART_Track"
+                     Grid.Row="1"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     Value="{TemplateBinding Value, Mode=TwoWay}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                     Orientation="Horizontal">
+                <Track.DecreaseButton>
+                  <RepeatButton Name="PART_DecreaseButton"
+                                Theme="{StaticResource EnyoSliderHorizontalDecreaseButton}"
+                                Background="{TemplateBinding Foreground}" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource EnyoSliderIncreaseButton}" />
+                </Track.IncreaseButton>
+                <Thumb Name="thumb" ZIndex="1" Theme="{StaticResource EnyoSliderThumb}" DataContext="{TemplateBinding Value}" />
+              </Track>
+              <TickBar Name="BottomTickBar"
+                       Grid.Row="2"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       Height="4"
+                       Placement="Bottom"
+                       IsVisible="False"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       Fill="{DynamicResource EnyoSubtextBrush}" />
+            </Grid>
+          </DataValidationErrors>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^:vertical">
+      <Setter Property="MinHeight" Value="{DynamicResource EnyoSliderMinWidth}" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DataValidationErrors>
+            <Grid Name="SliderContainer" Margin="{TemplateBinding Padding}" Background="Transparent" ColumnDefinitions="Auto,Auto,Auto">
+              <Grid.Styles>
+                <Style Selector="TickBar">
+                  <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                </Style>
+              </Grid.Styles>
+              <TickBar Name="LeftTickBar"
+                       Grid.Column="0"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       Width="4"
+                       Placement="Left"
+                       IsVisible="False"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       Fill="{DynamicResource EnyoSubtextBrush}" />
+              <Border Name="TrackBackground"
+                      Grid.Column="1"
+                      Width="{DynamicResource EnyoSliderTrackHeight}"
+                      Margin="{DynamicResource EnyoSliderTrackInsetVertical}"
+                      HorizontalAlignment="Center"
+                      Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource EnyoSliderTrackCornerRadius}" />
+              <Track Name="PART_Track"
+                     Grid.Column="1"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     Value="{TemplateBinding Value, Mode=TwoWay}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                     Orientation="Vertical">
+                <Track.DecreaseButton>
+                  <RepeatButton Name="PART_DecreaseButton"
+                                Theme="{StaticResource EnyoSliderVerticalDecreaseButton}"
+                                Background="{TemplateBinding Foreground}" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource EnyoSliderIncreaseButton}" />
+                </Track.IncreaseButton>
+                <Thumb Name="SliderThumb" ZIndex="1" Theme="{StaticResource EnyoSliderThumb}" DataContext="{TemplateBinding Value}" />
+              </Track>
+              <TickBar Name="RightTickBar"
+                       Grid.Column="2"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       Width="4"
+                       Placement="Right"
+                       IsVisible="False"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       Fill="{DynamicResource EnyoSubtextBrush}" />
+            </Grid>
+          </DataValidationErrors>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^[TickPlacement=TopLeft] /template/ TickBar#LeftTickBar, ^[TickPlacement=Outside] /template/ TickBar#LeftTickBar">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^[TickPlacement=TopLeft] /template/ TickBar#TopTickBar, ^[TickPlacement=Outside] /template/ TickBar#TopTickBar">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^[TickPlacement=BottomRight] /template/ TickBar#BottomTickBar, ^[TickPlacement=Outside] /template/ TickBar#BottomTickBar">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^[TickPlacement=BottomRight] /template/ TickBar#RightTickBar, ^[TickPlacement=Outside] /template/ TickBar#RightTickBar">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

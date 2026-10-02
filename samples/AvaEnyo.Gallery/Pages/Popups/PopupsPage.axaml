@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Popups.PopupsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Options">
+      <WrapPanel Classes="row">
+        <ToggleSwitch Name="ModalSwitch" Content="Modal" />
+        <ToggleSwitch Name="ScrimSwitch" Content="Scrim" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Placement">
+      <WrapPanel Classes="row">
+        <Button Name="AtPointButton" Content="OpenAt (40, 40)" />
+        <Button Name="AtPointerButton" Content="OpenAtPointer" />
+        <Button Name="AtControlButton" Content="OpenAtControl" />
+        <Button Name="CenterButton" Content="OpenAtCenter" />
+        <Button Name="NearButton" Content="OpenNear" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="OpenAroundControl">
+      <WrapPanel Classes="row">
+        <Button Name="BelowButton" Content="Below" />
+        <Button Name="AboveButton" Content="Above" />
+        <Button Name="RightButton" Content="Right" />
+        <Button Name="LeftButton" Content="Left" />
+        <Button Name="AroundCenterButton" Content="Center" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <TextBlock Name="ReasonText" Classes="enyo-footnote" Text="Close a popup to see why it closed." />
+
+    <enyo:Popup Name="DemoPopup">
+      <StackPanel Spacing="4">
+        <TextBlock Classes="enyo-text-subheader" Text="An Onyx popup" />
+        <TextBlock Classes="enyo-text-body" TextWrapping="Wrap" Text="Tap outside, press Escape, or choose a button. Buttons with a close value close the popup with that value." />
+        <WrapPanel Classes="row">
+          <Button Classes="affirmative" Content="OK" enyo:Popup.CloseValue="ok" />
+          <Button Content="Cancel" enyo:Popup.CloseValue="cancel" />
+        </WrapPanel>
+      </StackPanel>
+    </enyo:Popup>
+  </StackPanel>
+</UserControl>

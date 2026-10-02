@@ -1,0 +1,142 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <Calendar DisplayDate="2011-07-01" />
+    </Border>
+  </Design.PreviewWith>
+
+  <!--
+    Invented: the navigation buttons of the calendar header. Transparent until pressed; pressed shows the held
+    gradient of an Enyo item.
+  -->
+  <ControlTheme x:Key="EnyoCalendarNavButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoHeaderForegroundBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoButtonCornerRadius}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          Foreground="{TemplateBinding Foreground}"
+                          Content="{TemplateBinding Content}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    Invented, in the Onyx language: a header band (header.png: #ccc with a white sheen, light top edge and dark bottom
+    edge) with the month title and chevron buttons, then the day grid on the body color. The week-day names use the
+    blue Enyo label style.
+  -->
+  <ControlTheme x:Key="{x:Type CalendarItem}" TargetType="CalendarItem">
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoGroupCornerRadius}" />
+    <Setter Property="DayTitleTemplate">
+      <Template x:DataType="x:String">
+        <TextBlock Text="{Binding}"
+                   Classes="enyo-label"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+      </Template>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  ClipToBounds="True">
+            <Grid RowDefinitions="Auto,*" MinWidth="294">
+              <Panel Name="PART_Header" MinHeight="44">
+                <Border Background="{TemplateBinding HeaderBackground}" />
+                <Border Background="{DynamicResource EnyoHeaderSheenBrush}"
+                        BorderBrush="{DynamicResource EnyoHeaderBottomEdgeBrush}"
+                        BorderThickness="0,0,0,1" />
+                <Grid ColumnDefinitions="Auto,*,Auto" Margin="4,0">
+                  <Button Name="PART_PreviousButton"
+                          Grid.Column="0"
+                          Theme="{StaticResource EnyoCalendarNavButton}"
+                          Width="40">
+                    <Path Data="{DynamicResource EnyoGlyphChevronLeft}"
+                          Fill="{Binding $parent[Button].Foreground}"
+                          Width="14" Height="14" Stretch="Uniform"
+                          HorizontalAlignment="Center" VerticalAlignment="Center" />
+                  </Button>
+                  <Button Name="PART_HeaderButton"
+                          Grid.Column="1"
+                          Theme="{StaticResource EnyoCalendarNavButton}"
+                          FontSize="{DynamicResource EnyoTextSubheaderFontSize}"
+                          HorizontalContentAlignment="Center" />
+                  <Button Name="PART_NextButton"
+                          Grid.Column="2"
+                          Theme="{StaticResource EnyoCalendarNavButton}"
+                          Width="40">
+                    <Path Data="{DynamicResource EnyoGlyphChevronRight}"
+                          Fill="{Binding $parent[Button].Foreground}"
+                          Width="14" Height="14" Stretch="Uniform"
+                          HorizontalAlignment="Center" VerticalAlignment="Center" />
+                  </Button>
+                </Grid>
+              </Panel>
+              <Grid Name="PART_MonthView" Grid.Row="1" IsVisible="False" Margin="4">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="30" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+              </Grid>
+              <Grid Name="PART_YearView" Grid.Row="1" IsVisible="False" MinHeight="240" Margin="4">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+              </Grid>
+            </Grid>
+          </Border>
+          <!-- The outline, over the header band. -->
+          <Border BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  IsHitTestVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:calendardisabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

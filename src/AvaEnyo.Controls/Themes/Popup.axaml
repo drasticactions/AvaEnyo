@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <enyo:OnyxPopupPresenter Content="Popup content" Margin="20" />
+  </Design.PreviewWith>
+
+  <!-- The placeholder: no visuals. -->
+  <ControlTheme x:Key="{x:Type enyo:PopupBase}" TargetType="enyo:PopupBase">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+  <ControlTheme x:Key="{x:Type enyo:Popup}" TargetType="enyo:Popup" BasedOn="{StaticResource {x:Type enyo:PopupBase}}" />
+
+  <ControlTheme x:Key="{x:Type enyo:PopupPresenter}" TargetType="enyo:PopupPresenter">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    popup.png, 24px slice: a #eaeaea to #cccccc fill, radius ~10, a ~10 px soft shadow outside the edge; the content
+    sits 7/14 px inside the frame's inner edge (.enyo-popup-inner margin -7/-14 in the 24 px frame). Min width 300.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:OnyxPopupPresenter}" TargetType="enyo:OnyxPopupPresenter">
+    <Setter Property="Background" Value="{DynamicResource EnyoPopupBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPopupForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoPopupEdgeBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoPopupCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoPopupInnerPadding}" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoPopupMinWidth}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoPopupFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Frame"
+                Margin="{DynamicResource EnyoPopupShadowMargin}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                BoxShadow="{DynamicResource EnyoPopupShadow}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

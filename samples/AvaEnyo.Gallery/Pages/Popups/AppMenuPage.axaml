@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Popups.AppMenuPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="App menu">
+      <StackPanel Spacing="6">
+        <TextBox Name="Field" Text="Select some text, then open the menu to use Edit." />
+        <Button Name="OpenButton" Content="Open the app menu" />
+        <TextBlock Name="ResultText" Classes="enyo-footnote" Text="Chosen: -" />
+      </StackPanel>
+    </HeaderedContentControl>
+
+    <enyo:AppMenu Name="DemoMenu">
+      <enyo:AppMenuItem Header="New card" Value="new" />
+      <enyo:EditMenu />
+      <enyo:AppMenuItem Header="Preferences &amp; accounts" Value="preferences" />
+      <enyo:HelpMenu />
+    </enyo:AppMenu>
+  </StackPanel>
+</UserControl>

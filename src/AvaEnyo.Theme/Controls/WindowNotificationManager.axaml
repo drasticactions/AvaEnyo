@@ -1,0 +1,69 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <WindowNotificationManager Width="400" Height="200" />
+  </Design.PreviewWith>
+
+  <!--
+    The webOS dashboard stack: notifications line up at the bottom edge, newest nearest the edge. Each shows a white
+    title and a grey line of text.
+  -->
+  <ControlTheme x:Key="{x:Type WindowNotificationManager}" TargetType="WindowNotificationManager">
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Position" Value="BottomRight" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ReversibleStackPanel Name="PART_Items">
+          <ReversibleStackPanel.DataTemplates>
+            <DataTemplate DataType="INotification">
+              <StackPanel Margin="12,8" Spacing="2">
+                <TextBlock FontWeight="SemiBold"
+                           Foreground="{DynamicResource EnyoDashboardForegroundBrush}"
+                           TextTrimming="CharacterEllipsis"
+                           Text="{Binding Title}" />
+                <TextBlock MaxHeight="80"
+                           Foreground="{DynamicResource EnyoDashboardSubtextBrush}"
+                           FontSize="{DynamicResource EnyoTextSubtextFontSize}"
+                           Text="{Binding Message}"
+                           TextWrapping="Wrap" />
+              </StackPanel>
+            </DataTemplate>
+            <DataTemplate DataType="x:String">
+              <TextBlock Margin="12,8"
+                         Foreground="{DynamicResource EnyoDashboardForegroundBrush}"
+                         Text="{Binding}" />
+            </DataTemplate>
+          </ReversibleStackPanel.DataTemplates>
+        </ReversibleStackPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:topleft /template/ ReversibleStackPanel#PART_Items">
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    <Style Selector="^:topright /template/ ReversibleStackPanel#PART_Items">
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+    <Style Selector="^:topcenter /template/ ReversibleStackPanel#PART_Items">
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^:bottomleft /template/ ReversibleStackPanel#PART_Items">
+      <Setter Property="ReverseOrder" Value="True" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    <Style Selector="^:bottomright /template/ ReversibleStackPanel#PART_Items">
+      <Setter Property="ReverseOrder" Value="True" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+    <Style Selector="^:bottomcenter /template/ ReversibleStackPanel#PART_Items">
+      <Setter Property="ReverseOrder" Value="True" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

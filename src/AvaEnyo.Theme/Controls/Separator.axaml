@@ -1,0 +1,29 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="200" Margin="20">
+      <TextBlock Text="Above" />
+      <Separator />
+      <TextBlock Text="Below" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- The Item.css edge pair: a 1 px rgba(0,0,0,.2) line over a 1 px rgba(255,255,255,.5) line. -->
+  <ControlTheme x:Key="{x:Type Separator}" TargetType="Separator">
+    <Setter Property="Background" Value="{DynamicResource EnyoItemBottomBorderBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemTopBorderBrush}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Height" Value="2" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Margin" Value="0,2" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel>
+          <Border Height="1" Background="{TemplateBinding Background}" />
+          <Border Height="1" Background="{TemplateBinding BorderBrush}" />
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

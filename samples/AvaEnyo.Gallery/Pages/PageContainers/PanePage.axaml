@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.PageContainers.PanePage">
+  <DockPanel>
+    <enyo:Toolbar DockPanel.Dock="Top" Classes="light">
+      <enyo:RadioGroup Name="TransitionGroup" SelectedIndex="0">
+        <enyo:RadioSegment Content="Fade" />
+        <enyo:RadioSegment Content="Fly in" />
+        <enyo:RadioSegment Content="None" />
+      </enyo:RadioGroup>
+    </enyo:Toolbar>
+    <enyo:Toolbar DockPanel.Dock="Bottom">
+      <enyo:ToolButton Name="BackButton" Content="Back" />
+      <enyo:Spacer />
+      <enyo:ToolButton Name="NextButton" Content="Next" />
+      <enyo:ToolButton Name="LazyButton" Content="Lazy view" />
+      <enyo:ToolButton Name="DynamicButton" Content="Create view" />
+    </enyo:Toolbar>
+    <TextBlock Name="StatusText" DockPanel.Dock="Bottom" Classes="enyo-footnote" Margin="12,6" />
+    <enyo:Pane Name="DemoPane">
+      <Border Name="one" Background="#4b6c8f">
+        <TextBlock Text="View one" Foreground="White" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Name="two" Background="#5d8f4b">
+        <TextBlock Text="View two" Foreground="White" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Name="three" Background="#8f5d4b">
+        <TextBlock Text="View three" Foreground="White" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <enyo:PaneView Name="lazy" IsLazy="True">
+        <enyo:PaneView.ContentTemplate>
+          <DataTemplate>
+            <Border Background="#6c4a8e">
+              <TextBlock Text="Built on first select" Foreground="White" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+          </DataTemplate>
+        </enyo:PaneView.ContentTemplate>
+      </enyo:PaneView>
+    </enyo:Pane>
+  </DockPanel>
+</UserControl>

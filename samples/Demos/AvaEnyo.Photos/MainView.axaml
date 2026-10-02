@@ -1,0 +1,119 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:AvaEnyo.Photos.ViewModels"
+             x:Class="AvaEnyo.Photos.MainView"
+             x:DataType="vm:PhotosViewModel">
+  <Panel>
+    <!-- The app menu (webOS opened it from the status bar; here from the title, Ctrl+` or F10). -->
+    <enyo:AppMenu Name="Menu">
+      <enyo:AppMenuItem Header="Start slideshow" Value="slideshow" />
+      <enyo:AppMenuItem Header="Select photos" Value="select" />
+      <enyo:AppMenuItem Header="About Photos" Value="about" />
+    </enyo:AppMenu>
+
+    <enyo:Pane Name="Pages">
+      <!-- Albums -->
+      <DockPanel Name="albums">
+        <enyo:PageHeader DockPanel.Dock="Top">
+          <TextBlock Name="AlbumsTitle" Text="Photos" enyo:AppMenuService.IsOpenRegion="True" />
+        </enyo:PageHeader>
+        <enyo:VirtualList Name="AlbumList" ItemsSource="{Binding Albums}">
+          <enyo:VirtualList.ItemTemplate>
+            <DataTemplate x:DataType="vm:AlbumItem">
+              <DockPanel>
+                <Border DockPanel.Dock="Left" Width="72" Height="54" CornerRadius="4" ClipToBounds="True" Margin="0,0,12,0">
+                  <Image Source="{Binding Cover}" Stretch="UniformToFill" />
+                </Border>
+                <PathIcon DockPanel.Dock="Right" Data="{DynamicResource EnyoGlyphChevronRight}" Width="14" Height="14"
+                          Foreground="{DynamicResource EnyoChevronBrush}" />
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="{Binding Name}" />
+                  <TextBlock Classes="enyo-subtext" Text="{Binding CountText}" />
+                </StackPanel>
+              </DockPanel>
+            </DataTemplate>
+          </enyo:VirtualList.ItemTemplate>
+        </enyo:VirtualList>
+      </DockPanel>
+
+      <!-- Photo grid of one album -->
+      <DockPanel Name="grid">
+        <enyo:PageHeader DockPanel.Dock="Top" ShowBackButton="True">
+          <TextBlock Text="{Binding CurrentAlbum.Name, FallbackValue=''}" enyo:AppMenuService.IsOpenRegion="True" />
+        </enyo:PageHeader>
+        <enyo:Toolbar DockPanel.Dock="Bottom">
+          <enyo:ToolButton Name="SelectButton" Content="Select" IsToggle="True" IsChecked="{Binding IsSelecting}" />
+          <enyo:Spacer />
+          <TextBlock Text="{Binding SelectionText}" VerticalAlignment="Center" Foreground="{DynamicResource EnyoToolbarForegroundBrush}" FontSize="{DynamicResource EnyoButtonFontSize}" />
+          <enyo:Spacer />
+          <enyo:ToolButton Name="SlideshowButton" Content="Slideshow" />
+        </enyo:Toolbar>
+        <enyo:VirtualList Name="PhotoGrid" Classes="photo-grid" Layout="Grid" ItemWidth="180" ItemHeight="136"
+                          ItemsSource="{Binding Photos}">
+          <enyo:VirtualList.ItemTemplate>
+            <DataTemplate x:DataType="vm:PhotoItem">
+              <Panel>
+                <Border CornerRadius="3" ClipToBounds="True">
+                  <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+                </Border>
+                <Border Classes="check" IsVisible="{Binding $parent[enyo:Item].IsSelected}">
+                  <PathIcon Data="{DynamicResource EnyoGlyphCheckmark}" />
+                </Border>
+              </Panel>
+            </DataTemplate>
+          </enyo:VirtualList.ItemTemplate>
+        </enyo:VirtualList>
+      </DockPanel>
+
+      <!-- Full-screen viewer -->
+      <Panel Name="viewer" Background="Black">
+        <enyo:ImageView Name="Viewer" Images="{Binding PhotoUris}" />
+        <enyo:Toolbar Name="ViewerToolbar" VerticalAlignment="Bottom">
+          <enyo:ToolButton Name="ViewerBack" Icon="{DynamicResource EnyoGlyphBack}" />
+          <enyo:Spacer />
+          <TextBlock Name="ViewerCaption" VerticalAlignment="Center" Foreground="{DynamicResource EnyoToolbarForegroundBrush}" FontSize="{DynamicResource EnyoButtonFontSize}" />
+          <enyo:Spacer />
+          <enyo:ToolButton Name="CropButton" Content="Crop" />
+          <enyo:ToolButton Name="ViewerSlideshow" Content="Slideshow" IsToggle="True" />
+        </enyo:Toolbar>
+      </Panel>
+    </enyo:Pane>
+
+    <!-- Crop: a CroppableImage with a zoom slider in a modal dialog. -->
+    <enyo:ModalDialog Name="CropDialog" Caption="Crop photo">
+      <StackPanel Spacing="8">
+        <enyo:CroppableImage Name="Cropper" Height="260" />
+        <DockPanel>
+          <PathIcon DockPanel.Dock="Left" Data="{DynamicResource EnyoGlyphMinus}" Width="12" Height="12" />
+          <PathIcon DockPanel.Dock="Right" Data="{DynamicResource EnyoGlyphPlus}" Width="12" Height="12" />
+          <Slider Name="ZoomSlider" Margin="8,0" />
+        </DockPanel>
+        <UniformGrid Columns="2">
+          <Button Content="Cancel" HorizontalAlignment="Stretch" enyo:Popup.CloseValue="cancel" />
+          <Button Classes="affirmative" Content="Done" HorizontalAlignment="Stretch" enyo:Popup.CloseValue="done" />
+        </UniformGrid>
+      </StackPanel>
+    </enyo:ModalDialog>
+
+    <!-- The cropped result. -->
+    <enyo:ModalDialog Name="ResultDialog" Caption="Cropped">
+      <StackPanel Spacing="8">
+        <Border Background="Black" CornerRadius="4" ClipToBounds="True">
+          <Image Name="ResultImage" Height="200" Stretch="Uniform" />
+        </Border>
+        <TextBlock Name="ResultText" Classes="enyo-subtext" HorizontalAlignment="Center" />
+        <Button Content="OK" HorizontalAlignment="Stretch" enyo:Popup.CloseValue="ok" />
+      </StackPanel>
+    </enyo:ModalDialog>
+
+    <!-- About -->
+    <enyo:ModalDialog Name="AboutDialog" Caption="Photos">
+      <StackPanel Spacing="8">
+        <TextBlock Classes="enyo-paragraph" TextWrapping="Wrap"
+                   Text="An AvaEnyo demo: albums, a selectable photo grid, a zoomable image viewer and cropping, in the webOS Onyx look." />
+        <Button Content="OK" HorizontalAlignment="Stretch" enyo:Popup.CloseValue="ok" />
+      </StackPanel>
+    </enyo:ModalDialog>
+  </Panel>
+</UserControl>

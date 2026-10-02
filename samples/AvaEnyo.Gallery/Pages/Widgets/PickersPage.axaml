@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.PickersPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Picker">
+      <enyo:PickerGroup Label="city">
+        <enyo:Picker SelectedIndex="0" TextAlign="Left">
+          <x:String>San Francisco</x:String>
+          <x:String>Sunnyvale</x:String>
+          <x:String>Oakland</x:String>
+          <x:String>Burlingame</x:String>
+        </enyo:Picker>
+      </enyo:PickerGroup>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Integer picker">
+      <enyo:PickerGroup Label="integer">
+        <enyo:IntegerPicker Minimum="0" Maximum="9" />
+      </enyo:PickerGroup>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Picker group">
+      <enyo:PickerGroup Label="code">
+        <enyo:IntegerPicker Minimum="0" Maximum="9" />
+        <enyo:IntegerPicker Minimum="0" Maximum="9" />
+        <enyo:IntegerPicker Minimum="0" Maximum="9" />
+      </enyo:PickerGroup>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:samples="using:AvaEnyo.Samples"
+             x:Class="AvaEnyo.Gallery.Pages.Lists.SwipeableItemsPage">
+  <DockPanel>
+    <enyo:Toolbar DockPanel.Dock="Bottom" Classes="light">
+      <CheckBox Name="ConfirmBox" IsChecked="True" Content="Ask to confirm" />
+      <enyo:Spacer />
+      <Button Name="ResetButton" Content="Reset" />
+    </enyo:Toolbar>
+    <TextBlock DockPanel.Dock="Top" Name="Log" Margin="12,8" Classes="enyo-subtext" Text="Swipe a row left or right past a third of its width." />
+    <enyo:VirtualList Name="List" Swipeable="True">
+      <enyo:VirtualList.ItemTemplate>
+        <DataTemplate x:DataType="samples:MailMessage">
+          <StackPanel>
+            <DockPanel>
+              <TextBlock DockPanel.Dock="Right" Text="{Binding TimeText}" Classes="enyo-subtext" />
+              <TextBlock Text="{Binding From.Name}" Classes="enyo-text-ellipsis" />
+            </DockPanel>
+            <TextBlock Text="{Binding Subject}" Classes="enyo-item-secondary enyo-text-ellipsis" />
+          </StackPanel>
+        </DataTemplate>
+      </enyo:VirtualList.ItemTemplate>
+    </enyo:VirtualList>
+  </DockPanel>
+</UserControl>

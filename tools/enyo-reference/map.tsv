@@ -1,0 +1,20 @@
+# gallery page	reference target (a kind for pages/view.html, or a path under the server root)
+AllControls	enyo/support/examples/Theming/onyx/index.html
+Buttons	widgets.Buttons
+CheckBoxes	widgets.Checkboxes
+ToggleSwitches	widgets.ToggleButtons
+RadioGroups&Tabs	widgets.RadioButtons
+Sliders&ProgressSlider	widgets.Sliders
+ProgressBars	widgets.ProgressBars
+Spinners	scrims.Spinner
+Toolbars	toolbar.ToolButtons
+PageHeaders	headers.PageHeader
+Labeled	dividers.LabeledDividers
+Alphabetical	dividers.AlphaDividers
+Collapsible	dividers.CollapsDividers
+Groups	containers.LabeledGroup
+Drawers	containers.Drawers
+Menus	popups.Menus
+Popups	popups.Popups
+ModalDialogs	popups.ModalDialogs
+SlidingPane	enyo/support/examples/Layouts/Sliding/many/index.html

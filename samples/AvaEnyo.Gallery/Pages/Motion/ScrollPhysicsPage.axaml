@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Motion.ScrollPhysicsPage">
+  <DockPanel>
+    <ScrollViewer DockPanel.Dock="Left" Width="300" enyo:Scroll.Fades="False">
+      <StackPanel Margin="12" Spacing="2">
+        <enyo:Divider Caption="Constants" />
+        <TextBlock Name="FrictionText" Classes="enyo-text-body" />
+        <Slider Name="Friction" Minimum="0.80" Maximum="0.995" />
+        <TextBlock Name="SpringText" Classes="enyo-text-body" />
+        <Slider Name="Spring" Minimum="0.70" Maximum="0.99" />
+        <TextBlock Name="DragText" Classes="enyo-text-body" />
+        <Slider Name="Drag" Minimum="0.1" Maximum="1" />
+        <TextBlock Name="SnapText" Classes="enyo-text-body" />
+        <Slider Name="Snap" Minimum="0.5" Maximum="1" />
+        <Button Name="ResetButton" Content="Enyo defaults" />
+        <enyo:Divider Caption="Live" />
+        <TextBlock Name="Live" Classes="enyo-text-body" />
+      </StackPanel>
+    </ScrollViewer>
+    <Panel Name="ListHost" />
+  </DockPanel>
+</UserControl>

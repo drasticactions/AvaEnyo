@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="using:System"
+                    xmlns:collections="using:System.Collections"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <DataValidationErrors Margin="20">
+      <TextBox Text="Value" />
+    </DataValidationErrors>
+  </Design.PreviewWith>
+
+  <!-- enyo-text-error: .7rem #d70000 text under the field, with a circled exclamation. -->
+  <ControlTheme x:Key="{x:Type DataValidationErrors}" TargetType="DataValidationErrors">
+    <Setter Property="Template">
+      <ControlTemplate TargetType="DataValidationErrors">
+        <DockPanel LastChildFill="True">
+          <ContentControl Name="InlineDataValidationContentControl"
+                          Margin="{DynamicResource EnyoValidationErrorMargin}"
+                          Content="{Binding (DataValidationErrors.Errors)}"
+                          ContentTemplate="{TemplateBinding ErrorTemplate}"
+                          DataContext="{TemplateBinding Owner}"
+                          DockPanel.Dock="Bottom"
+                          IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="ErrorTemplate">
+      <DataTemplate>
+        <DockPanel>
+          <PathIcon DockPanel.Dock="Left"
+                    Data="{DynamicResource EnyoGlyphError}"
+                    Foreground="{DynamicResource EnyoErrorBrush}"
+                    Width="{DynamicResource EnyoTextErrorFontSize}"
+                    Height="{DynamicResource EnyoTextErrorFontSize}"
+                    Margin="0,0,4,0"
+                    VerticalAlignment="Top" />
+          <ItemsControl x:DataType="DataValidationErrors"
+                        Foreground="{DynamicResource EnyoErrorBrush}"
+                        FontSize="{DynamicResource EnyoTextErrorFontSize}"
+                        ItemsSource="{Binding}">
+            <ItemsControl.Styles>
+              <Style Selector="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap" />
+              </Style>
+            </ItemsControl.Styles>
+            <ItemsControl.DataTemplates>
+              <!-- SetError keeps the exception itself; show its message, not its type. -->
+              <DataTemplate DataType="sys:Exception">
+                <TextBlock Text="{Binding Message}" />
+              </DataTemplate>
+            </ItemsControl.DataTemplates>
+          </ItemsControl>
+        </DockPanel>
+      </DataTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- The compact variant: the glyph beside the field, the messages in its tool tip. -->
+  <ControlTheme x:Key="TooltipDataValidationErrors" TargetType="DataValidationErrors">
+    <Setter Property="Template">
+      <ControlTemplate TargetType="DataValidationErrors">
+        <DockPanel LastChildFill="True">
+          <ContentControl Content="{Binding (DataValidationErrors.Errors)}"
+                          ContentTemplate="{TemplateBinding ErrorTemplate}"
+                          DataContext="{TemplateBinding Owner}"
+                          DockPanel.Dock="Right"
+                          IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="ErrorTemplate">
+      <DataTemplate>
+        <Panel Background="Transparent" Margin="8,0">
+          <ToolTip.Tip>
+            <ItemsControl ItemsSource="{Binding}" x:DataType="collections:IEnumerable" />
+          </ToolTip.Tip>
+          <PathIcon Data="{DynamicResource EnyoGlyphError}"
+                    Foreground="{DynamicResource EnyoErrorBrush}"
+                    Width="16"
+                    Height="16" />
+        </Panel>
+      </DataTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <title>Enyo SlidingPane reference</title>
+  <meta charset="UTF-8">
+  <!-- The gallery's SlidingPane page in Enyo 1.0: 220 | 240 with peek 60 | flex and dismissible. -->
+  <script src="../1.0/framework/enyo.js" launch="debug" type="text/javascript"></script>
+  <style>
+    .label { padding: 12px; }
+    .left { background: #d6d6d6; }
+    .middle { background: #c8d8e8; }
+    .right { background: #e8d8c8; }
+  </style>
+</head>
+<body class="enyo-bg">
+  <script type="text/javascript">
+    window.pane = enyo.create({kind: "SlidingPane", style: "height: 100%", components: [
+      {name: "left", width: "220px", className: "left", components: [
+        {kind: "Header", content: "Left"},
+        {className: "label", content: "Drag the views"}
+      ]},
+      {name: "middle", width: "240px", peekWidth: 60, className: "middle", components: [
+        {kind: "Header", content: "Middle (peek 60)"},
+        {className: "label", content: "This view stops 60 px from the left when selected."}
+      ]},
+      {name: "right", flex: 1, dismissible: true, className: "right", components: [
+        {kind: "Header", content: "Right (dismissible)"},
+        {className: "label", content: "Drag this view right more than 100 px to dismiss it."}
+      ]}
+    ]});
+    window.pane.renderInto(document.body);
+  </script>
+</body>
+</html>

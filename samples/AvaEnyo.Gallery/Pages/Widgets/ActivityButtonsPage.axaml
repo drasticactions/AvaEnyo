@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.ActivityButtonsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Activity buttons">
+      <StackPanel Spacing="4">
+        <enyo:ActivityButton Name="Activity" Classes="standard-width" Content="Tap to start" />
+        <enyo:ActivityButton Classes="affirmative standard-width" IsActive="True" Content="Sending" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Progress buttons">
+      <StackPanel Spacing="4">
+        <enyo:ProgressButton Name="Download" Width="320" Maximum="100" Value="35" Cancelable="True" Content="Downloading" HorizontalAlignment="Left" />
+        <enyo:ProgressButton Classes="affirmative" Width="320" Maximum="100" Value="70" Content="Installing" HorizontalAlignment="Left" />
+        <TextBlock Name="DownloadState" Classes="enyo-footnote" Text="Tap the cross to cancel." />
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

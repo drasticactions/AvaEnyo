@@ -1,0 +1,65 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <enyo:DialogPresenter Width="400" Margin="0,20,0,0">
+      <TextBlock Text="Dialog" Margin="10" />
+    </enyo:DialogPresenter>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type enyo:Toaster}" TargetType="enyo:Toaster">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+  <ControlTheme x:Key="{x:Type enyo:Dialog}" TargetType="enyo:Dialog" BasedOn="{StaticResource {x:Type enyo:Toaster}}" />
+  <ControlTheme x:Key="{x:Type enyo:DialogPrompt}" TargetType="enyo:DialogPrompt" BasedOn="{StaticResource {x:Type enyo:Toaster}}" />
+
+  <!-- Toaster.css: no frame of its own; the content is what slides in. -->
+  <ControlTheme x:Key="{x:Type enyo:ToasterPresenter}" TargetType="enyo:ToasterPresenter">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    toaster-dialog.png, 32/24/32/24 slice: a light #efefef to #e1e1e1 panel (.95) with rounded top corners and a soft
+    shadow above; .enyo-dialog-inner cancels the side frame and starts the content 23 px down.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:DialogPresenter}" TargetType="enyo:DialogPresenter">
+    <Setter Property="Background" Value="{DynamicResource EnyoToasterBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPopupForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoPopupEdgeBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoDialogCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoDialogPadding}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoPopupFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Frame"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="0,1,0,0"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                BoxShadow="{DynamicResource EnyoPopupShadow}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

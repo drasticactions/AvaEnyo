@@ -1,0 +1,63 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="10">
+      <DropDownButton Content="Drop down" />
+      <DropDownButton Classes="dark" Content="Dark" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- button-up.png chrome with the small menu-arrow.png triangle after the content. -->
+  <ControlTheme x:Key="{x:Type DropDownButton}" TargetType="DropDownButton" BasedOn="{StaticResource EnyoButtonTheme}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame"
+                  Background="{DynamicResource EnyoButtonSheenBrush}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <Grid Margin="{DynamicResource EnyoButtonFrameThickness}" ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Padding="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}"
+                              LineHeight="{DynamicResource EnyoButtonLineHeight}"
+                              RecognizesAccessKey="True"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            <Path Name="DropDownGlyph"
+                  Grid.Column="1"
+                  Data="{DynamicResource EnyoGlyphMenuArrow}"
+                  Fill="{TemplateBinding Foreground}"
+                  Width="{DynamicResource EnyoListSelectorArrowWidth}"
+                  Height="{DynamicResource EnyoDropDownArrowHeight}"
+                  Margin="0,0,6,0"
+                  Stretch="Uniform"
+                  VerticalAlignment="Center"
+                  IsHitTestVisible="False" />
+          </Grid>
+          <Border Name="PART_FocusVisual"
+                  BorderBrush="{DynamicResource EnyoFocusRingBrush}"
+                  BorderThickness="2"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Margin="-2"
+                  IsHitTestVisible="False"
+                  IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open">
+      <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushPressed}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="Background" Value="{DynamicResource EnyoButtonPressedSheenBrush}" />
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoButtonPressedShadow}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Dividers.CollapsiblePage">
+  <StackPanel Margin="16,8">
+    <enyo:DividerDrawer Caption="Favorites">
+      <StackPanel>
+        <enyo:Item Content="Inbox" />
+        <enyo:Item Content="Flagged" />
+      </StackPanel>
+    </enyo:DividerDrawer>
+    <enyo:DividerDrawer Caption="Folders" IsOpen="False">
+      <StackPanel>
+        <enyo:Item Content="Archive" />
+        <enyo:Item Content="Receipts" />
+        <enyo:Item Content="Travel" />
+      </StackPanel>
+    </enyo:DividerDrawer>
+    <enyo:DividerDrawer Caption="Locked open" CanChangeOpen="False">
+      <enyo:Item Content="This drawer ignores taps on its header" />
+    </enyo:DividerDrawer>
+  </StackPanel>
+</UserControl>

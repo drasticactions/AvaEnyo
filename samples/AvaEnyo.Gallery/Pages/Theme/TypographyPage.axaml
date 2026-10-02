@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Theme.TypographyPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Text classes (theme.css, 20 px base)">
+      <StackPanel Spacing="6">
+        <TextBlock Text="Body: the quick brown fox jumps over the lazy dog (20 px)" />
+        <TextBlock Classes="enyo-text-header" Text="enyo-text-header (1rem, 20 px)" />
+        <TextBlock Classes="enyo-text-subheader" Text="enyo-text-subheader (.9rem, 18 px)" />
+        <TextBlock Classes="enyo-text-body" Text="enyo-text-body (.8rem, 16 px)" />
+        <TextBlock Classes="enyo-paragraph" Text="enyo-paragraph (.8rem with half an em above and below). Paragraph text wraps and keeps the body color, which is #333 in light and #e6e6e6 in dark." />
+        <TextBlock Classes="enyo-item-secondary" Text="enyo-item-secondary (.8rem)" />
+        <TextBlock Classes="enyo-label" Text="enyo-label (.7rem, #1879cd, uppercase)" />
+        <TextBlock Classes="enyo-subtext" Text="enyo-subtext (.7rem, #828282)" />
+        <TextBlock Classes="enyo-item-ternary" Text="enyo-item-ternary (.7rem, #828282)" />
+        <TextBlock Classes="enyo-footnote" Text="enyo-footnote (.8rem, #666)" />
+        <TextBlock Classes="enyo-text-error" Text="enyo-text-error (.7rem, #d70000)" />
+        <TextBlock Classes="enyo-dark-header" Text="enyo-dark-header (palmstyle dialog title)" />
+        <TextBlock Classes="enyo-text-ellipsis" Width="300" HorizontalAlignment="Left" Text="enyo-text-ellipsis keeps a long line on one row and ends it with an ellipsis" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Weights of Source Sans 3">
+      <StackPanel Spacing="4">
+        <TextBlock FontWeight="Light" Text="Light 300" />
+        <TextBlock FontWeight="Normal" Text="Regular 400 (Prelude)" />
+        <TextBlock FontStyle="Italic" Text="Italic 400" />
+        <TextBlock FontWeight="SemiBold" Text="SemiBold 600 (Prelude Medium)" />
+        <TextBlock FontWeight="Bold" Text="Bold 700 (CSS bold)" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Divider caption (12 pt bold)">
+      <enyo:Divider Caption="Section caption" />
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

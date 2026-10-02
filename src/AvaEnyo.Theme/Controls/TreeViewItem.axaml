@@ -1,0 +1,119 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:Avalonia.Controls.Converters"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <TreeView Width="260">
+      <TreeViewItem Header="Accounts" IsExpanded="True">
+        <TreeViewItem Header="Home" IsSelected="True" />
+        <TreeViewItem Header="Work" />
+      </TreeViewItem>
+    </TreeView>
+  </Design.PreviewWith>
+
+  <!-- The expander: menuitem-arrow.png, a chevron that points right when closed and down when open. -->
+  <ControlTheme x:Key="EnyoTreeViewExpandCollapseChevron" TargetType="ToggleButton">
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent"
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+          <Path Name="ChevronPath"
+                Data="{DynamicResource EnyoGlyphChevronRight}"
+                Fill="{DynamicResource EnyoChevronBrush}"
+                Width="12"
+                Height="12"
+                Stretch="Uniform"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#ChevronPath">
+      <Setter Property="Data" Value="{DynamicResource EnyoGlyphChevronDown}" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    Invented: an enyo-item row (top and bottom edges, held gradient on press and selection) with the chevron
+    expander; each level indents 24 px, as Enyo's nested menu items did.
+  -->
+  <ControlTheme x:Key="{x:Type TreeViewItem}" TargetType="TreeViewItem">
+    <Setter Property="Padding" Value="{DynamicResource EnyoItemPadding}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoTextBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoItemFontSize}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoItemMinHeight}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel>
+          <Border Name="PART_LayoutRoot"
+                  Classes="TreeViewItemLayoutRoot"
+                  Focusable="True"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  MinHeight="{TemplateBinding MinHeight}"
+                  TemplatedControl.IsTemplateFocusTarget="True">
+            <Panel>
+              <Border Name="PART_HeldBorder" Background="{DynamicResource EnyoItemHeldBrush}" IsVisible="False" />
+              <Border VerticalAlignment="Top" Height="1" Background="{DynamicResource EnyoItemTopBorderBrush}" />
+              <Border VerticalAlignment="Bottom" Height="1" Background="{DynamicResource EnyoItemBottomBorderBrush}" />
+              <Grid Name="PART_Header" ColumnDefinitions="Auto,*">
+                <Grid.Margin>
+                  <MultiBinding Converter="{x:Static converters:TreeViewItemIndentConverter.Instance}">
+                    <Binding Path="Level" RelativeSource="{RelativeSource TemplatedParent}" />
+                    <DynamicResource ResourceKey="EnyoTreeIndent" />
+                  </MultiBinding>
+                </Grid.Margin>
+                <Panel Name="PART_ExpandCollapseChevronContainer" Margin="4,0,0,0">
+                  <ToggleButton Name="PART_ExpandCollapseChevron"
+                                Theme="{StaticResource EnyoTreeViewExpandCollapseChevron}"
+                                Focusable="False"
+                                IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+                </Panel>
+                <ContentPresenter Name="PART_HeaderPresenter"
+                                  Grid.Column="1"
+                                  Focusable="False"
+                                  Background="Transparent"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                  Margin="{TemplateBinding Padding}" />
+              </Grid>
+            </Panel>
+          </Border>
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          IsVisible="{TemplateBinding IsExpanded}"
+                          ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- Matching the layout root under the pointer keeps a press on a child row from lighting its parent. -->
+    <Style Selector="^:pressed /template/ Border#PART_LayoutRoot:pointerover Border#PART_HeldBorder">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#PART_HeldBorder">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Background" Value="{DynamicResource EnyoItemSelectedBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:empty /template/ ToggleButton#PART_ExpandCollapseChevron">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:empty /template/ Panel#PART_ExpandCollapseChevronContainer">
+      <Setter Property="Width" Value="28" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

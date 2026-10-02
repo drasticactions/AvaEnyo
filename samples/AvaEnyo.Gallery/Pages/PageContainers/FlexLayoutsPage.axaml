@@ -1,0 +1,106 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.PageContainers.FlexLayoutsPage">
+  <UserControl.Styles>
+    <Style Selector="Border.box">
+      <Setter Property="Background" Value="#2071bb" />
+      <Setter Property="BorderBrush" Value="#174f84" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="MinHeight" Value="30" />
+      <Setter Property="MinWidth" Value="30" />
+    </Style>
+    <Style Selector="Border.box > TextBlock">
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="Margin" Value="6,4" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.box.flex">
+      <Setter Property="Background" Value="#2aa100" />
+      <Setter Property="BorderBrush" Value="#1f7700" />
+    </Style>
+    <Style Selector="Border.frame">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoGroupEdgeBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Margin" Value="0,0,0,4" />
+    </Style>
+  </UserControl.Styles>
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Flex shares the free space (flex 1, 2, 1; basis 0)">
+      <Border Classes="frame">
+        <enyo:HFlexBox Height="44">
+          <Border Classes="box"><TextBlock Text="fixed" /></Border>
+          <Border Classes="box flex" enyo:Flex.Value="1"><TextBlock Text="flex 1" /></Border>
+          <Border Classes="box flex" enyo:Flex.Value="2"><TextBlock Text="flex 2, even with a long caption" /></Border>
+          <Border Classes="box flex" enyo:Flex.Value="1"><TextBlock Text="flex 1" /></Border>
+        </enyo:HFlexBox>
+      </Border>
+    </HeaderedContentControl>
+
+    <HeaderedContentControl Classes="sample" Header="Pack (no flexed children)">
+      <StackPanel>
+        <Border Classes="frame"><enyo:HFlexBox Height="40" Pack="Start"><Border Classes="box"><TextBlock Text="start" /></Border><Border Classes="box"><TextBlock Text="B" /></Border></enyo:HFlexBox></Border>
+        <Border Classes="frame"><enyo:HFlexBox Height="40" Pack="Center"><Border Classes="box"><TextBlock Text="center" /></Border><Border Classes="box"><TextBlock Text="B" /></Border></enyo:HFlexBox></Border>
+        <Border Classes="frame"><enyo:HFlexBox Height="40" Pack="End"><Border Classes="box"><TextBlock Text="end" /></Border><Border Classes="box"><TextBlock Text="B" /></Border></enyo:HFlexBox></Border>
+        <Border Classes="frame"><enyo:HFlexBox Height="40" Pack="Justify"><Border Classes="box"><TextBlock Text="justify" /></Border><Border Classes="box"><TextBlock Text="B" /></Border><Border Classes="box"><TextBlock Text="C" /></Border></enyo:HFlexBox></Border>
+      </StackPanel>
+    </HeaderedContentControl>
+
+    <HeaderedContentControl Classes="sample" Header="Align (cross axis)">
+      <WrapPanel Classes="row">
+        <Border Classes="frame"><enyo:HFlexBox Width="150" Height="80" Align="Start"><Border Classes="box"><TextBlock Text="start" /></Border></enyo:HFlexBox></Border>
+        <Border Classes="frame"><enyo:HFlexBox Width="150" Height="80" Align="Center"><Border Classes="box"><TextBlock Text="center" /></Border></enyo:HFlexBox></Border>
+        <Border Classes="frame"><enyo:HFlexBox Width="150" Height="80" Align="End"><Border Classes="box"><TextBlock Text="end" /></Border></enyo:HFlexBox></Border>
+        <Border Classes="frame"><enyo:HFlexBox Width="150" Height="80" Align="Stretch"><Border Classes="box"><TextBlock Text="stretch" /></Border></enyo:HFlexBox></Border>
+        <Border Classes="frame">
+          <enyo:HFlexBox Width="200" Height="80" Align="Baseline" Spacing="6">
+            <TextBlock Text="Base" FontSize="28" />
+            <TextBlock Text="line" FontSize="14" />
+            <TextBlock Text="align" FontSize="20" />
+          </enyo:HFlexBox>
+        </Border>
+      </WrapPanel>
+    </HeaderedContentControl>
+
+    <HeaderedContentControl Classes="sample" Header="A typical view: header, flexed body, toolbar (VFlexBox)">
+      <Border Classes="frame" Height="240">
+        <enyo:VFlexBox>
+          <enyo:Header Content="Header" />
+          <ScrollViewer enyo:Flex.Value="1">
+            <StackPanel>
+              <enyo:Item Content="The body takes all the height left" />
+              <enyo:Item Content="It scrolls when the content is taller" />
+              <enyo:Item Content="Row 3" />
+              <enyo:Item Content="Row 4" />
+              <enyo:Item Content="Row 5" />
+            </StackPanel>
+          </ScrollViewer>
+          <enyo:Toolbar>
+            <enyo:ToolButton Content="Action" />
+          </enyo:Toolbar>
+        </enyo:VFlexBox>
+      </Border>
+    </HeaderedContentControl>
+
+    <HeaderedContentControl Classes="sample" Header="Nested boxes (stress)">
+      <Border Classes="frame" Height="160">
+        <enyo:HFlexBox Spacing="4">
+          <enyo:VFlexBox enyo:Flex.Value="1" Spacing="4">
+            <Border Classes="box flex" enyo:Flex.Value="1"><TextBlock Text="1" /></Border>
+            <Border Classes="box flex" enyo:Flex.Value="2"><TextBlock Text="2" /></Border>
+          </enyo:VFlexBox>
+          <enyo:VFlexBox enyo:Flex.Value="2" Spacing="4">
+            <enyo:HFlexBox enyo:Flex.Value="1" Spacing="4">
+              <Border Classes="box flex" enyo:Flex.Value="1"><TextBlock Text="3" /></Border>
+              <Border Classes="box"><TextBlock Text="fixed" /></Border>
+              <Border Classes="box flex" enyo:Flex.Value="1"><TextBlock Text="4" /></Border>
+            </enyo:HFlexBox>
+            <Border Classes="box flex" enyo:Flex.Value="1"><TextBlock Text="5" /></Border>
+          </enyo:VFlexBox>
+        </enyo:HFlexBox>
+      </Border>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

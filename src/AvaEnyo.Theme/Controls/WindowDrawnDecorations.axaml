@@ -1,0 +1,200 @@
+<!-- Derived from Avalonia.Themes.Fluent/Controls/WindowDrawnDecorations.xaml (MIT, see NOTICE.md). -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+
+  <!--
+    Invented: a caption button in the toolbar language. Transparent until hovered; pressed shows the
+    button-toolbar.png sheen. Close turns red (the negative button color) when hovered or pressed.
+  -->
+  <ControlTheme x:Key="EnyoDrawnCaptionButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoToolbarForegroundBrush}" />
+    <Setter Property="Width" Value="42" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="(WindowDecorationProperties.ElementRole)" Value="DecorationsElement" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          Foreground="{TemplateBinding Foreground}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Content="{TemplateBinding Content}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolbarHighlightBrush}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolButtonSheenBrush}" />
+    </Style>
+    <Style Selector="^.close:pointerover, ^.close:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoButtonNegativeBackgroundBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    Invented: the window caption is a slim Onyx toolbar (toolbar.png: #343434, a faint sheen, a 1 px light top line)
+    with the title in light grey.
+  -->
+  <ControlTheme x:Key="{x:Type WindowDrawnDecorations}" TargetType="WindowDrawnDecorations">
+    <Setter Property="DefaultTitleBarHeight" Value="{DynamicResource EnyoWindowCaptionHeight}" />
+    <Setter Property="DefaultFrameThickness" Value="1" />
+    <Setter Property="DefaultShadowThickness" Value="8" />
+    <Setter Property="Template">
+      <WindowDrawnDecorationsTemplate>
+        <WindowDrawnDecorationsContent>
+
+          <WindowDrawnDecorationsContent.Underlay>
+            <Panel Name="PART_UnderlayWrapper">
+              <Border Name="PART_WindowBorder"
+                      Background="Transparent"
+                      BorderThickness="{TemplateBinding FrameThickness}"
+                      BorderBrush="{DynamicResource EnyoToolbarBackgroundBrush}"
+                      IsHitTestVisible="False" />
+              <!-- Titlebar: background and drag area live in the underlay -->
+              <Panel Name="PART_TitleBar"
+                     VerticalAlignment="Top"
+                     Height="{TemplateBinding TitleBarHeight}"
+                     Background="{DynamicResource EnyoToolbarBackgroundBrush}"
+                     IsVisible="{TemplateBinding HasTitleBar}"
+                     WindowDecorationProperties.ElementRole="TitleBar">
+                <Border Background="{DynamicResource EnyoToolbarSheenBrush}"
+                        BorderBrush="{DynamicResource EnyoToolbarHighlightBrush}"
+                        BorderThickness="0,1,0,0"
+                        IsHitTestVisible="False" />
+              </Panel>
+            </Panel>
+          </WindowDrawnDecorationsContent.Underlay>
+
+          <WindowDrawnDecorationsContent.Overlay>
+            <Panel Name="PART_OverlayWrapper">
+              <Panel Name="PART_TitleTextPanel"
+                     VerticalAlignment="Top"
+                     Height="{TemplateBinding TitleBarHeight}"
+                     IsHitTestVisible="False"
+                     IsVisible="{TemplateBinding HasTitleBar}">
+                <TextBlock Text="{TemplateBinding Title}"
+                           VerticalAlignment="Center"
+                           Margin="12,0,0,0"
+                           Foreground="{DynamicResource EnyoToolbarForegroundBrush}"
+                           FontSize="{DynamicResource EnyoToolTipFontSize}" />
+              </Panel>
+              <StackPanel Name="PART_OverlayPanel"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Right"
+                          Height="{TemplateBinding TitleBarHeight}"
+                          IsVisible="{TemplateBinding HasTitleBar}"
+                          Orientation="Horizontal">
+                <Button Name="PART_FullScreenButton"
+                        Theme="{StaticResource EnyoDrawnCaptionButton}"
+                        WindowDecorationProperties.ElementRole="FullScreenButton">
+                  <Viewbox Width="11" Margin="2">
+                    <Path Name="FullScreenButtonPath"
+                          Stretch="UniformToFill"
+                          Fill="{Binding $parent[Button].Foreground}"
+                          Data="M2048 2048v-819h-205v469l-1493 -1493h469v-205h-819v819h205v-469l1493 1493h-469v205h819z" />
+                  </Viewbox>
+                </Button>
+                <Button Name="PART_MinimizeButton"
+                        Theme="{StaticResource EnyoDrawnCaptionButton}"
+                        WindowDecorationProperties.ElementRole="MinimizeButton">
+                  <PathIcon Data="{DynamicResource EnyoGlyphMinimize}" Width="14" Height="14" />
+                </Button>
+                <Button Name="PART_MaximizeButton"
+                        Theme="{StaticResource EnyoDrawnCaptionButton}"
+                        WindowDecorationProperties.ElementRole="MaximizeButton">
+                  <PathIcon Name="RestoreButtonPath" Data="{DynamicResource EnyoGlyphMaximize}" Width="14" Height="14" />
+                </Button>
+                <Button Name="PART_CloseButton"
+                        Classes="close"
+                        Theme="{StaticResource EnyoDrawnCaptionButton}"
+                        WindowDecorationProperties.ElementRole="CloseButton">
+                  <PathIcon Data="{DynamicResource EnyoGlyphClose}" Width="14" Height="14" />
+                </Button>
+              </StackPanel>
+            </Panel>
+          </WindowDrawnDecorationsContent.Overlay>
+
+          <WindowDrawnDecorationsContent.FullscreenPopover>
+            <Panel Height="{TemplateBinding DefaultTitleBarHeight}"
+                   VerticalAlignment="Top"
+                   Background="{DynamicResource EnyoToolbarBackgroundBrush}"
+                   WindowDecorationProperties.ElementRole="DecorationsElement">
+              <TextBlock Text="{TemplateBinding Title}"
+                         VerticalAlignment="Center"
+                         Margin="12,0,0,0"
+                         Foreground="{DynamicResource EnyoToolbarForegroundBrush}"
+                         FontSize="{DynamicResource EnyoToolTipFontSize}" />
+              <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Name="PART_PopoverFullScreenButton"
+                        Theme="{StaticResource EnyoDrawnCaptionButton}"
+                        WindowDecorationProperties.ElementRole="FullScreenButton">
+                  <Viewbox Width="11" Margin="2">
+                    <Path Stretch="UniformToFill"
+                          Fill="{Binding $parent[Button].Foreground}"
+                          Data="M205 1024h819v-819h-205v469l-674 -674l-145 145l674 674h-469v205zM1374 1229h469v-205h-819v819h205v-469l674 674l145 -145z" />
+                  </Viewbox>
+                </Button>
+                <Button Name="PART_PopoverCloseButton"
+                        Classes="close"
+                        Theme="{StaticResource EnyoDrawnCaptionButton}"
+                        WindowDecorationProperties.ElementRole="CloseButton">
+                  <PathIcon Data="{DynamicResource EnyoGlyphClose}" Width="14" Height="14" />
+                </Button>
+              </StackPanel>
+            </Panel>
+          </WindowDrawnDecorationsContent.FullscreenPopover>
+
+        </WindowDrawnDecorationsContent>
+      </WindowDrawnDecorationsTemplate>
+    </Setter>
+
+    <Style Selector="^:has-shadow /template/ Panel#PART_UnderlayWrapper">
+      <Setter Property="Margin" Value="{TemplateBinding ShadowThickness}" />
+    </Style>
+    <Style Selector="^:has-shadow /template/ Border#PART_WindowBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource EnyoPopupShadow}" />
+    </Style>
+    <Style Selector="^:has-shadow /template/ Panel#PART_OverlayWrapper">
+      <Setter Property="Margin" Value="{TemplateBinding ShadowThickness}" />
+    </Style>
+    <Style Selector="^:has-border /template/ Panel#PART_TitleTextPanel">
+      <Setter Property="Margin" Value="1,1,1,0" />
+    </Style>
+    <Style Selector="^:has-border /template/ Panel#PART_TitleBar">
+      <Setter Property="Margin" Value="1,1,1,0" />
+    </Style>
+    <Style Selector="^:has-border /template/ StackPanel#PART_OverlayPanel">
+      <Setter Property="Margin" Value="0,1,1,0" />
+    </Style>
+    <Style Selector="^:maximized /template/ PathIcon#RestoreButtonPath">
+      <Setter Property="Data" Value="{DynamicResource EnyoGlyphRestore}" />
+    </Style>
+    <Style Selector="^ /template/ Button:disabled">
+      <Setter Property="Opacity" Value="0.2" />
+    </Style>
+    <Style Selector="^:not(:has-minimize) /template/ Button#PART_MinimizeButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-maximize) /template/ Button#PART_MaximizeButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-fullscreen) /template/ Button#PART_FullScreenButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-fullscreen) /template/ Button#PART_PopoverFullScreenButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ Panel#PART_TitleTextPanel">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ StackPanel#PART_OverlayPanel">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ Panel#PART_TitleBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

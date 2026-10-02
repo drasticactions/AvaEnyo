@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Popups.ToastersPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Toaster (drag the grab button toward the edge to dismiss)">
+      <WrapPanel Classes="row">
+        <Button Name="BottomButton" Content="From the bottom" />
+        <Button Name="TopButton" Content="From the top" />
+        <Button Name="LeftButton" Content="From the left" />
+        <Button Name="RightButton" Content="From the right" />
+      </WrapPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Dialog (a bottom toaster in the dialog frame)">
+      <Button Name="DialogButton" Content="Show the dialog" />
+    </HeaderedContentControl>
+
+    <enyo:Toaster Name="DemoToaster">
+      <enyo:Toolbar>
+        <enyo:GrabButton />
+        <TextBlock Name="ToasterText" Text="A toaster" VerticalAlignment="Center" Margin="8,0" />
+        <enyo:Spacer />
+        <enyo:ToolButton Content="Close" enyo:Popup.CloseValue="close" />
+      </enyo:Toolbar>
+    </enyo:Toaster>
+
+    <enyo:Dialog Name="DemoDialog">
+      <StackPanel Margin="12,0" Spacing="4">
+        <TextBlock Classes="enyo-text-subheader" Text="Save the draft?" HorizontalAlignment="Center" />
+        <Button Classes="affirmative" Content="Save" HorizontalAlignment="Stretch" enyo:Popup.CloseValue="save" />
+        <Button Content="Discard" HorizontalAlignment="Stretch" enyo:Popup.CloseValue="discard" />
+      </StackPanel>
+    </enyo:Dialog>
+  </StackPanel>
+</UserControl>

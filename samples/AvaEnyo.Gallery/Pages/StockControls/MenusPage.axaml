@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.MenusPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Menu bar">
+      <Menu>
+        <MenuItem Header="_File">
+          <MenuItem Header="New" InputGesture="Ctrl+N" />
+          <MenuItem Header="Open…" InputGesture="Ctrl+O" />
+          <Separator />
+          <MenuItem Header="Recent">
+            <MenuItem Header="report.txt" />
+            <MenuItem Header="notes.txt" />
+          </MenuItem>
+        </MenuItem>
+        <MenuItem Header="_Edit">
+          <MenuItem Header="Cut" InputGesture="Ctrl+X" />
+          <MenuItem Header="Copy" InputGesture="Ctrl+C" />
+          <MenuItem Header="Paste" InputGesture="Ctrl+V" />
+        </MenuItem>
+      </Menu>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Context menu (right-click) and flyouts">
+      <WrapPanel Classes="row">
+        <Border Background="{DynamicResource EnyoHeaderBackgroundBrush}" Padding="16" CornerRadius="6">
+          <Border.ContextMenu>
+            <ContextMenu>
+              <MenuItem Header="Reply" />
+              <MenuItem Header="Forward" />
+              <MenuItem Header="Flagged" ToggleType="CheckBox" IsChecked="True" />
+            </ContextMenu>
+          </Border.ContextMenu>
+          <TextBlock Text="Right-click me" />
+        </Border>
+        <Button Content="Flyout">
+          <Button.Flyout>
+            <Flyout><TextBlock Text="A flyout in the popup frame." /></Flyout>
+          </Button.Flyout>
+        </Button>
+        <Button Content="Menu flyout">
+          <Button.Flyout>
+            <MenuFlyout>
+              <MenuItem Header="Small" />
+              <MenuItem Header="Medium" />
+              <MenuItem Header="Large" />
+            </MenuFlyout>
+          </Button.Flyout>
+        </Button>
+        <Button Content="Hover for a tool tip" ToolTip.Tip="An invented Onyx tool tip" />
+      </WrapPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,159 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <PipsPager NumberOfPages="5" SelectedPageIndex="2" />
+    </Border>
+  </Design.PreviewWith>
+
+  <!-- Invented: a chevron button, transparent until pressed (the held gradient of an Enyo item). -->
+  <ControlTheme x:Key="EnyoPipsPagerNavigationButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoChevronBrush}" />
+    <Setter Property="Width" Value="28" />
+    <Setter Property="Height" Value="28" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="CornerRadius" Value="14" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          Content="{TemplateBinding Content}"
+                          Foreground="{TemplateBinding Foreground}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+
+  <!-- The pip list: a plain items host, no list chrome. -->
+  <ControlTheme x:Key="EnyoPipsPagerList" TargetType="ListBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}">
+          <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- Invented: a small dot; the selected page is a larger Onyx blue dot. -->
+  <ControlTheme x:Key="EnyoPipsPagerItem" TargetType="ListBoxItem">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Height" Value="28" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Ellipse Name="Pip"
+                   Width="{DynamicResource EnyoPipSize}"
+                   Height="{DynamicResource EnyoPipSize}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Fill="{DynamicResource EnyoSubtextBrush}"
+                   Opacity="0.6"
+                   RenderTransformOrigin="50%,50%"
+                   RenderTransform="scale(0.7)" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ Ellipse#Pip">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:selected /template/ Ellipse#Pip">
+      <Setter Property="Fill" Value="{DynamicResource EnyoButtonBlueBackgroundBrush}" />
+      <Setter Property="Opacity" Value="1" />
+      <Setter Property="RenderTransform" Value="none" />
+    </Style>
+    <Style Selector="^:disabled /template/ Ellipse#Pip">
+      <Setter Property="Opacity" Value="0.3" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type PipsPager}" TargetType="PipsPager">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="PreviousButtonTheme" Value="{StaticResource EnyoPipsPagerNavigationButton}" />
+    <Setter Property="NextButtonTheme" Value="{StaticResource EnyoPipsPagerNavigationButton}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel Name="PART_RootPanel"
+                    Orientation="{TemplateBinding Orientation}"
+                    Background="{TemplateBinding Background}"
+                    ClipToBounds="False">
+          <Button Name="PART_PreviousButton"
+                  Theme="{TemplateBinding PreviousButtonTheme}"
+                  IsVisible="{TemplateBinding IsPreviousButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <PathIcon Name="PreviousButtonIcon" Width="12" Height="12" Data="{DynamicResource EnyoGlyphChevronLeft}" />
+          </Button>
+          <ListBox Name="PART_PipsPagerList"
+                   Theme="{StaticResource EnyoPipsPagerList}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   ItemsSource="{Binding TemplateSettings.Pips, RelativeSource={RelativeSource TemplatedParent}}"
+                   SelectedIndex="{Binding SelectedPageIndex, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                   AutoScrollToSelectedItem="False"
+                   ClipToBounds="False"
+                   ItemContainerTheme="{StaticResource EnyoPipsPagerItem}">
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=PipsPager}}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+          </ListBox>
+          <Button Name="PART_NextButton"
+                  Theme="{TemplateBinding NextButtonTheme}"
+                  IsVisible="{TemplateBinding IsNextButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <PathIcon Name="NextButtonIcon" Width="12" Height="12" Data="{DynamicResource EnyoGlyphChevronRight}" />
+          </Button>
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:vertical /template/ ListBox ListBoxItem">
+      <Setter Property="Width" Value="28" />
+      <Setter Property="Height" Value="18" />
+    </Style>
+    <Style Selector="^:vertical /template/ StackPanel#PART_RootPanel">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^:vertical /template/ Button#PART_PreviousButton PathIcon#PreviousButtonIcon">
+      <Setter Property="Data" Value="{DynamicResource EnyoGlyphChevronUp}" />
+    </Style>
+    <Style Selector="^:vertical /template/ Button#PART_NextButton PathIcon#NextButtonIcon">
+      <Setter Property="Data" Value="{DynamicResource EnyoGlyphChevronDown}" />
+    </Style>
+    <Style Selector="^:first-page /template/ Button#PART_PreviousButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+    <Style Selector="^:last-page /template/ Button#PART_NextButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,8 @@
+<!--
+  Compact metrics for keys that only AvaEnyo.Controls defines. The shared control metrics are in the theme's
+  generated CompactMetrics.axaml; this overlay holds the few that are local to this assembly.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Double x:Key="EnyoControlsCompactMarker">1</x:Double>
+</ResourceDictionary>

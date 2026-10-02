@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <enyo:Pane Width="300" Height="200">
+      <TextBlock Name="one" Text="One" />
+      <TextBlock Name="two" Text="Two" />
+    </enyo:Pane>
+  </Design.PreviewWith>
+
+  <!-- Pane: the views fill the pane; a clear layer eats input while a transition plays. -->
+  <ControlTheme x:Key="{x:Type enyo:Pane}" TargetType="enyo:Pane">
+    <Setter Property="ClipToBounds" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <enyo:PaneHost Name="PART_Host" />
+          <Border Name="PART_InputBlocker" Background="Transparent" IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:PaneView}" TargetType="enyo:PaneView">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          Content="{TemplateBinding Content}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

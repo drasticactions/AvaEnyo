@@ -1,0 +1,115 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="20">
+      <ScrollBar Orientation="Horizontal" Width="120" Maximum="100" ViewportSize="20" />
+      <ScrollBar Orientation="Vertical" Height="120" Maximum="100" ViewportSize="20" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    Invented: Enyo had no scroll bars. A thin, rounded overlay bar, drawn only after mouse or pen activity (the
+    ScrollViewer shows it); no arrows. The line buttons exist for keyboard and automation but are not drawn.
+  -->
+  <ControlTheme x:Key="EnyoScrollBarThumb" TargetType="Thumb">
+    <Setter Property="Background" Value="{DynamicResource EnyoScrollBarBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="EnyoScrollBarPageButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="EnyoScrollBarLineButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsVisible" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter" Content="{TemplateBinding Content}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoScrollBarBrush}" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoScrollBarThickness}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoScrollBarThickness}" />
+
+    <Style Selector="^:vertical">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid Name="Root" RowDefinitions="Auto,*,Auto" Background="{TemplateBinding Background}">
+            <RepeatButton Name="PART_LineUpButton" Grid.Row="0" Theme="{StaticResource EnyoScrollBarLineButton}" />
+            <Track Name="PART_Track"
+                   Grid.Row="1"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="{TemplateBinding Orientation}"
+                   IsDirectionReversed="True">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_PageUpButton" Theme="{StaticResource EnyoScrollBarPageButton}" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_PageDownButton" Theme="{StaticResource EnyoScrollBarPageButton}" />
+              </Track.IncreaseButton>
+              <Thumb Name="PART_Thumb"
+                     Theme="{StaticResource EnyoScrollBarThumb}"
+                     Width="{DynamicResource EnyoScrollBarThickness}"
+                     MinHeight="20"
+                     CornerRadius="2" />
+            </Track>
+            <RepeatButton Name="PART_LineDownButton" Grid.Row="2" Theme="{StaticResource EnyoScrollBarLineButton}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^:horizontal">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid Name="Root" ColumnDefinitions="Auto,*,Auto" Background="{TemplateBinding Background}">
+            <RepeatButton Name="PART_LineUpButton" Grid.Column="0" Theme="{StaticResource EnyoScrollBarLineButton}" />
+            <Track Name="PART_Track"
+                   Grid.Column="1"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="{TemplateBinding Orientation}">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_PageUpButton" Theme="{StaticResource EnyoScrollBarPageButton}" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_PageDownButton" Theme="{StaticResource EnyoScrollBarPageButton}" />
+              </Track.IncreaseButton>
+              <Thumb Name="PART_Thumb"
+                     Theme="{StaticResource EnyoScrollBarThumb}"
+                     Height="{DynamicResource EnyoScrollBarThickness}"
+                     MinWidth="20"
+                     CornerRadius="2" />
+            </Track>
+            <RepeatButton Name="PART_LineDownButton" Grid.Column="2" Theme="{StaticResource EnyoScrollBarLineButton}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

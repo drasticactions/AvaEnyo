@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.TextFieldsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Single line">
+      <enyo:Group>
+        <enyo:Item TapHighlight="False"><TextBox PlaceholderText="Tap here to type" /></enyo:Item>
+      </enyo:Group>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="In a row group">
+      <enyo:RowGroup Header="New account">
+        <TextBox PlaceholderText="Username" />
+        <TextBox PlaceholderText="Email" />
+        <TextBox PlaceholderText="Password" PasswordChar="•" />
+      </enyo:RowGroup>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="With accessories">
+      <enyo:InputBox>
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Left" Classes="enyo-label" Text="To" VerticalAlignment="Center" Margin="0,0,8,0" />
+          <Button DockPanel.Dock="Right" Content="Add" Margin="4,-4" />
+          <TextBox PlaceholderText="Recipient" />
+        </DockPanel>
+      </enyo:InputBox>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Rounded">
+      <TextBox Classes="rounded" PlaceholderText="Rounded input" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Multi-line">
+      <TextBox AcceptsReturn="True" TextWrapping="Wrap" Height="120" PlaceholderText="Write a note" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Disabled">
+      <TextBox IsEnabled="False" Text="Read only" />
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

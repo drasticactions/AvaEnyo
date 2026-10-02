@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Media.ImageViewPage">
+  <DockPanel>
+    <enyo:Toolbar DockPanel.Dock="Bottom">
+      <enyo:ToolButton Name="Prev" Icon="{DynamicResource EnyoGlyphChevronLeft}" />
+      <enyo:Spacer />
+      <TextBlock Name="Hint" VerticalAlignment="Center" Foreground="{DynamicResource EnyoToolbarForegroundBrush}"
+                 Text="Swipe between photos. Double-tap or Ctrl+wheel to zoom." />
+      <enyo:Spacer />
+      <enyo:ToolButton Name="Next" Icon="{DynamicResource EnyoGlyphChevronRight}" />
+    </enyo:Toolbar>
+    <enyo:ImageView Name="Viewer" />
+  </DockPanel>
+</UserControl>

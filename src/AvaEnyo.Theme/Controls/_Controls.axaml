@@ -1,0 +1,91 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Window.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/EmbeddableControlRoot.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/PopupRoot.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/OverlayPopupHost.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/AdornerLayer.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ThemeVariantScope.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/WindowDrawnDecorations.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Separator.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/MenuScrollViewer.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/MenuFlyoutPresenter.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Menu.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/MenuItem.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ContextMenu.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Button.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ToggleButton.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/RepeatButton.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/HyperlinkButton.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/DropDownButton.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/SplitButton.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TextBox.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ListBoxItem.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ListBox.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/CheckBox.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/RadioButton.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ToggleSwitch.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Slider.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ProgressBar.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ComboBox.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ComboBoxItem.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ButtonSpinner.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/NumericUpDown.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/AutoCompleteBox.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/SelectableTextBlock.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Label.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/PathIcon.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ToolTip.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/FlyoutPresenter.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TextSelectionHandle.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ScrollBar.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ScrollViewer.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ItemsControl.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/HeaderedContentControl.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/GridSplitter.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/GroupBox.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Expander.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/SplitView.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TabControl.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TabItem.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TabStrip.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TabStripItem.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TransitioningContentControl.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Carousel.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/PipsPager.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/RefreshContainer.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/RefreshVisualizer.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TreeView.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TreeViewItem.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/DataValidationErrors.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/DateTimePickerShared.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/DatePicker.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TimePicker.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/CalendarItem.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/CalendarButton.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/CalendarDayButton.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/Calendar.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/CalendarDatePicker.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/CommandBar.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ContentPage.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/NavigationPage.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/DrawerPage.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TabbedPage.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/CarouselPage.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/NotificationCard.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/WindowNotificationManager.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/ManagedFileChooser.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TableView.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TableViewRow.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TableViewCell.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Theme/Controls/TableViewColumnHeader.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <StyleInclude Source="avares://AvaEnyo.Theme/Controls/TextBlock.axaml" />
+</Styles>

@@ -1,0 +1,63 @@
+<!-- The Onyx text classes (theme.css) and the palmstyle text styles. -->
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:enyo="https://github.com/avaenyo"
+        x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="4">
+      <TextBlock Classes="enyo-text-header" Text="Header" />
+      <TextBlock Classes="enyo-label" Text="Label" />
+      <TextBlock Classes="enyo-subtext" Text="Subtext" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- Browsers draw descenders outside the line box; so does AvaEnyo. -->
+  <Style Selector="TextBlock">
+    <Setter Property="ClipToBounds" Value="False" />
+  </Style>
+
+  <Style Selector="TextBlock.enyo-text-header">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextHeaderFontSize}" />
+  </Style>
+  <Style Selector="TextBlock.enyo-text-subheader">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextSubheaderFontSize}" />
+  </Style>
+  <Style Selector="TextBlock.enyo-text-body, TextBlock.enyo-paragraph, TextBlock.enyo-item-secondary">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextBodySmallFontSize}" />
+  </Style>
+  <Style Selector="TextBlock.enyo-paragraph">
+    <!-- margin: .5em 0 -->
+    <Setter Property="Margin" Value="0,8" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+  <Style Selector="TextBlock.enyo-label">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextLabelFontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoLabelBrush}" />
+    <Setter Property="enyo:TextTransform.Uppercase" Value="True" />
+  </Style>
+  <Style Selector="TextBlock.enyo-subtext, TextBlock.enyo-item-ternary">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextSubtextFontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoSubtextBrush}" />
+  </Style>
+  <Style Selector="TextBlock.enyo-footnote">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextFootnoteFontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoFootnoteBrush}" />
+  </Style>
+  <Style Selector="TextBlock.enyo-text-error">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextErrorFontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoErrorBrush}" />
+  </Style>
+  <Style Selector="TextBlock.enyo-text-ellipsis">
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    <Setter Property="TextWrapping" Value="NoWrap" />
+  </Style>
+  <!-- palmstyle: the dark header of a dialog title -->
+  <Style Selector="TextBlock.enyo-dark-header">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextDarkHeaderFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource EnyoTextDarkHeaderFontWeight}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoDialogTitleBrush}" />
+  </Style>
+  <Style Selector="TextBlock.enyo-bold">
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+</Styles>

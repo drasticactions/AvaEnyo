@@ -1,0 +1,54 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <enyo:ScrollFades Width="200" Height="100" />
+  </Design.PreviewWith>
+
+  <!--
+    menu-fade-arrow-up.png / -down.png: a 20x10 grey triangle centered at the top or bottom edge, shown only when the
+    content can scroll that way (.enyo-menu-top-fade / -bottom-fade). Left and right arrows mirror them.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:ScrollFades}" TargetType="enyo:ScrollFades">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoMenuFadeArrowBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Path Name="PART_FadeTop" Data="{DynamicResource EnyoGlyphFadeArrowUp}" Fill="{TemplateBinding Foreground}"
+                Width="20" Height="{DynamicResource EnyoMenuFadeHeight}" Stretch="Fill"
+                VerticalAlignment="Top" HorizontalAlignment="Center" IsVisible="False" />
+          <Path Name="PART_FadeBottom" Data="{DynamicResource EnyoGlyphFadeArrowDown}" Fill="{TemplateBinding Foreground}"
+                Width="20" Height="{DynamicResource EnyoMenuFadeHeight}" Stretch="Fill"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" IsVisible="False" />
+          <Path Name="PART_FadeLeft" Data="{DynamicResource EnyoGlyphFadeArrowUp}" Fill="{TemplateBinding Foreground}"
+                Width="20" Height="{DynamicResource EnyoMenuFadeHeight}" Stretch="Fill"
+                VerticalAlignment="Center" HorizontalAlignment="Left" IsVisible="False">
+            <Path.RenderTransform>
+              <RotateTransform Angle="-90" />
+            </Path.RenderTransform>
+          </Path>
+          <Path Name="PART_FadeRight" Data="{DynamicResource EnyoGlyphFadeArrowUp}" Fill="{TemplateBinding Foreground}"
+                Width="20" Height="{DynamicResource EnyoMenuFadeHeight}" Stretch="Fill"
+                VerticalAlignment="Center" HorizontalAlignment="Right" IsVisible="False">
+            <Path.RenderTransform>
+              <RotateTransform Angle="90" />
+            </Path.RenderTransform>
+          </Path>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:scroll-up /template/ Path#PART_FadeTop">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:scroll-down /template/ Path#PART_FadeBottom">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:scroll-left /template/ Path#PART_FadeLeft">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:scroll-right /template/ Path#PART_FadeRight">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

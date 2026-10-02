@@ -1,0 +1,54 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Item.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Divider.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Header.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Toolbar.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Group.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Buttons.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Segments.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Spinner.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/InputBox.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Pane.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/SlidingPane.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Scrim.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Popup.axaml" />
+        <!-- group D: overlays -->
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/ScrollFades.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Menu.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/ModalDialog.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Toaster.axaml" />
+        <!-- end of group D -->
+
+        <!-- group E: pickers and range -->
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Pickers.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Drawer.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Progress.axaml" />
+        <!-- end of group E -->
+
+        <!-- group F: lists -->
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Lists.axaml" />
+        <!-- end of group F -->
+
+        <!-- group G: carousel and media -->
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/Carousel.axaml" />
+        <!-- end of group G -->
+
+        <!-- group H: extras -->
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/TokenInput.axaml" />
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/NumericKeypad.axaml" />
+        <!-- end of group H -->
+
+        <!-- group S: app menu and services presenters -->
+        <MergeResourceInclude Source="avares://AvaEnyo.Controls/Themes/AppMenu.axaml" />
+        <!-- end of group S -->
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <StyleInclude Source="avares://AvaEnyo.Controls/Themes/Descendants.axaml" />
+</Styles>

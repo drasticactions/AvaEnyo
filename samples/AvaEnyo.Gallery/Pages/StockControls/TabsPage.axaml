@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.TabsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="TabControl">
+      <TabControl Height="160">
+        <TabItem Header="Inbox"><TextBlock Margin="8" Text="Inbox content" /></TabItem>
+        <TabItem Header="Sent"><TextBlock Margin="8" Text="Sent content" /></TabItem>
+        <TabItem Header="Drafts"><TextBlock Margin="8" Text="Drafts content" /></TabItem>
+      </TabControl>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="TabStrip">
+      <TabStrip SelectedIndex="1">
+        <TabStripItem Content="Day" />
+        <TabStripItem Content="Week" />
+        <TabStripItem Content="Month" />
+      </TabStrip>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

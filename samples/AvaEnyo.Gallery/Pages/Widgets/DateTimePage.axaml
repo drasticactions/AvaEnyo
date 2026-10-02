@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.DateTimePage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Enyo date picker">
+      <StackPanel Spacing="4">
+        <enyo:EnyoDatePicker />
+        <enyo:EnyoDatePicker HideDay="True" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Enyo time picker">
+      <StackPanel Spacing="4">
+        <enyo:EnyoTimePicker MinuteInterval="5" />
+        <enyo:EnyoTimePicker Is24Hour="True" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Stock date and time pickers">
+      <StackPanel Spacing="8">
+        <DatePicker />
+        <TimePicker />
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

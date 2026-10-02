@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaEnyo.Controls\AvaEnyo.Controls.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The control theme XAML is read at test time to enumerate the resource keys each template consumes. -->
+    <Content Include="..\..\src\AvaEnyo.Controls\Themes\*.axaml" Link="ThemeXaml\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

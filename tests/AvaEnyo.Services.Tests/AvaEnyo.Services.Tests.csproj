@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaEnyo.Services\AvaEnyo.Services.csproj" />
+  </ItemGroup>
+</Project>

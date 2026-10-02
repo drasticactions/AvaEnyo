@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Motion.DurationsPage">
+  <StackPanel Classes="page">
+    <TextBlock Classes="enyo-paragraph" Text="The durations of Enyo 1.0, each played with its easing. Turn on slow motion in the app menu to watch them closely." />
+    <Button Name="PlayAll" Classes="blue" Content="Play all" />
+    <Grid Name="Table" ColumnDefinitions="200,80,*" Margin="0,8,0,0" />
+  </StackPanel>
+</UserControl>

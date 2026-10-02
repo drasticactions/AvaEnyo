@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.SlidersPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Sliders">
+      <StackPanel Spacing="4">
+        <Slider Value="40" Maximum="100" />
+        <Slider Value="70" Maximum="100" IsEnabled="False" />
+        <Slider Value="30" Maximum="100" Orientation="Vertical" Height="160" HorizontalAlignment="Left" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Progress slider">
+      <StackPanel Spacing="4">
+        <enyo:ProgressSlider Value="30" Maximum="100" BarValue="55" AltBarValue="80" />
+        <TextBlock Classes="enyo-footnote" TextWrapping="Wrap" Text="The blue bar is progress, the light bar is buffered, the handle is the position." />
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

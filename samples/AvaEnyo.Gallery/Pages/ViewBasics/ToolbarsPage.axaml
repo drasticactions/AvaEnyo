@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.ViewBasics.ToolbarsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Dark toolbar">
+      <enyo:Toolbar>
+        <enyo:GrabButton />
+        <enyo:ToolButton Icon="{DynamicResource EnyoGlyphPlus}" />
+        <enyo:ToolButton Content="Reply" />
+        <enyo:Spacer />
+        <enyo:ToolButton Content="Forward" />
+        <enyo:ToolButton Icon="{DynamicResource EnyoGlyphCancel}" />
+      </enyo:Toolbar>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Light toolbar">
+      <enyo:Toolbar Classes="light">
+        <Button Content="Cancel" />
+        <enyo:Spacer />
+        <Button Classes="affirmative" Content="Done" />
+      </enyo:Toolbar>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Custom tint (Background)">
+      <enyo:Toolbar Background="#7a1d4f">
+        <enyo:ToolButton Content="Tinted" />
+        <enyo:ToolButton Icon="{DynamicResource EnyoGlyphSearch}" />
+      </enyo:Toolbar>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Tool button groups">
+      <enyo:Toolbar>
+        <enyo:ToolButtonGroup>
+          <enyo:ToolButton Content="Day" />
+          <enyo:ToolButton Content="Week" />
+          <enyo:ToolButton Content="Month" />
+        </enyo:ToolButtonGroup>
+        <enyo:Spacer />
+        <enyo:RadioToolButtonGroup SelectedIndex="0">
+          <enyo:RadioToolButton Content="List" />
+          <enyo:RadioToolButton Content="Grid" />
+        </enyo:RadioToolButtonGroup>
+      </enyo:Toolbar>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Tool input">
+      <enyo:Toolbar>
+        <TextBox Classes="tool search" PlaceholderText="Search" Width="240" />
+      </enyo:Toolbar>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

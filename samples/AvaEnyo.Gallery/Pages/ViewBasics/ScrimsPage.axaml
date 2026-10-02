@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.ViewBasics.ScrimsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Scrim over a region">
+      <StackPanel Spacing="6">
+        <ToggleSwitch Name="DimToggle" Content="Dim the region" />
+        <Panel Height="180">
+          <Border Background="{DynamicResource EnyoHeaderBackgroundBrush}" CornerRadius="8">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="6">
+              <TextBlock Text="Content under the scrim" HorizontalAlignment="Center" />
+              <Button Content="Pressable while the scrim is off" />
+            </StackPanel>
+          </Border>
+          <enyo:Scrim Name="RegionScrim" />
+          <enyo:Spinner Name="RegionSpinner" Classes="large light" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Panel>
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Transparent scrim (blocks input, draws nothing)">
+      <StackPanel Spacing="6">
+        <ToggleSwitch Name="BlockToggle" Content="Block input" />
+        <Panel Height="60">
+          <Button Name="CountButton" Content="Pressed 0 times" VerticalAlignment="Center" />
+          <enyo:Scrim Name="BlockScrim" Classes="transparent" />
+        </Panel>
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,112 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="10" Width="220">
+      <ButtonSpinner Content="Right" />
+      <ButtonSpinner Content="Left" ButtonSpinnerLocation="Left" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!-- A small Onyx button (button-up.png chrome, button-down.png while pressed) holding a plus or minus glyph. -->
+  <ControlTheme x:Key="EnyoSpinnerRepeatButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="{DynamicResource EnyoButtonBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoButtonForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoButtonEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoButtonCornerRadius}" />
+    <Setter Property="Width" Value="{DynamicResource EnyoSpinnerButtonSize}" />
+    <Setter Property="Margin" Value="2,0,0,0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Height" Value="{DynamicResource EnyoSpinnerButtonSize}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame"
+                  Background="{DynamicResource EnyoButtonSheenBrush}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoButtonPressedEdgeBrush}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="Background" Value="{DynamicResource EnyoButtonPressedSheenBrush}" />
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoButtonPressedShadow}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    Invented: Enyo had no spinner box. An input-focus.png box (white, soft edge) with two small Onyx buttons beside
+    the text.
+  -->
+  <ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+    <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
+    <Setter Property="Background" Value="{DynamicResource EnyoInputFocusBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoInputFocusEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoInputCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoSpinnerBoxPadding}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoInputFontSize}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoButtonMinHeight}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Border Name="PART_Border"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  BoxShadow="{DynamicResource EnyoInputFocusShadow}"
+                  MinHeight="{TemplateBinding MinHeight}">
+            <DockPanel>
+              <StackPanel Name="PART_SpinnerPanel"
+                          DockPanel.Dock="Right"
+                          Orientation="Horizontal"
+                          Margin="2"
+                          IsVisible="{TemplateBinding ShowButtonSpinner}">
+                <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource EnyoSpinnerRepeatButton}">
+                  <PathIcon Data="{DynamicResource EnyoGlyphMinus}" Width="12" Height="12" />
+                </RepeatButton>
+                <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource EnyoSpinnerRepeatButton}">
+                  <PathIcon Data="{DynamicResource EnyoGlyphPlus}" Width="12" Height="12" />
+                </RepeatButton>
+              </StackPanel>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Padding="{TemplateBinding Padding}" />
+            </DockPanel>
+          </Border>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:left /template/ StackPanel#PART_SpinnerPanel">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
+    <Style Selector="^:error /template/ Border#PART_Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoErrorBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.625" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

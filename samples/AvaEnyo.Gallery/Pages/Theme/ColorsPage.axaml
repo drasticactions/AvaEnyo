@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Theme.ColorsPage">
+  <Grid ColumnDefinitions="*,*">
+    <ThemeVariantScope Grid.Column="0" RequestedThemeVariant="Light">
+      <Border Background="{DynamicResource EnyoBodyBrush}" Padding="12">
+        <StackPanel Name="LightHost" Spacing="4">
+          <TextBlock Classes="enyo-text-header" Text="Light (Enyo Onyx)" />
+        </StackPanel>
+      </Border>
+    </ThemeVariantScope>
+    <ThemeVariantScope Grid.Column="1" RequestedThemeVariant="Dark">
+      <Border Background="{DynamicResource EnyoBodyBrush}" Padding="12">
+        <StackPanel Name="DarkHost" Spacing="4">
+          <TextBlock Classes="enyo-text-header" Foreground="{DynamicResource EnyoTextBrush}" Text="Dark (invented)" />
+        </StackPanel>
+      </Border>
+    </ThemeVariantScope>
+  </Grid>
+</UserControl>

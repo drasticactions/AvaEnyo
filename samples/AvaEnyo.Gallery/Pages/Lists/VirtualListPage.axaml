@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Lists.VirtualListPage">
+  <DockPanel>
+    <enyo:Toolbar DockPanel.Dock="Bottom" Classes="light">
+      <enyo:RadioGroup Name="Kind" SelectedIndex="0">
+        <enyo:RadioSegment Content="Labeled dividers" />
+        <enyo:RadioSegment Content="Alpha dividers" />
+      </enyo:RadioGroup>
+      <enyo:Spacer />
+      <TextBlock Name="Count" VerticalAlignment="Center" Classes="enyo-subtext" />
+    </enyo:Toolbar>
+    <enyo:VirtualList Name="List" />
+  </DockPanel>
+</UserControl>

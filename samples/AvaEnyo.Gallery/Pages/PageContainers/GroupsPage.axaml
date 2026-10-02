@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.PageContainers.GroupsPage">
+  <StackPanel Classes="page">
+    <enyo:Group Header="Ingredients">
+      <enyo:Item>
+        <DockPanel>
+          <CheckBox DockPanel.Dock="Left" IsChecked="True" Content="Sifted flour" />
+          <TextBlock Classes="enyo-label" Text="2 cups" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        </DockPanel>
+      </enyo:Item>
+      <enyo:Item>
+        <DockPanel>
+          <CheckBox DockPanel.Dock="Left" IsChecked="True" Content="Lukewarm milk" />
+          <TextBlock Classes="enyo-label" Text="3 cups" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        </DockPanel>
+      </enyo:Item>
+      <enyo:Item>
+        <DockPanel>
+          <CheckBox DockPanel.Dock="Left" Content="Melted butter" />
+          <TextBlock Classes="enyo-label" Text="1 stick" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        </DockPanel>
+      </enyo:Item>
+    </enyo:Group>
+
+    <enyo:Group>
+      <enyo:Item Content="An unlabeled group" />
+      <enyo:Item Content="Its rows are rounded by position" />
+    </enyo:Group>
+
+    <enyo:RowGroup Name="Rows" Header="Account">
+      <TextBox PlaceholderText="User name" />
+      <TextBox PlaceholderText="Password" PasswordChar="•" />
+      <TextBox PlaceholderText="Server" />
+    </enyo:RowGroup>
+    <WrapPanel Classes="row">
+      <Button Name="HideButton" Content="Hide the middle row" />
+      <Button Name="ShowButton" Content="Show it again" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <title>Enyo reference view</title>
+  <meta charset="UTF-8">
+  <!--
+    Renders one kind full page: view.html?kind=widgets.Buttons&depends=../enyo/support/examples/StyleMatters/
+    depends is a folder with a depends.js, relative to this page. Reaches StyleMatters pages that are otherwise only
+    reachable through its Pane navigation.
+  -->
+  <script src="../1.0/framework/enyo.js" launch="debug" type="text/javascript"></script>
+  <script type="text/javascript">
+    (function () {
+      var q = new URLSearchParams(location.search);
+      enyo.depends(q.get("depends") || "../enyo/support/examples/StyleMatters/");
+    })();
+  </script>
+</head>
+<body class="enyo-bg">
+  <script type="text/javascript">
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var kind = q.get("kind") || "StyleMatters";
+      enyo.create({kind: "enyo.Scroller", height: "100%", style: "height: 100%", components: [{kind: kind, style: "padding: 8px"}]}).renderInto(document.body);
+    })();
+  </script>
+</body>
+</html>

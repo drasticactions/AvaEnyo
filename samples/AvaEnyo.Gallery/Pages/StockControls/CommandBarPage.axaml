@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.CommandBarPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="CommandBar (Toolbar)">
+      <CommandBar>
+        <CommandBar.PrimaryCommands>
+          <CommandBarButton Label="Reply" />
+          <CommandBarButton Label="Forward" />
+          <CommandBarToggleButton Label="Flag" IsChecked="True" />
+          <CommandBarSeparator />
+          <CommandBarButton Label="Delete" />
+        </CommandBar.PrimaryCommands>
+        <CommandBar.SecondaryCommands>
+          <CommandBarButton Label="Mark as unread" />
+          <CommandBarButton Label="Move to folder" />
+        </CommandBar.SecondaryCommands>
+      </CommandBar>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

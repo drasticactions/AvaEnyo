@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.SearchPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Search input">
+      <StackPanel Spacing="8">
+        <enyo:Group>
+          <enyo:Item TapHighlight="False"><TextBox Name="SearchBox" Classes="search" PlaceholderText="Search fruit" /></enyo:Item>
+        </enyo:Group>
+        <TextBlock Name="SearchResult" Classes="enyo-footnote" TextWrapping="Wrap" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Event log">
+      <TextBlock Name="SearchLog" Classes="enyo-subtext" TextWrapping="Wrap" />
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="200" Margin="20">
+      <ComboBoxItem>Item 1</ComboBoxItem>
+      <ComboBoxItem IsSelected="True">Item 2</ComboBoxItem>
+      <ComboBoxItem IsEnabled="False">Item 3</ComboBoxItem>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    A row of the ListSelector popup: an enyo-item with the held gradient on press. The selected row is
+    enyo-picker-item-selected: bold on white.
+  -->
+  <ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPopupForegroundBrush}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoMenuItemPadding}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoMenuItemFontSize}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_HeldBorder"
+                  Background="{DynamicResource EnyoItemHeldBrush}"
+                  IsVisible="False" />
+          <Border Name="PART_TopEdge" VerticalAlignment="Top" Height="1"
+                  Background="{DynamicResource EnyoItemTopBorderBrush}" />
+          <Border Name="PART_BottomEdge" VerticalAlignment="Bottom" Height="1"
+                  Background="{DynamicResource EnyoItemBottomBorderBrush}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Foreground="{TemplateBinding Foreground}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            LineHeight="{DynamicResource EnyoMenuItemLineHeight}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Padding="{TemplateBinding Padding}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pressed /template/ Border#PART_HeldBorder">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="FontWeight" Value="Bold" />
+      <Style Selector="^ /template/ Border#PART_Background">
+        <Setter Property="Background" Value="{DynamicResource EnyoPickerItemSelectedBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:nth-child(1) /template/ Border#PART_TopEdge">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:nth-last-child(1) /template/ Border#PART_BottomEdge">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

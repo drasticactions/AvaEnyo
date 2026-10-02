@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.NumericPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="NumericUpDown">
+      <NumericUpDown Value="42" Minimum="0" Maximum="100" Width="200" HorizontalAlignment="Left" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="ButtonSpinner">
+      <ButtonSpinner Width="200" HorizontalAlignment="Left"><TextBlock Text="Spin me" VerticalAlignment="Center" /></ButtonSpinner>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Disabled">
+      <NumericUpDown Value="7" IsEnabled="False" Width="200" HorizontalAlignment="Left" />
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

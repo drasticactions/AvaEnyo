@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <TabControl Width="360" Height="160">
+      <TabItem Header="Mail">
+        <TextBlock Margin="10" Text="Inbox" />
+      </TabItem>
+      <TabItem Header="Contacts" />
+      <TabItem Header="Calendar" />
+    </TabControl>
+  </Design.PreviewWith>
+
+  <!--
+    Enyo TabGroup over a content area: the tab strip is a row of equal enyo-tabbutton segments (margin 3/0), the
+    content sits on the body.
+  -->
+  <ControlTheme x:Key="{x:Type TabControl}" TargetType="TabControl">
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Padding" Value="0,6,0,0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="ItemsPanel">
+      <ItemsPanelTemplate>
+        <UniformGrid Rows="1" />
+      </ItemsPanelTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Background="{TemplateBinding Background}"
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalAlignment}">
+          <DockPanel>
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            Margin="{DynamicResource EnyoRadioGroupMargin}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            DockPanel.Dock="{TemplateBinding TabStripPlacement}" />
+            <Panel ClipToBounds="True">
+              <ContentPresenter Name="PART_SelectedContentHost2"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                IsVisible="False" />
+              <ContentPresenter Name="PART_SelectedContentHost"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Panel>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[TabStripPlacement=Left], ^[TabStripPlacement=Right]">
+      <Setter Property="Padding" Value="6,0,0,0" />
+      <Setter Property="ItemsPanel">
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Vertical" />
+        </ItemsPanelTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom]">
+      <Setter Property="Padding" Value="0,0,0,6" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

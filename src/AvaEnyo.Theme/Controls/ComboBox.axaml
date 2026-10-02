@@ -1,0 +1,165 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="300" Margin="20" Spacing="10">
+      <ComboBox SelectedIndex="1">
+        <ComboBoxItem>Small</ComboBoxItem>
+        <ComboBoxItem>Medium</ComboBoxItem>
+        <ComboBoxItem>Large</ComboBoxItem>
+      </ComboBox>
+      <ComboBox SelectedIndex="0" enyo:ListSelectorAssist.Label="Size">
+        <ComboBoxItem>Small</ComboBoxItem>
+      </ComboBox>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    ListSelector.css: the value shown inline with menu-arrow.png (14x10) at the right, an optional label in the
+    enyo-label style (14 px, line height 34), no chrome of its own: it sits inside an Item row. The list opens in a
+    popup.png frame (24 px slice: a gradient #eaeaea to #ccc, radius 10, a soft shadow) placed so that the
+    selected row covers the control where space allows.
+  -->
+  <ControlTheme x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="MaxDropDownHeight" Value="504" />
+    <Setter Property="Foreground" Value="{DynamicResource ComboBoxForeground}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoItemCornerRadius}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoItemFontSize}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="MinHeight" Value="34" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource EnyoPlaceholderBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid ColumnDefinitions="Auto,*,Auto">
+            <Border x:Name="Background"
+                    Grid.ColumnSpan="3"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
+            <Border x:Name="HighlightBackground"
+                    Grid.ColumnSpan="3"
+                    Background="{DynamicResource EnyoItemHeldBrush}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    IsVisible="False" />
+            <TextBlock x:Name="PART_Label"
+                       Grid.Column="0"
+                       Margin="6,1,6,0"
+                       VerticalAlignment="Center"
+                       FontSize="{DynamicResource EnyoListSelectorFontSize}"
+                       Foreground="{DynamicResource EnyoLabelBrush}"
+                       enyo:TextTransform.Uppercase="True"
+                       Text="{TemplateBinding enyo:ListSelectorAssist.Label}"
+                       IsVisible="{TemplateBinding enyo:ListSelectorAssist.Label, Converter={x:Static ObjectConverters.IsNotNull}}" />
+            <TextBlock x:Name="PlaceholderTextBlock"
+                       Grid.Column="1"
+                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                       Margin="{TemplateBinding Padding}"
+                       Text="{TemplateBinding PlaceholderText}"
+                       Foreground="{TemplateBinding PlaceholderForeground}">
+              <TextBlock.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding Path="SelectionBoxItem" RelativeSource="{RelativeSource TemplatedParent}" Converter="{x:Static ObjectConverters.IsNull}" />
+                  <Binding Path="!IsEditable" RelativeSource="{RelativeSource TemplatedParent}" />
+                </MultiBinding>
+              </TextBlock.IsVisible>
+            </TextBlock>
+            <ContentControl x:Name="ContentPresenter"
+                            Grid.Column="1"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            IsVisible="{TemplateBinding IsEditable, Converter={x:Static BoolConverters.Not}}" />
+            <TextBox Name="PART_EditableTextBox"
+                     Grid.Column="1"
+                     Padding="{TemplateBinding Padding}"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                     Foreground="{TemplateBinding Foreground}"
+                     Background="Transparent"
+                     Text="{TemplateBinding Text, Mode=TwoWay}"
+                     PlaceholderText="{TemplateBinding PlaceholderText}"
+                     BorderThickness="0"
+                     IsVisible="{TemplateBinding IsEditable}" />
+            <Path x:Name="DropDownGlyph"
+                  Grid.Column="2"
+                  Data="{DynamicResource EnyoGlyphMenuArrow}"
+                  Fill="{DynamicResource EnyoGlyphBrush}"
+                  Width="{DynamicResource EnyoListSelectorArrowWidth}"
+                  Height="10"
+                  Stretch="Uniform"
+                  Margin="6,0,2,0"
+                  VerticalAlignment="Center"
+                  IsHitTestVisible="False" />
+            <Popup Name="PART_Popup"
+                   WindowManagerAddShadowHint="False"
+                   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                   MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                   PlacementTarget="Background"
+                   Placement="Center"
+                   IsLightDismissEnabled="True"
+                   InheritsTransform="True">
+              <Border x:Name="PopupBorder"
+                      Margin="{DynamicResource EnyoPopupShadowMargin}"
+                      MinWidth="{DynamicResource EnyoPopupMinWidth}"
+                      Background="{DynamicResource EnyoPopupBackgroundBrush}"
+                      BorderBrush="{DynamicResource EnyoPopupEdgeBrush}"
+                      BorderThickness="1"
+                      BoxShadow="{DynamicResource EnyoPopupShadow}"
+                      CornerRadius="{DynamicResource EnyoPopupCornerRadius}"
+                      Padding="{DynamicResource EnyoPopupPadding}"
+                      HorizontalAlignment="Stretch">
+                <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                              IsScrollChainingEnabled="False"
+                              enyo:Scroll.Fades="False"
+                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                              IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}">
+                  <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                </ScrollViewer>
+              </Border>
+            </Popup>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pressed /template/ Border#HighlightBackground">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:dropdownopen /template/ Border#HighlightBackground">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#Background">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <Style Selector="^:error /template/ TextBlock#PART_Label">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoErrorBrush}" />
+    </Style>
+    <Style Selector="^[(enyo|ListSelectorAssist.HideArrow)=True] /template/ Path#DropDownGlyph">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^[IsEditable=true]">
+      <Setter Property="IsTabStop" Value="False" />
+      <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

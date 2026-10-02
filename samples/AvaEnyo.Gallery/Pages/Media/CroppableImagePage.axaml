@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Media.CroppableImagePage">
+  <DockPanel>
+    <enyo:Toolbar DockPanel.Dock="Bottom" Classes="light">
+      <TextBlock Text="Zoom" VerticalAlignment="Center" Margin="8,0" />
+      <Slider Name="ZoomSlider" Width="240" Minimum="1" Maximum="3" Value="1" VerticalAlignment="Center" />
+      <enyo:Spacer />
+      <Button Name="CropButton" Classes="affirmative" Content="Crop" />
+    </enyo:Toolbar>
+    <Border DockPanel.Dock="Right" Width="240" Background="{DynamicResource EnyoHeaderBackgroundBrush}">
+      <StackPanel Margin="8">
+        <enyo:Divider Caption="Result" />
+        <Image Name="Result" Stretch="Uniform" MaxHeight="220" />
+        <TextBlock Name="Size" Classes="enyo-subtext" />
+      </StackPanel>
+    </Border>
+    <enyo:CroppableImage Name="Cropper" />
+  </DockPanel>
+</UserControl>

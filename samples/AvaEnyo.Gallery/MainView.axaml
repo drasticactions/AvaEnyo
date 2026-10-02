@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.MainView">
+  <Panel>
+  <Panel Name="PopupHost" />
+  <DockPanel>
+    <enyo:PageHeader Name="TitleHeader" DockPanel.Dock="Top" ShowBackButton="False">
+      <TextBlock Name="TitleText" Text="AvaEnyo" Cursor="Hand" />
+    </enyo:PageHeader>
+
+    <enyo:SlidingPane Name="Sliding">
+      <!-- Index: StyleMatters' main list in a Pane. -->
+      <enyo:SlidingView Name="IndexView" Width="320">
+        <enyo:Pane Name="IndexPane">
+          <ScrollViewer Name="IndexScroller">
+            <StackPanel Name="IndexList" Margin="0,0,0,12" />
+          </ScrollViewer>
+        </enyo:Pane>
+      </enyo:SlidingView>
+
+      <!-- Sample: header band, the page, a toolbar with the grab button. -->
+      <!-- Peek 320: wide, the selected sample stops beside the index instead of covering it. -->
+      <enyo:SlidingView Name="SampleView" enyo:Flex.Value="1" PeekWidth="320">
+        <DockPanel>
+          <enyo:Header DockPanel.Dock="Top">
+            <StackPanel>
+              <TextBlock Name="PageTitle" Text="AvaEnyo" />
+              <TextBlock Name="PageSummary" Classes="enyo-item-secondary enyo-text-ellipsis" Text="Pick a sample on the left." />
+            </StackPanel>
+          </enyo:Header>
+          <enyo:Toolbar DockPanel.Dock="Bottom">
+            <enyo:GrabButton Name="SampleGrab" />
+            <enyo:Spacer />
+            <enyo:ToolButton Name="SourceButton" Content="Source" />
+          </enyo:Toolbar>
+          <Panel>
+            <ScrollViewer Name="PageScroller">
+              <ContentControl Name="ScrolledHost" />
+            </ScrollViewer>
+            <ContentControl Name="FillHost" IsVisible="False" />
+          </Panel>
+        </DockPanel>
+      </enyo:SlidingView>
+
+      <!-- Source: the pullout with notes and the page XAML. -->
+      <enyo:SlidingView Name="SourceView" Width="400" Dismissible="True" IsShowing="False">
+        <DockPanel>
+          <enyo:Toolbar DockPanel.Dock="Top" Classes="light">
+            <enyo:TabGroup Name="SourceTabs" SelectedIndex="1" Width="240">
+              <enyo:TabSegment Content="Notes" />
+              <enyo:TabSegment Content="XAML" />
+            </enyo:TabGroup>
+          </enyo:Toolbar>
+          <enyo:Toolbar DockPanel.Dock="Bottom">
+            <enyo:GrabButton />
+          </enyo:Toolbar>
+          <ScrollViewer>
+            <SelectableTextBlock Name="SourceText" Classes="code" Margin="10" />
+          </ScrollViewer>
+        </DockPanel>
+      </enyo:SlidingView>
+    </enyo:SlidingPane>
+  </DockPanel>
+  </Panel>
+</UserControl>

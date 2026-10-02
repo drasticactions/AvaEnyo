@@ -1,0 +1,181 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="using:Avalonia.Controls.Converters"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <MenuFlyoutPresenter Width="260">
+      <MenuItem Header="Standard" />
+      <MenuItem Header="Input gesture" InputGesture="Ctrl+G" />
+      <MenuItem Header="Checked" ToggleType="CheckBox" IsChecked="True" />
+      <MenuItem Header="Disabled" IsEnabled="False" />
+      <MenuItem Header="-" />
+      <MenuItem Header="Parent">
+        <MenuItem Header="Child" />
+      </MenuItem>
+    </MenuFlyoutPresenter>
+  </Design.PreviewWith>
+
+  <conv:PlatformKeyGestureConverter x:Key="EnyoKeyGestureConverter" />
+
+  <ControlTheme x:Key="EnyoMenuItemIconTheme" TargetType="ContentControl">
+    <Setter Property="Width" Value="{DynamicResource EnyoMenuIconSize}" />
+    <Setter Property="Height" Value="{DynamicResource EnyoMenuIconSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center" VerticalAlignment="Center">
+          <ContentPresenter Name="PART_ContentPresenter" Content="{TemplateBinding Content}" />
+        </Viewbox>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    MenuItem.css: an enyo-item row (top and bottom edges, held gradient), caption 16 px on a 22 px line, icon at the
+    left (enyo-menuitem-icon, padding 2/8). A submenu shows the menuitem-arrow.png chevron at the right; a checked
+    item shows checkmark.png at the right (enyo-menucheckitem-caption, padding-right 34).
+  -->
+  <ControlTheme x:Key="{x:Type MenuItem}" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPopupForegroundBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoMenuItemFontSize}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoMenuItemPadding}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_HeldBorder"
+                  Background="{DynamicResource EnyoItemHeldBrush}"
+                  IsVisible="False" />
+          <Border Name="PART_TopEdge" VerticalAlignment="Top" Height="1"
+                  Background="{DynamicResource EnyoItemTopBorderBrush}" />
+          <Border Name="PART_BottomEdge" VerticalAlignment="Bottom" Height="1"
+                  Background="{DynamicResource EnyoItemBottomBorderBrush}" />
+          <Border Name="PART_LayoutRoot"
+                  Padding="{TemplateBinding Padding}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIcon" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGT" />
+                <ColumnDefinition Width="Auto" SharedSizeGroup="ToggleIcon" />
+                <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemChevron" />
+              </Grid.ColumnDefinitions>
+              <ContentControl Name="PART_IconPresenter"
+                              Grid.Column="0"
+                              IsVisible="False"
+                              Theme="{StaticResource EnyoMenuItemIconTheme}"
+                              Content="{TemplateBinding Icon}"
+                              Margin="0,0,8,0" />
+              <ContentPresenter Name="PART_HeaderPresenter"
+                                Grid.Column="1"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                LineHeight="{DynamicResource EnyoMenuItemLineHeight}"
+                                TextTrimming="CharacterEllipsis"
+                                RecognizesAccessKey="True"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch" />
+              <TextBlock Name="PART_InputGestureText"
+                         Grid.Column="2"
+                         Margin="24,0,0,0"
+                         Text="{TemplateBinding InputGesture, Converter={StaticResource EnyoKeyGestureConverter}}"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Center"
+                         Foreground="{DynamicResource EnyoMenuItemGestureBrush}" />
+              <ContentControl Name="PART_ToggleIconPresenter"
+                              Grid.Column="3"
+                              IsVisible="False"
+                              Theme="{StaticResource EnyoMenuItemIconTheme}"
+                              Margin="10,0,0,0" />
+              <Path Name="PART_ChevronPath"
+                    Grid.Column="4"
+                    Stretch="Uniform"
+                    Width="10"
+                    Height="16"
+                    Margin="10,0,0,0"
+                    Data="{DynamicResource EnyoGlyphChevronRight}"
+                    Fill="{DynamicResource EnyoChevronBrush}"
+                    VerticalAlignment="Center" />
+            </Grid>
+          </Border>
+          <Popup Name="PART_Popup"
+                 WindowManagerAddShadowHint="False"
+                 Placement="RightEdgeAlignedTop"
+                 HorizontalOffset="-6"
+                 IsLightDismissEnabled="False"
+                 IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}">
+            <Border Margin="{DynamicResource EnyoMenuShadowMargin}"
+                    Background="{DynamicResource EnyoMenuBackgroundBrush}"
+                    BorderBrush="{DynamicResource EnyoMenuEdgeBrush}"
+                    BorderThickness="1"
+                    BoxShadow="{DynamicResource EnyoMenuShadow}"
+                    Padding="{DynamicResource EnyoMenuInnerPadding}"
+                    MinWidth="160"
+                    MaxWidth="480"
+                    CornerRadius="{DynamicResource EnyoMenuCornerRadius}">
+              <ScrollViewer Theme="{StaticResource EnyoMenuScrollViewer}">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                Grid.IsSharedSizeScope="True" />
+              </ScrollViewer>
+            </Border>
+          </Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:icon /template/ ContentControl#PART_IconPresenter">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#PART_HeldBorder">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#PART_HeldBorder">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:open /template/ Border#PART_HeldBorder">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:empty /template/ Path#PART_ChevronPath">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:nth-child(1) /template/ Border#PART_TopEdge">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:nth-last-child(1) /template/ Border#PART_BottomEdge">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:separator">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Separator />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^:checked:toggle /template/ ContentControl#PART_ToggleIconPresenter">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Content">
+        <Template>
+          <Path Fill="{DynamicResource EnyoButtonBlueBackgroundBrush}" Width="20" Height="20" Stretch="Uniform"
+                Data="{DynamicResource EnyoGlyphCheckmark}" />
+        </Template>
+      </Setter>
+    </Style>
+    <Style Selector="^:checked:radio /template/ ContentControl#PART_ToggleIconPresenter">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Content">
+        <Template>
+          <Ellipse Fill="{DynamicResource EnyoButtonBlueBackgroundBrush}" Margin="6" Width="10" Height="10" />
+        </Template>
+      </Setter>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="HorizontalMenuItem" TargetType="MenuItem" BasedOn="{StaticResource EnyoTopLevelMenuItem}" />
+</ResourceDictionary>

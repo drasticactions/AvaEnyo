@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Dividers.NestedPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Truncating captions">
+      <StackPanel Width="280" HorizontalAlignment="Left">
+        <enyo:Divider Caption="A rather long caption that will not fit in this narrow column" />
+        <enyo:Divider Caption="Short" />
+        <enyo:Divider Caption="A long caption with an icon in front of it" Icon="{DynamicResource EnyoGlyphInfo}" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Nested drawers">
+      <enyo:DividerDrawer Caption="Work">
+        <StackPanel Margin="16,0,0,0">
+          <enyo:DividerDrawer Caption="Projects">
+            <StackPanel>
+              <enyo:Item Content="Sliding panels" />
+              <enyo:Item Content="Scroll physics" />
+            </StackPanel>
+          </enyo:DividerDrawer>
+          <enyo:DividerDrawer Caption="Meetings" IsOpen="False">
+            <enyo:Item Content="Weekly sync" />
+          </enyo:DividerDrawer>
+        </StackPanel>
+      </enyo:DividerDrawer>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

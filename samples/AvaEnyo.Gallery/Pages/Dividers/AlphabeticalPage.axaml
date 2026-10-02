@@ -1,0 +1,6 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AvaEnyo.Gallery.Pages.Dividers.AlphabeticalPage">
+  <!-- Rows are added in code from the sample contacts, one AlphaDivider per first letter. -->
+  <StackPanel Name="List" Margin="16,8" />
+</UserControl>

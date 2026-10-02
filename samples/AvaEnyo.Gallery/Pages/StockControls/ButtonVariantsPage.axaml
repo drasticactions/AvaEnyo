@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.ButtonVariantsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="HyperlinkButton">
+      <HyperlinkButton Content="webOS developer site" NavigateUri="https://github.com/enyojs" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="DropDownButton">
+      <DropDownButton Content="Sort by">
+        <DropDownButton.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="Date" />
+            <MenuItem Header="Sender" />
+          </MenuFlyout>
+        </DropDownButton.Flyout>
+      </DropDownButton>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="SplitButton">
+      <SplitButton Content="Reply">
+        <SplitButton.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="Reply all" />
+            <MenuItem Header="Forward" />
+          </MenuFlyout>
+        </SplitButton.Flyout>
+      </SplitButton>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

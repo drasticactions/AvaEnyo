@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.PageContainers.SlidingPaneManyPage">
+  <!-- Modeled on Enyo's Layouts/Sliding/many: a fixed left view, then panels added with Add. -->
+  <enyo:SlidingPane Name="Pane" MultiViewMinWidth="500">
+    <enyo:SlidingView Width="300">
+      <DockPanel>
+        <enyo:Header DockPanel.Dock="Top" Content="Fixed" />
+        <enyo:Toolbar DockPanel.Dock="Bottom">
+          <enyo:ToolButton Name="MultiViewButton" Content="MultiView" IsToggle="True" IsChecked="True" />
+          <enyo:ToolButton Name="AddButton" Content="Add" />
+        </enyo:Toolbar>
+        <ScrollViewer>
+          <StackPanel Name="PeekItems" />
+        </ScrollViewer>
+      </DockPanel>
+    </enyo:SlidingView>
+  </enyo:SlidingPane>
+</UserControl>

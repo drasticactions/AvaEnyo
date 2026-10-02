@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.RadioGroupsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Radio group">
+      <StackPanel Spacing="8">
+        <enyo:RadioGroup Name="Modial" SelectedIndex="1">
+          <enyo:RadioSegment Content="Rel" />
+          <enyo:RadioSegment Content="Dur" />
+          <enyo:RadioSegment Content="Cap" />
+        </enyo:RadioGroup>
+        <TextBlock Name="ModialValue" Classes="enyo-footnote" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Dark radio group">
+      <Border Background="{DynamicResource EnyoToolbarBackgroundBrush}" Padding="8" CornerRadius="4">
+        <enyo:RadioGroup Classes="dark" SelectedIndex="0">
+          <enyo:RadioSegment Content="Day" />
+          <enyo:RadioSegment Content="Week" />
+          <enyo:RadioSegment Content="Month" />
+        </enyo:RadioGroup>
+      </Border>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Tab group">
+      <enyo:TabGroup SelectedIndex="0">
+        <enyo:TabSegment Content="Contacts" />
+        <enyo:TabSegment Content="Favorites" />
+        <enyo:TabSegment Content="Recent" />
+      </enyo:TabGroup>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Stock radio buttons">
+      <StackPanel Orientation="Horizontal">
+        <RadioButton GroupName="g" Content="Single" IsChecked="True" />
+        <RadioButton GroupName="g" Margin="8,0,0,0" Content="Another" />
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

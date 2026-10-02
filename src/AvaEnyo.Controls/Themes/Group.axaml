@@ -1,0 +1,139 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Width="360" Margin="10">
+      <enyo:Group Header="Account">
+        <enyo:Item Content="Name" />
+        <enyo:Item Content="Email" />
+      </enyo:Group>
+      <enyo:RowGroup>
+        <TextBox PlaceholderText="First" />
+        <TextBox PlaceholderText="Last" />
+      </enyo:RowGroup>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    group-unlabeled.png, 14px slice: a 1 px dark outline (.48) with a white .10 line under the bottom edge, and no
+    fill, radius ~10. The rows sit 2 px inside (.enyo-group-inner margin -12 in a 14 px frame).
+    group-labeled.png, 36/14 slice: the same with a dark .25 band 36 px tall that carries the white uppercase label.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:Group}" TargetType="enyo:Group">
+    <Setter Property="Background" Value="{DynamicResource EnyoGroupBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoGroupEdgeBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoGroupCornerRadius}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoGroupMargin}" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <!-- The white highlight under the bottom edge (row 38 of the sprite). -->
+          <Border Name="PART_Highlight" Margin="0,1,0,-1" CornerRadius="{TemplateBinding CornerRadius}"
+                  BorderBrush="{DynamicResource EnyoGroupHighlightBrush}" BorderThickness="0,0,0,1" />
+          <Border Name="PART_Frame"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  ClipToBounds="True">
+            <DockPanel>
+              <Border Name="PART_Band" DockPanel.Dock="Top"
+                      Height="{DynamicResource EnyoGroupLabeledTop}"
+                      Background="{DynamicResource EnyoGroupBandBrush}"
+                      IsVisible="False">
+                <Panel>
+                <ContentPresenter Name="PART_HeaderPresenter"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  Padding="{DynamicResource EnyoGroupLabelPadding}"
+                                  VerticalContentAlignment="Center"
+                                  Foreground="{DynamicResource EnyoGroupLabelForegroundBrush}"
+                                  FontSize="{DynamicResource EnyoGroupLabelFontSize}"
+                                  FontWeight="Bold" />
+                <TextBlock Name="PART_HeaderText"
+                           Text="{TemplateBinding HeaderText}"
+                           Padding="{DynamicResource EnyoGroupLabelPadding}"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource EnyoGroupLabelForegroundBrush}"
+                           FontSize="{DynamicResource EnyoGroupLabelFontSize}"
+                           FontWeight="Bold"
+                           TextTrimming="CharacterEllipsis"
+                           enyo:TextTransform.Uppercase="True"
+                           IsVisible="False">
+                  <TextBlock.Effect>
+                    <DropShadowDirectionEffect Color="{DynamicResource EnyoGroupLabelShadowColor}" Direction="270" ShadowDepth="1" BlurRadius="0" Opacity="1" />
+                  </TextBlock.Effect>
+                </TextBlock>
+                </Panel>
+              </Border>
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              Margin="{TemplateBinding Padding}"
+                              ItemsPanel="{TemplateBinding ItemsPanel}" />
+            </DockPanel>
+          </Border>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:labeled /template/ Border#PART_Band">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <!--
+      .enyo-group-label: uppercase white text with a #646454 1 px shadow. A text header gets this template; a control
+      given as the header is shown as it is.
+    -->
+    <Setter Property="HeaderTemplate">
+      <DataTemplate x:DataType="x:Object">
+        <TextBlock Text="{Binding}" enyo:TextTransform.Uppercase="True">
+          <TextBlock.Effect>
+            <DropShadowDirectionEffect Color="{DynamicResource EnyoGroupLabelShadowColor}" Direction="270" ShadowDepth="1" BlurRadius="0" Opacity="1" />
+          </TextBlock.Effect>
+        </TextBlock>
+      </DataTemplate>
+    </Setter>
+    <!-- .enyo-group-label: a text header is drawn as the uppercase label; other headers are presented as is. -->
+    <Style Selector="^:text-header">
+      <Style Selector="^ /template/ TextBlock#PART_HeaderText">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_HeaderPresenter">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:content-fit /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:RowGroup}" TargetType="enyo:RowGroup" BasedOn="{StaticResource {x:Type enyo:Group}}" />
+
+  <ControlTheme x:Key="{x:Type enyo:LabeledContainer}" TargetType="enyo:LabeledContainer">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <ContentPresenter Name="PART_HeaderPresenter" DockPanel.Dock="Left"
+                            Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            VerticalAlignment="Center" Margin="0,0,10,0" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:FloatingHeader}" TargetType="enyo:FloatingHeader">
+    <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter" Background="{TemplateBinding Background}"
+                          Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Padding="{TemplateBinding Padding}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

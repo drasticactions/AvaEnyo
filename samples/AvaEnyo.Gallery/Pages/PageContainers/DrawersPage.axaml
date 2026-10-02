@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.PageContainers.DrawersPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Drawer">
+      <StackPanel Spacing="6">
+        <WrapPanel Classes="row">
+          <Button Name="ToggleButton" Content="Open / close" />
+          <ToggleSwitch Name="AnimateSwitch" IsChecked="True" Content="Animate" />
+        </WrapPanel>
+        <enyo:Drawer Name="PlainDrawer">
+          <enyo:Drawer.Header>
+            <enyo:Item Content="Tap this header to toggle" />
+          </enyo:Drawer.Header>
+          <StackPanel>
+            <enyo:Item Content="Opens over 250 ms" />
+            <enyo:Item Content="Closes over 100 ms" />
+            <enyo:Item Content="Both with a cubic ease-out" />
+          </StackPanel>
+        </enyo:Drawer>
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Divider drawers">
+      <StackPanel>
+        <enyo:DividerDrawer Caption="Open">
+          <enyo:Item Content="Contents" />
+        </enyo:DividerDrawer>
+        <enyo:DividerDrawer Caption="Closed" IsOpen="False">
+          <enyo:Item Content="Hidden contents" />
+        </enyo:DividerDrawer>
+      </StackPanel>
+    </HeaderedContentControl>
+    <TextBlock Name="EventText" Classes="enyo-footnote" Text="Events show here." />
+  </StackPanel>
+</UserControl>

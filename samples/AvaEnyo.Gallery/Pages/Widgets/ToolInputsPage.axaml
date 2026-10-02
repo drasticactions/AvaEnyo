@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.ToolInputsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Tool inputs on toolbars">
+      <StackPanel Spacing="8">
+        <enyo:Toolbar>
+          <TextBox Classes="tool" PlaceholderText="It's a tool" Width="260" />
+          <enyo:ToolButton Content="Go" />
+        </enyo:Toolbar>
+        <enyo:Toolbar>
+          <TextBox Classes="tool search" PlaceholderText="Search" Width="260" />
+        </enyo:Toolbar>
+      </StackPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,64 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <TabStrip Width="320" SelectedIndex="0">
+      <TabStripItem>Mail</TabStripItem>
+      <TabStripItem>Contacts</TabStripItem>
+      <TabStripItem>Calendar</TabStripItem>
+    </TabStrip>
+  </Design.PreviewWith>
+
+  <!--
+    RadioButton.css enyo-tabbutton: a radiobutton.png segment (16 px side slices) with 18 px text, padding 8/9. The
+    selected or pressed segment is the blue down state with white text. The first and last segments of the strip
+    round their outer corners; the others are square.
+  -->
+  <ControlTheme x:Key="{x:Type TabStripItem}" TargetType="TabStripItem">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTabFontSize}" />
+    <Setter Property="Background" Value="{DynamicResource EnyoSegmentBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="1,1,0,1" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoTabPadding}" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_LayoutRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            RecognizesAccessKey="True" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected, ^:pressed">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentOnBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentOnEdgeBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <Style Selector="^:nth-child(1)">
+      <Setter Property="CornerRadius" Value="6,0,0,6" />
+    </Style>
+    <Style Selector="^:nth-last-child(1)">
+      <Setter Property="CornerRadius" Value="0,6,6,0" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="^:nth-child(1):nth-last-child(1)">
+      <Setter Property="CornerRadius" Value="6" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

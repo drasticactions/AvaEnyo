@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.CheckBoxesPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="In rows">
+      <enyo:Group Header="To do list">
+        <enyo:Item TapHighlight="False">
+          <DockPanel>
+            <CheckBox DockPanel.Dock="Right" />
+            <TextBlock Text="Mail scrapbook" VerticalAlignment="Center" />
+          </DockPanel>
+        </enyo:Item>
+        <enyo:Item TapHighlight="False">
+          <DockPanel>
+            <CheckBox DockPanel.Dock="Right" IsChecked="True" />
+            <TextBlock Text="Research cruise" VerticalAlignment="Center" />
+          </DockPanel>
+        </enyo:Item>
+        <enyo:Item TapHighlight="False">
+          <DockPanel>
+            <CheckBox DockPanel.Dock="Right" />
+            <TextBlock Text="Write novel" VerticalAlignment="Center" />
+          </DockPanel>
+        </enyo:Item>
+      </enyo:Group>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="With labels">
+      <StackPanel Spacing="6">
+        <CheckBox Content="Sifted flour" IsChecked="True" />
+        <CheckBox Content="Lukewarm milk" />
+        <CheckBox Content="Three state" IsThreeState="True" IsChecked="{x:Null}" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Disabled">
+      <WrapPanel Classes="row">
+        <CheckBox IsEnabled="False" />
+        <CheckBox IsEnabled="False" IsChecked="True" />
+      </WrapPanel>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

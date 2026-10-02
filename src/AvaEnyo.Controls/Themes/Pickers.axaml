@@ -1,0 +1,168 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Margin="20" Spacing="10">
+      <enyo:PickerButton Content="Mail" />
+      <enyo:PickerButton Content="Open" IsFocusOpen="True" />
+      <enyo:EnyoDatePicker Label="Date" />
+      <enyo:EnyoTimePicker Label="Time" />
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <!--
+    picker-pill.png, 10px slice: a white sheen fading from .6 to clear over Background, a dark .41 outline, a white .5
+    line under the bottom edge, radius 8. PickerButton.css: 16 px text, 32 px line, caption padding 0 6, min 24.
+    picker-pill-downstate.png while pressed; picker-pill-focus.png (blue, white text, soft shadow) while open.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:PickerButton}" TargetType="enyo:PickerButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPillForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoPillEdgeBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoPickerPillCornerRadius}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoPickerFontSize}" />
+    <Setter Property="Height" Value="{DynamicResource EnyoPickerPillHeight}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoPickerCaptionPadding}" />
+    <Setter Property="Margin" Value="3,0" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoPickerPillHeight}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Highlight" Margin="0,1,0,-1" CornerRadius="{TemplateBinding CornerRadius}"
+                  BorderBrush="{DynamicResource EnyoPillHighlightBrush}" BorderThickness="0,0,0,1" />
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame"
+                  Background="{DynamicResource EnyoPillSheenBrush}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <!-- The pill frame inset. -->
+          <Decorator Padding="{DynamicResource EnyoPickerPillFrame}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Padding="{TemplateBinding Padding}"
+                              MinWidth="{DynamicResource EnyoPickerCaptionMinWidth}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Decorator>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ Border#PART_Frame">
+      <Setter Property="Background" Value="{DynamicResource EnyoPillDownBrush}" />
+    </Style>
+    <Style Selector="^:focus-open">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoPillFocusForegroundBrush}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="Background" Value="{DynamicResource EnyoPillFocusBrush}" />
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoPillFocusShadow}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Frame">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- A row of the picker list (PopupList item); enyo-picker-item-selected: bold on white. -->
+  <ControlTheme x:Key="{x:Type enyo:PickerItem}" TargetType="enyo:PickerItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoPopupForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource EnyoItemEdgeBrush}" />
+    <Setter Property="BorderThickness" Value="0,1" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoPickerItemPadding}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoPickerFontSize}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:held /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource EnyoItemHeldBrush}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="FontWeight" Value="Bold" />
+      <Style Selector="^ /template/ Border#PART_Border">
+        <Setter Property="Background" Value="{DynamicResource EnyoPickerItemSelectedBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:PickerList}" TargetType="enyo:PickerList">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- enyo.Picker: the pill, and the list in an Onyx popup at the pill. -->
+  <ControlTheme x:Key="{x:Type enyo:Picker}" TargetType="enyo:Picker">
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <enyo:PickerButton Name="PART_Button"
+                             Content="{TemplateBinding SelectedItem}"
+                             ContentTemplate="{TemplateBinding ItemTemplate}"
+                             IsEnabled="{TemplateBinding IsEnabled}" />
+          <enyo:Popup Name="PART_Popup">
+            <ScrollViewer Name="PART_ListHost"
+                          MaxHeight="{DynamicResource EnyoPickerListMaxHeight}"
+                          enyo:Scroll.Fades="False"
+                          HorizontalScrollBarVisibility="Disabled" />
+          </enyo:Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+  <ControlTheme x:Key="{x:Type enyo:IntegerPicker}" TargetType="enyo:IntegerPicker" BasedOn="{StaticResource {x:Type enyo:Picker}}" />
+
+  <!--
+    PickerGroup.css / Picker.css: an enyo-label caption (blue, uppercase, 18 px on a 52 px line) and the pills in a
+    row. PART_Overlay is the copy of the pills that shows above the scrim while a list is open.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:PickerGroup}" TargetType="enyo:PickerGroup">
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Name="PART_Label"
+                     Classes="enyo-label"
+                     Text="{TemplateBinding Label}"
+                     FontSize="{DynamicResource EnyoPickerLabelFontSize}"
+                     LineHeight="{DynamicResource EnyoPickerLabelLineHeight}"
+                     Foreground="{DynamicResource EnyoPickerLabelBrush}"
+                     VerticalAlignment="Center"
+                     Margin="0,0,5,0"
+                     IsVisible="{TemplateBinding Label, Converter={x:Static ObjectConverters.IsNotNull}}" />
+          <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" VerticalAlignment="Center" />
+          <enyo:PickerGroupOverlay Name="PART_Overlay" />
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+  <ControlTheme x:Key="{x:Type enyo:EnyoDatePicker}" TargetType="enyo:EnyoDatePicker" BasedOn="{StaticResource {x:Type enyo:PickerGroup}}" />
+  <ControlTheme x:Key="{x:Type enyo:EnyoTimePicker}" TargetType="enyo:EnyoTimePicker" BasedOn="{StaticResource {x:Type enyo:PickerGroup}}" />
+</ResourceDictionary>

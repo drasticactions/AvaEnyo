@@ -1,0 +1,193 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <StackPanel Spacing="6" Margin="10">
+      <enyo:IconButton Icon="{DynamicResource EnyoGlyphSearch}" Content="Search" />
+      <enyo:ActivityButton Content="Send" IsActive="True" />
+      <enyo:Toolbar>
+        <enyo:ToolButton Icon="{DynamicResource EnyoGlyphPlus}" />
+        <enyo:ToolButton Content="Edit" />
+        <enyo:ToolButtonGroup>
+          <enyo:ToolButton Content="A" />
+          <enyo:ToolButton Content="B" />
+        </enyo:ToolButtonGroup>
+      </enyo:Toolbar>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <ResourceDictionary.MergedDictionaries>
+    <!-- The Onyx button theme, so the button controls here can be based on it. -->
+    <ResourceInclude Source="avares://AvaEnyo.Theme/Controls/Button.axaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- IconButton.css: a 32x32 icon before the caption, inside the Onyx button. -->
+  <ControlTheme x:Key="{x:Type enyo:IconButton}" TargetType="enyo:IconButton" BasedOn="{StaticResource EnyoButtonTheme}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame" Background="{DynamicResource EnyoButtonSheenBrush}"
+                  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <StackPanel Orientation="Horizontal" Spacing="4"
+                      Margin="{DynamicResource EnyoButtonFrameThickness}"
+                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+            <Panel Width="{DynamicResource EnyoIconButtonIconSize}" Height="{DynamicResource EnyoIconButtonIconSize}" Margin="-2,-6,0,-6">
+              <enyo:IconPresenter Name="PART_Icon" Icon="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" Margin="6" />
+              <enyo:IconPresenter Name="PART_PressedIcon" Icon="{TemplateBinding PressedIcon}" Foreground="{TemplateBinding Foreground}" Margin="6" IsVisible="False" />
+            </Panel>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Padding="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              LineHeight="{DynamicResource EnyoButtonLineHeight}"
+                              VerticalAlignment="Center"
+                              IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}" />
+          </StackPanel>
+          <Border Name="PART_FocusVisual" BorderBrush="{DynamicResource EnyoFocusRingBrush}" BorderThickness="2"
+                  CornerRadius="{TemplateBinding CornerRadius}" Margin="-2" IsHitTestVisible="False" IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed:has-pressed-icon">
+      <Style Selector="^ /template/ enyo|IconPresenter#PART_PressedIcon">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ enyo|IconPresenter#PART_Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <!--
+    ToolButton.css: transparent until pressed, then button-toolbar.png (a dark translucent sheen, radius 5); text
+    #f2f2f2, 16 px. Padding 5 around a client with a 4 px clear frame and 3 px margin.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:ToolButton}" TargetType="enyo:ToolButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource EnyoToolButtonForegroundBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="CornerRadius" Value="{DynamicResource EnyoButtonCornerRadius}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoButtonFontSize}" />
+    <Setter Property="Padding" Value="{DynamicResource EnyoButtonPadding}" />
+    <Setter Property="Margin" Value="{DynamicResource EnyoButtonMargin}" />
+    <Setter Property="MinHeight" Value="{DynamicResource EnyoButtonMinHeight}" />
+    <Setter Property="MinWidth" Value="{DynamicResource EnyoButtonMinHeight}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="Transparent">
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <StackPanel Orientation="Horizontal" Spacing="4" Margin="4"
+                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+            <enyo:IconPresenter Name="PART_Icon" Icon="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}"
+                                Width="{DynamicResource EnyoToolButtonIconSize}" Height="{DynamicResource EnyoToolButtonIconSize}" Padding="6"
+                                IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}"
+                              Padding="{TemplateBinding Padding}"
+                              LineHeight="{DynamicResource EnyoButtonLineHeight}"
+                              VerticalAlignment="Center"
+                              IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}" />
+          </StackPanel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <!-- A captioned tool button keeps the toolbar button frame (button-toolbar.png). -->
+    <Style Selector="^:captioned">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolButtonSheenBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoToolButtonEdgeBrush}" />
+    </Style>
+    <Style Selector="^:pressed, ^:checked">
+      <Setter Property="Background" Value="{DynamicResource EnyoToolButtonSheenBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoButtonPressedEdgeBrush}" />
+      <Style Selector="^ /template/ Border#PART_Frame">
+        <Setter Property="BoxShadow" Value="{DynamicResource EnyoButtonPressedShadow}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <!-- GroupedToolButton.css: a segment of a ToolButtonGroup, drawn from radiobutton.png. -->
+    <Style Selector="^.grouped">
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentEdgeBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoGroupedToolButtonForegroundBrush}" />
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^.grouped:first">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoSegmentCornerRadiusFirst}" />
+    </Style>
+    <Style Selector="^.grouped:last">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoSegmentCornerRadiusLast}" />
+    </Style>
+    <Style Selector="^.grouped:single">
+      <Setter Property="CornerRadius" Value="{DynamicResource EnyoSegmentCornerRadiusAll}" />
+    </Style>
+    <Style Selector="^.grouped.dark">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+    </Style>
+    <Style Selector="^.grouped:pressed, ^.grouped:checked">
+      <Setter Property="Background" Value="{DynamicResource EnyoSegmentOnBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoSegmentOnEdgeBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSegmentOnForegroundBrush}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Frame">
+      <Setter Property="BorderBrush" Value="{DynamicResource EnyoFocusRingBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- GroupedToolButton.css: segmented tool buttons drawn from radiobutton.png. -->
+  <ControlTheme x:Key="{x:Type enyo:ToolButtonGroup}" TargetType="enyo:ToolButtonGroup">
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type enyo:ActivityButton}" TargetType="enyo:ActivityButton" BasedOn="{StaticResource EnyoButtonTheme}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="PART_Frame" Background="{DynamicResource EnyoButtonSheenBrush}"
+                  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <!-- Enyo ActivityButton: an HFlexLayout of the caption (flex 1) and the spinner after it. -->
+          <DockPanel Margin="{DynamicResource EnyoButtonFrameThickness}"
+                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+            <enyo:Spinner Name="PART_Spinner" DockPanel.Dock="Right" IsActive="{TemplateBinding IsActive}" Margin="6,-6,0,-6"
+                          IsVisible="{TemplateBinding IsActive}" VerticalAlignment="Center" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Padding="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}"
+                              LineHeight="{DynamicResource EnyoButtonLineHeight}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="Center" />
+          </DockPanel>
+          <Border Name="PART_FocusVisual" BorderBrush="{DynamicResource EnyoFocusRingBrush}" BorderThickness="2"
+                  CornerRadius="{TemplateBinding CornerRadius}" Margin="-2" IsHitTestVisible="False" IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.affirmative /template/ enyo|Spinner, ^.negative /template/ enyo|Spinner, ^.blue /template/ enyo|Spinner, ^.gray /template/ enyo|Spinner, ^.dark /template/ enyo|Spinner">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoSpinnerLightBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

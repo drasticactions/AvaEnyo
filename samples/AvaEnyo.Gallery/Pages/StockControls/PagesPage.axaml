@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.StockControls.PagesPage">
+  <DockPanel>
+    <enyo:Toolbar DockPanel.Dock="Top" Classes="light">
+      <enyo:RadioGroup Name="Kind" SelectedIndex="0">
+        <enyo:RadioSegment Content="Navigation" />
+        <enyo:RadioSegment Content="Tabbed" />
+        <enyo:RadioSegment Content="Drawer" />
+        <enyo:RadioSegment Content="Carousel" />
+      </enyo:RadioGroup>
+    </enyo:Toolbar>
+    <ContentControl Name="Host" />
+  </DockPanel>
+</UserControl>

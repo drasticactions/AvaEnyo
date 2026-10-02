@@ -1,0 +1,64 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <enyo:SlidingPane Width="1000" Height="300">
+      <enyo:SlidingView Width="320"><TextBlock Text="Left" Margin="10" /></enyo:SlidingView>
+      <enyo:SlidingView Width="320"><TextBlock Text="Middle" Margin="10" /></enyo:SlidingView>
+      <enyo:SlidingView enyo:Flex.Value="1"><TextBlock Text="Right" Margin="10" /></enyo:SlidingView>
+    </enyo:SlidingPane>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type enyo:SlidingPane}" TargetType="enyo:SlidingPane">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <enyo:SlidingPanePanel Name="PART_Panel" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    SlidingView.css: a 20 px shadow strip left of the view (sliding-shadow.png: clear to black .34, left to right),
+    the content on the body color (enyo-bg), and an invisible 40 px edge nub centered on the left edge when
+    EdgeDragging is on.
+  -->
+  <ControlTheme x:Key="{x:Type enyo:SlidingView}" TargetType="enyo:SlidingView">
+    <Setter Property="Background" Value="{DynamicResource EnyoBodyBrush}" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_Shadow"
+                  Width="{DynamicResource EnyoSlidingShadowWidth}"
+                  HorizontalAlignment="Left"
+                  Margin="{DynamicResource EnyoSlidingShadowOffset}"
+                  Background="{DynamicResource EnyoSlidingShadowBrush}"
+                  IsHitTestVisible="False" />
+          <ContentPresenter Name="PART_Content"
+                            Background="{TemplateBinding Background}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          <Border Name="PART_EdgeDragger"
+                  Width="{DynamicResource EnyoSlidingNubWidth}"
+                  HorizontalAlignment="Left"
+                  Margin="{DynamicResource EnyoSlidingNubOffset}"
+                  Background="Transparent"
+                  enyo:Sliding.IsHandle="True"
+                  IsVisible="{TemplateBinding EdgeDragging}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <!-- View 0 has nothing to its left to shade. -->
+    <Style Selector="^:first-view /template/ Border#PART_Shadow">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

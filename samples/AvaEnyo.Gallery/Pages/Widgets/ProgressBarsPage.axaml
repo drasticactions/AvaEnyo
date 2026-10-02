@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             x:Class="AvaEnyo.Gallery.Pages.Widgets.ProgressBarsPage">
+  <StackPanel Classes="page">
+    <HeaderedContentControl Classes="sample" Header="Animated progress">
+      <StackPanel Spacing="10">
+        <ProgressBar Name="Animated" Maximum="100" Value="20" enyo:Progress.Animate="True" />
+        <Button Name="Bump" Content="Advance" />
+      </StackPanel>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Item class">
+      <ProgressBar Classes="item" Maximum="100" Value="45" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="sample" Header="Indeterminate">
+      <ProgressBar IsIndeterminate="True" />
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>
