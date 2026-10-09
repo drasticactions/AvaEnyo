@@ -235,6 +235,26 @@ public class SlidingPaneTests
     }
 
     [AvaloniaFact]
+    public void Dragging_The_Middle_View_Right_Widens_The_First_View_Up_To_Its_Edge()
+    {
+        var (pane, b, c, w) = MakeGalleryLayout(fitWhileSliding: true);
+        var a = pane.Views[0];
+        var touch = new TouchInput(w);
+        touch.Drag(new Point(330, 300), new Vector(150, 0), steps: 15);
+        TestHost.Settle(w);
+        Assert.True(b.SlidePosition > 0);
+        Assert.True(a.Bounds.Width > 220);
+        Assert.Equal(b.TranslatePoint(default, pane)!.Value.X, RightEdge(a, pane), 0);
+
+        // The release springs back, and the first view gets its own width again.
+        touch.Up(new Point(480, 300));
+        TestHost.Settle(w);
+        Assert.Equal(0, b.SlidePosition);
+        Assert.Equal(220, a.Bounds.Width, 0);
+        w.Close();
+    }
+
+    [AvaloniaFact]
     public void Without_FitWhileSliding_Views_Keep_Their_Width_Until_The_Slide_Completes()
     {
         var (pane, b, c, w) = MakeGalleryLayout(fitWhileSliding: false);

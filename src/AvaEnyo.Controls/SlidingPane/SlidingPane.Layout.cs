@@ -138,29 +138,31 @@ public partial class SlidingPane
 
     internal void ValidateViewSizes() => ValidateViewSizes(sliding: false);
 
-    /// <summary>Fits the last showing view and, while sliding, the view it uncovers up to the moving view's edge.</summary>
+    /// <summary>Fits the last showing view and, while sliding, each view uncovered up to the next view's edge.</summary>
     private void ValidateViewSizes(bool sliding)
     {
         var last = _selected?.LastShowingSibling;
-        SlidingView? uncovered = null;
-        double? edge = null;
+        var edges = new double?[Views.Count];
         if (sliding && last is not null)
         {
             if (last.Next is { IsVisible: true, IsShowing: false } leaving)
             {
-                uncovered = last;
-                edge = leaving.CurrentLeft;
+                edges[last.Index] = leaving.CurrentLeft;
             }
-            else if (last.Previous is { } previous && last.CurrentLeft > previous.CurrentLeft + previous.NaturalWidth)
+
+            for (var v = last.Previous; v is not null; v = v.Previous)
             {
-                uncovered = previous;
-                edge = last.CurrentLeft;
+                if (v.IsVisible && v.Next is { IsVisible: true } next && next.CurrentLeft > v.CurrentLeft + v.NaturalWidth)
+                {
+                    edges[v.Index] = next.CurrentLeft;
+                }
             }
         }
 
         foreach (var v in Views)
         {
-            v.ApplySize(v == last || v == uncovered, v == uncovered ? edge : null);
+            var edge = edges[v.Index];
+            v.ApplySize(v == last || edge is not null, edge);
         }
     }
 
