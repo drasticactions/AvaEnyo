@@ -6,7 +6,7 @@ namespace AvaEnyo.Samples;
 
 /// <summary>
 /// The command-line switches of every Desktop sample head: <c>--variant Light|Dark --density Default|Compact
-/// --size WxH --screenshot out.png --disable-animations --time-scale N --delay ms</c>, plus <c>--page Name</c> (gallery) and
+/// --size WxH --screenshot out.png --disable-animations --time-scale N --delay ms --native-decorations</c>, plus <c>--page Name</c> (gallery) and
 /// <c>--view name</c> (demos). With <c>--screenshot</c> the head renders one frame to a PNG and exits.
 /// </summary>
 public sealed class LaunchOptions
@@ -34,6 +34,12 @@ public sealed class LaunchOptions
 
     public string? View { get; init; }
 
+    /// <summary>True keeps the system title bar instead of the Enyo decorations.</summary>
+    public bool NativeDecorations { get; init; }
+
+    /// <summary>True when the window draws the Enyo decorations: not with <c>--native-decorations</c> or <c>--screenshot</c>.</summary>
+    public bool UseEnyoDecorations => !NativeDecorations && Screenshot is null;
+
     public static LaunchOptions Parse(IReadOnlyList<string> args)
     {
         string? variant = null, shot = null, page = null, view = null;
@@ -41,6 +47,7 @@ public sealed class LaunchOptions
         double w = 1024, h = 768;
         var delay = 800;
         var disable = false;
+        var native = false;
         double? timeScale = null;
         for (var i = 0; i < args.Count; i++)
         {
@@ -60,10 +67,11 @@ public sealed class LaunchOptions
                 case "--delay" when hasValue: delay = int.Parse(args[++i], CultureInfo.InvariantCulture); break;
                 case "--page" when hasValue: page = args[++i]; break;
                 case "--view" when hasValue: view = args[++i]; break;
+                case "--native-decorations": native = true; break;
             }
         }
 
-        Current = new LaunchOptions { Variant = variant, Density = density, Width = w, Height = h, Screenshot = shot, DisableAnimations = disable, TimeScale = timeScale, DelayMs = delay, Page = page, View = view };
+        Current = new LaunchOptions { Variant = variant, Density = density, Width = w, Height = h, Screenshot = shot, DisableAnimations = disable, TimeScale = timeScale, DelayMs = delay, Page = page, View = view, NativeDecorations = native };
         return Current;
     }
 }

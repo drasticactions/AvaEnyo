@@ -148,6 +148,10 @@ PALETTE = [
     ("EnyoGrabBarColor", "#4D000000", "#4D000000"),
     ("EnyoGrabEdgeColor", "#61000000", "#61000000"),
     ("EnyoSlidingShadowColor", "#57000000", "#80000000"),
+    # Window caption: the TouchPad status bar, black in both variants
+    ("EnyoStatusBarColor", "#000000", "#000000"),
+    ("EnyoStatusBarTextColor", "#E6E6E6", "#E6E6E6"),
+    ("EnyoStatusBarInactiveTextColor", "#7A7A7A", "#7A7A7A"),
     ("EnyoSpinnerColor", "#8C8C8C", "#9A9A9A"),
     ("EnyoSpinnerLightColor", "#E6E6E6", "#E6E6E6"),
     ("EnyoScrollBarColor", "#80000000", "#80FFFFFF"),
@@ -235,6 +239,11 @@ BRUSHES = [
         ("EnyoGrabBarBrush", "EnyoGrabBarColor", "EnyoGrabBarColor"),
         ("EnyoGrabEdgeBrush", "EnyoGrabEdgeColor", "EnyoGrabEdgeColor"),
         ("EnyoGrabHighlightBrush", "#1AFFFFFF", "#1AFFFFFF"),
+        ("EnyoWindowCaptionBackgroundBrush", "EnyoStatusBarColor", "EnyoStatusBarColor"),
+        ("EnyoWindowCaptionForegroundBrush", "EnyoStatusBarTextColor", "EnyoStatusBarTextColor"),
+        ("EnyoWindowCaptionInactiveForegroundBrush", "EnyoStatusBarInactiveTextColor", "EnyoStatusBarInactiveTextColor"),
+        ("EnyoWindowCaptionButtonHoverBrush", "#26FFFFFF", "#26FFFFFF"),
+        ("EnyoWindowCaptionButtonPressedBrush", "#40FFFFFF", "#40FFFFFF"),
     ]),
     ("Items and dividers", [
         ("EnyoItemTopBorderBrush", "EnyoItemTopEdgeColor", "EnyoItemTopEdgeColor"),
@@ -626,6 +635,8 @@ METRICS = [
     ("EnyoPipSize", D, 10, 8),
     ("EnyoTreeIndent", D, 24, 18),
     ("EnyoWindowCaptionHeight", D, 32, 26),
+    ("EnyoWindowCaptionFontSize", D, 15, 13),
+    ("EnyoWindowCaptionButtonWidth", D, 46, 40),
     # --- group A metric additions ---
     ("EnyoCheckBoxContentMargin", T, "10,0,0,0", "8,0,0,0"),
     ("EnyoSegmentCornerRadiusAll", C, "6", "5"),

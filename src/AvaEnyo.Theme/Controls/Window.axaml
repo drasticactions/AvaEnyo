@@ -1,6 +1,7 @@
 <!-- Derived from Avalonia.Themes.Fluent/Controls/Window.xaml (MIT, see NOTICE.md). -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:enyo="https://github.com/avaenyo"
                     x:ClassModifier="internal">
   <!-- theme.css body: #d8d8d8, #333, 20 px Prelude -->
   <ControlTheme x:Key="{x:Type Window}" TargetType="Window">
@@ -14,7 +15,7 @@
       <ControlTemplate>
         <Panel>
           <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-          <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+          <Border Name="PART_Background" Background="{TemplateBinding Background}" IsHitTestVisible="False" />
           <Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
           <VisualLayerManager Name="PART_VisualLayerManager">
             <ContentPresenter Name="PART_ContentPresenter"
@@ -27,5 +28,19 @@
         </Panel>
       </ControlTemplate>
     </Setter>
+
+    <!--
+      Enyo decorations: the content and its overlays start below the status bar, and the background leaves the drawn
+      shadow and frame alone.
+    -->
+    <Style Selector="^[(enyo|EnyoWindow.UseEnyoDecorations)=True] /template/ VisualLayerManager#PART_VisualLayerManager">
+      <Setter Property="Margin" Value="{TemplateBinding WindowDecorationMargin}" />
+    </Style>
+    <Style Selector="^[(enyo|EnyoWindow.UseEnyoDecorations)=True] /template/ Border#PART_Background">
+      <Setter Property="Margin" Value="{TemplateBinding WindowDecorationMargin}" />
+    </Style>
+    <Style Selector="^[(enyo|EnyoWindow.UseEnyoDecorations)=True] /template/ Border#PART_TransparencyFallback">
+      <Setter Property="Margin" Value="{TemplateBinding WindowDecorationMargin}" />
+    </Style>
   </ControlTheme>
 </ResourceDictionary>

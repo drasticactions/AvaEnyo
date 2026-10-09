@@ -12,8 +12,8 @@ namespace AvaEnyo.Services;
 /// <summary>
 /// Connects an <see cref="AppMenu"/> to its window, as webOS opened the menu from the status bar. The menu opens
 /// on Ctrl+` (Enyo's desktop shortcut), on F10 and on the context-menu key, and on a tap of any control marked
-/// <c>enyo:AppMenuService.IsOpenRegion="True"</c> (an app's title, standing in for the status bar). It does not open
-/// while a modal popup is open. Set <c>Automatic</c> to false to drive the menu yourself.
+/// <c>enyo:AppMenuService.IsOpenRegion="True"</c> (an app's title, standing in for the status bar), and from the app
+/// name in the window's Enyo decorations (see <see cref="EnyoWindow"/>). It does not open while a modal popup is open. Set <c>Automatic</c> to false to drive the menu yourself.
 /// </summary>
 /// <remarks>
 /// In XAML: <c>&lt;Window enyo:AppMenuService.Menu="{StaticResource AppMenu}"&gt;</c>, or set it on the window in
@@ -87,6 +87,8 @@ public static class AppMenuService
         var host = new AppMenuHost(topLevel, menu);
         s_hosts.AddOrUpdate(topLevel, host);
         topLevel.AddHandler(InputElement.KeyDownEvent, OnKeyDown, RoutingStrategies.Bubble);
+        topLevel.AddHandler(EnyoWindow.AppMenuRequestedEvent, OnAppMenuRequested, RoutingStrategies.Bubble);
+        EnyoWindow.SetHasAppMenu(topLevel, true);
         return host;
     }
 
@@ -98,6 +100,8 @@ public static class AppMenuService
             host.Detach();
             s_hosts.Remove(topLevel);
             topLevel.RemoveHandler(InputElement.KeyDownEvent, OnKeyDown);
+            topLevel.RemoveHandler(EnyoWindow.AppMenuRequestedEvent, OnAppMenuRequested);
+            topLevel.ClearValue(EnyoWindow.HasAppMenuProperty);
         }
     }
 
@@ -158,6 +162,20 @@ public static class AppMenuService
     private static void OnKeyDown(object? sender, KeyEventArgs e)
     {
         if (e.Handled || sender is not TopLevel top || !GetAutomatic(top) || !IsOpenKey(e))
+        {
+            return;
+        }
+
+        if (s_hosts.TryGetValue(top, out var host) && host.Menu.Automatic)
+        {
+            host.Toggle();
+            e.Handled = true;
+        }
+    }
+
+    private static void OnAppMenuRequested(object? sender, RoutedEventArgs e)
+    {
+        if (e.Handled || sender is not TopLevel top || !GetAutomatic(top))
         {
             return;
         }

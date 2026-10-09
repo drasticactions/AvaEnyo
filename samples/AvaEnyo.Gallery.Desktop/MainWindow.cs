@@ -15,6 +15,8 @@ public sealed class MainWindow : Window
         Title = "AvaEnyo Gallery";
         Width = o.Width;
         Height = o.Height;
+        EnyoWindow.SetAppName(this, "Gallery");
+        EnyoWindow.SetUseEnyoDecorations(this, o.UseEnyoDecorations);
         if (o.Variant is { } v)
         {
             Application.Current!.RequestedThemeVariant = v.Equals("Dark", System.StringComparison.OrdinalIgnoreCase) ? ThemeVariant.Dark : ThemeVariant.Light;

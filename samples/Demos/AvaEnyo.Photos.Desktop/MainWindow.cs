@@ -16,6 +16,8 @@ public sealed class MainWindow : Window
         Title = "Photos";
         Width = o.Width;
         Height = o.Height;
+        EnyoWindow.SetAppName(this, "Photos");
+        EnyoWindow.SetUseEnyoDecorations(this, o.UseEnyoDecorations);
         if (o.Variant is { } v)
         {
             Application.Current!.RequestedThemeVariant = v.Equals("Dark", StringComparison.OrdinalIgnoreCase) ? ThemeVariant.Dark : ThemeVariant.Light;

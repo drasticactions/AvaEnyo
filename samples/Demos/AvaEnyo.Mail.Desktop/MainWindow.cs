@@ -17,6 +17,8 @@ public sealed class MainWindow : Window
         Title = "Mail";
         Width = o.Width;
         Height = o.Height;
+        EnyoWindow.SetAppName(this, "Mail");
+        EnyoWindow.SetUseEnyoDecorations(this, o.UseEnyoDecorations);
         if (o.Variant is { } v)
         {
             Application.Current!.RequestedThemeVariant = v.Equals("Dark", StringComparison.OrdinalIgnoreCase) ? ThemeVariant.Dark : ThemeVariant.Light;

@@ -104,6 +104,31 @@ public class AppMenuServiceTests
         w.Close();
     }
 
+    [AvaloniaFact]
+    public void Attaching_Marks_The_Window_As_Having_An_App_Menu()
+    {
+        var (w, _, _) = Make();
+        Assert.True(EnyoWindow.GetHasAppMenu(w));
+        AppMenuService.Detach(w);
+        Assert.False(EnyoWindow.GetHasAppMenu(w));
+        w.Close();
+    }
+
+    [AvaloniaFact]
+    public void App_Menu_Button_Toggles_The_Menu()
+    {
+        var button = new Button();
+        EnyoWindow.SetOpensAppMenu(button, true);
+        var w = Host.Show(new Canvas { Children = { button } });
+        var host = AppMenuService.Attach(w, new AppMenu { Items = { new AppMenuItem { Header = "A" } } });
+        Host.Settle(w);
+        button.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+        Assert.True(host.IsOpen);
+        button.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+        Assert.False(host.IsOpen);
+        w.Close();
+    }
+
     [Fact]
     public void Test_Double_Tracks_State()
     {

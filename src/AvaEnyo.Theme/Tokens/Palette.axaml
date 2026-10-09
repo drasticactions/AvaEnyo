@@ -114,6 +114,9 @@
       <Color x:Key="EnyoGrabBarColor">#4D000000</Color>
       <Color x:Key="EnyoGrabEdgeColor">#61000000</Color>
       <Color x:Key="EnyoSlidingShadowColor">#57000000</Color>
+      <Color x:Key="EnyoStatusBarColor">#000000</Color>
+      <Color x:Key="EnyoStatusBarTextColor">#E6E6E6</Color>
+      <Color x:Key="EnyoStatusBarInactiveTextColor">#7A7A7A</Color>
       <Color x:Key="EnyoSpinnerColor">#8C8C8C</Color>
       <Color x:Key="EnyoSpinnerLightColor">#E6E6E6</Color>
       <Color x:Key="EnyoScrollBarColor">#80000000</Color>
@@ -231,6 +234,9 @@
       <Color x:Key="EnyoGrabBarColor">#4D000000</Color>
       <Color x:Key="EnyoGrabEdgeColor">#61000000</Color>
       <Color x:Key="EnyoSlidingShadowColor">#80000000</Color>
+      <Color x:Key="EnyoStatusBarColor">#000000</Color>
+      <Color x:Key="EnyoStatusBarTextColor">#E6E6E6</Color>
+      <Color x:Key="EnyoStatusBarInactiveTextColor">#7A7A7A</Color>
       <Color x:Key="EnyoSpinnerColor">#9A9A9A</Color>
       <Color x:Key="EnyoSpinnerLightColor">#E6E6E6</Color>
       <Color x:Key="EnyoScrollBarColor">#80FFFFFF</Color>
