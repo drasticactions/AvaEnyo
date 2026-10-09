@@ -5,8 +5,7 @@
                     x:ClassModifier="internal">
 
   <!--
-    Invented: a caption button on the status bar. Transparent until hovered; close turns the negative red, as
-    Windows caption buttons do.
+    Invented: a caption button on the status bar. Transparent until hovered; close turns the negative red.
   -->
   <ControlTheme x:Key="EnyoDrawnCaptionButton" TargetType="Button">
     <Setter Property="Background" Value="Transparent" />
@@ -37,7 +36,7 @@
     </Style>
   </ControlTheme>
 
-  <!-- The app name and ▾ at the left of the status bar, which opened the webOS app menu. -->
+  <!-- The app name and ▾ at the left of the status bar. -->
   <ControlTheme x:Key="EnyoDrawnAppMenuButton" TargetType="Button" BasedOn="{StaticResource EnyoDrawnCaptionButton}">
     <Setter Property="Width" Value="NaN" />
     <Setter Property="Padding" Value="12,0" />
@@ -76,7 +75,7 @@
 
           <WindowDrawnDecorationsContent.Overlay>
             <Panel Name="PART_OverlayWrapper">
-              <!-- The window's background covers the underlay, so the bar paints here; drags fall through to PART_TitleBar. -->
+              <!-- The bar's background, not hit-testable. -->
               <Border Name="PART_TitleBarBackground"
                       VerticalAlignment="Top"
                       Height="{TemplateBinding TitleBarHeight}"

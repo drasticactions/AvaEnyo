@@ -18,9 +18,9 @@ namespace AvaEnyo;
 /// right.
 /// </summary>
 /// <remarks>
-/// <para>Set <c>UseEnyoDecorations</c> on a <see cref="Window"/> to draw the bar on Windows, where the system still
-/// draws the border, shadow and resize edges, and on Linux. The window's content then starts below the bar. macOS keeps
-/// its native title bar.</para>
+/// <para>Set <c>UseEnyoDecorations</c> on a <see cref="Window"/> to draw the bar. On Windows the system still draws the
+/// border, shadow and resize edges. On macOS the window's own template draws the bar around the native traffic lights,
+/// which take the place of the caption buttons. The window's content then starts below the bar.</para>
 /// <para>Linux draws the same bar without the property whenever the compositor asks the app to draw its own
 /// decorations.</para>
 /// </remarks>
@@ -48,6 +48,10 @@ public static class EnyoWindow
     public static readonly AttachedProperty<bool> MirrorsWindowProperty =
         AvaloniaProperty.RegisterAttached<WindowDrawnDecorations, bool>("MirrorsWindow", typeof(EnyoWindow));
 
+    /// <summary>Defines the <c>UsesNativeCaptionButtons</c> attached property.</summary>
+    public static readonly AttachedProperty<bool> UsesNativeCaptionButtonsProperty =
+        AvaloniaProperty.RegisterAttached<Window, bool>("UsesNativeCaptionButtons", typeof(EnyoWindow));
+
     /// <summary>Defines the <c>OpensAppMenu</c> attached property.</summary>
     public static readonly AttachedProperty<bool> OpensAppMenuProperty =
         AvaloniaProperty.RegisterAttached<Button, bool>("OpensAppMenu", typeof(EnyoWindow));
@@ -68,7 +72,6 @@ public static class EnyoWindow
 
     /// <summary>
     /// Sets <c>UseEnyoDecorations</c>: true extends the window into its title bar and draws the Enyo status bar there.
-    /// Does nothing on macOS.
     /// </summary>
     public static void SetUseEnyoDecorations(Window element, bool value) => element.SetValue(UseEnyoDecorationsProperty, value);
 
@@ -95,9 +98,15 @@ public static class EnyoWindow
 
     /// <summary>
     /// Sets <c>MirrorsWindow</c>: true copies the window's <c>AppName</c>, <c>HasAppMenu</c> and active state onto
-    /// the decorations, which are not under the window and so cannot bind to it. Set by the decorations theme.
+    /// the decorations.
     /// </summary>
     public static void SetMirrorsWindow(WindowDrawnDecorations element, bool value) => element.SetValue(MirrorsWindowProperty, value);
+
+    /// <summary>
+    /// Gets <c>UsesNativeCaptionButtons</c>: true when the system draws the caption buttons (the macOS traffic lights)
+    /// and the window's template draws the rest of the Enyo bar.
+    /// </summary>
+    public static bool GetUsesNativeCaptionButtons(Window element) => element.GetValue(UsesNativeCaptionButtonsProperty);
 
     /// <summary>Gets <c>OpensAppMenu</c>.</summary>
     public static bool GetOpensAppMenu(Button element) => element.GetValue(OpensAppMenuProperty);
@@ -126,7 +135,7 @@ public static class EnyoWindow
             return window;
         }
 
-        // Drawn decorations sit beside the window, under the host that holds both.
+        // A visual in the drawn decorations: the window is a child of the visual root.
         var root = visual;
         while (root.GetVisualParent() is { } parent)
         {
@@ -136,11 +145,19 @@ public static class EnyoWindow
         return root.GetVisualChildren().OfType<Window>().FirstOrDefault();
     }
 
+    /// <summary>True on macOS.</summary>
+    internal static Func<bool> IsMacOS { get; set; } = OperatingSystem.IsMacOS;
+
     private static void OnUseEnyoDecorationsChanged(Window window, bool use)
     {
-        if (!OperatingSystem.IsMacOS())
+        window.SetCurrentValue(Window.ExtendClientAreaToDecorationsHintProperty, use);
+        if (IsMacOS())
         {
-            window.SetCurrentValue(Window.ExtendClientAreaToDecorationsHintProperty, use);
+            window.SetValue(UsesNativeCaptionButtonsProperty, use);
+            if (use && GetAppName(window) is null)
+            {
+                window.SetCurrentValue(AppNameProperty, Application.Current?.Name);
+            }
         }
     }
 

@@ -30,7 +30,7 @@ internal static class Program
             .UsePlatformDetect()
             .UseWaylandWithFallback()
 #pragma warning disable AVALONIA_WAYLAND_FORCE_CSD
-            // Draw the Enyo decorations even where the compositor offers its own.
+            // Client-side decorations on Wayland.
             .With(new WaylandPlatformOptions { ForceDrawnDecorations = LaunchOptions.Current.UseEnyoDecorations })
 #pragma warning restore AVALONIA_WAYLAND_FORCE_CSD
             .UseSkia()

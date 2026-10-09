@@ -25,6 +25,42 @@
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
           </VisualLayerManager>
+          <!--
+            The Enyo bar where the system draws the caption buttons (macOS): as tall as the native title bar, the app
+            name after the traffic lights, the title in the middle. Empty bar drags the window.
+          -->
+          <Panel Name="PART_NativeCaptionBar"
+                 VerticalAlignment="Top"
+                 Height="{Binding WindowDecorationMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                 Background="{DynamicResource EnyoWindowCaptionBackgroundBrush}"
+                 TextElement.Foreground="{DynamicResource EnyoWindowCaptionForegroundBrush}"
+                 TextElement.FontSize="{DynamicResource EnyoWindowCaptionFontSize}"
+                 WindowDecorationProperties.ElementRole="TitleBar">
+            <Grid ColumnDefinitions="Auto,*" Margin="72,0,0,0">
+              <Button Name="PART_NativeCaptionAppMenuButton" Theme="{DynamicResource EnyoDrawnAppMenuButton}">
+                <StackPanel Orientation="Horizontal" Spacing="7">
+                  <TextBlock Text="{TemplateBinding enyo:EnyoWindow.AppName}" VerticalAlignment="Center" />
+                  <Path Data="{DynamicResource EnyoGlyphMenuArrow}"
+                        Fill="{Binding $parent[Button].Foreground}"
+                        Width="9" Height="6" Stretch="Fill"
+                        VerticalAlignment="Center" />
+                </StackPanel>
+              </Button>
+              <TextBlock Name="PART_NativeCaptionAppNameText"
+                         Text="{TemplateBinding enyo:EnyoWindow.AppName}"
+                         Margin="12,0"
+                         VerticalAlignment="Center"
+                         IsHitTestVisible="False" />
+              <TextBlock Name="PART_NativeCaptionTitleText"
+                         Grid.Column="1"
+                         Text="{TemplateBinding Title}"
+                         Margin="12,0,84,0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         TextTrimming="CharacterEllipsis"
+                         IsHitTestVisible="False" />
+            </Grid>
+          </Panel>
         </Panel>
       </ControlTemplate>
     </Setter>
@@ -41,6 +77,28 @@
     </Style>
     <Style Selector="^[(enyo|EnyoWindow.UseEnyoDecorations)=True] /template/ Border#PART_TransparencyFallback">
       <Setter Property="Margin" Value="{TemplateBinding WindowDecorationMargin}" />
+    </Style>
+
+    <Style Selector="^ /template/ Panel#PART_NativeCaptionBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[(enyo|EnyoWindow.UsesNativeCaptionButtons)=True] /template/ Panel#PART_NativeCaptionBar">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^ /template/ Button#PART_NativeCaptionAppMenuButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[(enyo|EnyoWindow.HasAppMenu)=True] /template/ Button#PART_NativeCaptionAppMenuButton">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^[(enyo|EnyoWindow.HasAppMenu)=True] /template/ TextBlock#PART_NativeCaptionAppNameText">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[IsActive=False] /template/ Panel#PART_NativeCaptionBar">
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource EnyoWindowCaptionInactiveForegroundBrush}" />
+    </Style>
+    <Style Selector="^[IsActive=False] /template/ Button#PART_NativeCaptionAppMenuButton:not(:pointerover)">
+      <Setter Property="Foreground" Value="{DynamicResource EnyoWindowCaptionInactiveForegroundBrush}" />
     </Style>
   </ControlTheme>
 </ResourceDictionary>
