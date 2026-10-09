@@ -8,7 +8,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <AvaloniaVersion>12.1.2</AvaloniaVersion>
+    <AvaloniaVersion>12.1.3</AvaloniaVersion>
     <Version>0.1.0</Version>
     <Authors>drasticactions</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
