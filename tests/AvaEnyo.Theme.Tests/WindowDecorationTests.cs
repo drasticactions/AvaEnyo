@@ -1,6 +1,9 @@
 using System;
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
+using AvaEnyo.Primitives;
 using Avalonia.Headless.XUnit;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
@@ -59,6 +62,23 @@ public class WindowDecorationTests
         {
             EnyoWindow.IsMacOS = isMacOS;
         }
+    }
+
+    [AvaloniaTheory]
+    [InlineData(300, 350, 300)]
+    [InlineData(900, 200, 600)]
+    public void Caption_Bar_Centers_The_Title_On_The_Whole_Width(double titleWidth, double x, double width)
+    {
+        var start = new Border { Width = 100, HorizontalAlignment = HorizontalAlignment.Left };
+        var title = new Border { Child = new Border { Width = titleWidth }, HorizontalAlignment = HorizontalAlignment.Center };
+        var end = new Border { Width = 200, HorizontalAlignment = HorizontalAlignment.Right };
+        var panel = new CaptionBarPanel { Children = { start, title, end } };
+        panel.Measure(new Size(1000, 32));
+        panel.Arrange(new Rect(0, 0, 1000, 32));
+        Assert.Equal(new Rect(0, 0, 100, 32), start.Bounds);
+        Assert.Equal(new Rect(800, 0, 200, 32), end.Bounds);
+        Assert.Equal(x, title.Bounds.X);
+        Assert.Equal(width, title.Bounds.Width);
     }
 
     private static T Part<T>(Window window, string name) where T : Control =>
